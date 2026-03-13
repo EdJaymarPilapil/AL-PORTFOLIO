@@ -102,10 +102,6 @@
             background: rgba(245, 158, 11, 0.1);
         }
 
-        [data-theme="light"] .about-image-wrapper {
-            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
-        }
-
         [data-theme="light"] .nav-links a {
             color: var(--text);
         }
@@ -443,12 +439,6 @@
             transition: all 0.3s ease;
         }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
         .nav-links {
             display: flex;
             gap: 40px;
@@ -501,13 +491,90 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
                 var(--primary);
+            overflow: hidden;
         }
 
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero-lines {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            opacity: 0.3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            height: 1px;
+            width: 200%;
+            transform: rotate(-45deg);
+            animation: lineMove 15s linear infinite;
+        }
+
+        .hero-line:nth-child(1) { top: 20%; right: -50%; animation-duration: 18s; }
+        .hero-line:nth-child(2) { top: 50%; right: -20%; animation-duration: 25s; animation-delay: -5s; }
+        .hero-line:nth-child(3) { top: 80%; right: -80%; animation-duration: 20s; animation-delay: -2s; }
+
+        @keyframes lineMove {
+            0% { transform: rotate(-45deg) translateX(50%); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: rotate(-45deg) translateX(-150%); opacity: 0; }
+        }
+
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border: 1px solid var(--accent);
+            opacity: 0.1;
+            animation: shapeFloat 20s linear infinite;
+        }
+
+        .hero-shape-1 { width: 100px; height: 100px; top: 15%; right: 25%; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        .hero-shape-2 { width: 150px; height: 150px; bottom: 20%; right: 10%; border-radius: 50% 50% 20% 80% / 20% 20% 80% 80%; animation-delay: -10s; }
+
+        @keyframes shapeFloat {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -50px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
         .hero-orb {
             position: absolute;
             border-radius: 50%;
@@ -579,6 +646,51 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+
+        .hero-image-decor {
+            position: absolute;
+            border: 2px solid var(--accent);
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .decor-circle {
+            width: 550px;
+            height: 550px;
+            border-radius: 50%;
+            border: 1px dashed var(--accent);
+            animation: rotateDecor 30s linear infinite;
+        }
+
+        .decor-square {
+            width: 480px;
+            height: 480px;
+            border-radius: 40px;
+            animation: rotateDecor 20s linear infinite reverse;
+        }
+
+        .decor-blob {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border: none;
+            opacity: 0.2;
+            filter: blur(40px);
+            animation: pulseDecor 10s ease-in-out infinite;
+        }
+
+        @keyframes rotateDecor {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes pulseDecor {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.25; }
         }
 
         .hero-profile-img {
@@ -924,77 +1036,28 @@
 
         .about {
             background: var(--secondary);
+            padding: 120px 30px;
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            max-width: 1400px;
+            max-width: 900px;
             margin: 0 auto;
-            align-items: center;
-        }
-
-        .about-image {
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .about-image-wrapper {
-            position: relative;
-            border-radius: 25px;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            background: #1e293b;
-            height: 550px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .about-image-wrapper:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            background: var(--gradient-1);
-        }
-
-        .about-image-wrapper:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: bottom;
-            border-radius: 25px;
-            transition: transform 0.5s ease;
+            text-align: center;
         }
 
         .about-text h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 46px;
-            margin-bottom: 30px;
+            font-size: clamp(32px, 5vw, 52px);
+            margin-bottom: 40px;
             line-height: 1.2;
-            position: relative;
-        }
-
-        .about-text h3::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--gradient-1);
-            border-radius: 3px;
+            color: var(--text);
+            font-weight: 700;
         }
 
         .about-text p {
+            font-size: clamp(16px, 2vw, 20px);
+            line-height: 1.8;
+            margin-bottom: 30px;
             color: var(--text-muted);
-            font-size: 18px;
-            line-height: 1.9;
-            margin-bottom: 25px;
         }
 
         .stats {
@@ -1039,7 +1102,7 @@
 
         .stat-number {
             font-family: 'Poppins', sans-serif;
-            font-size: 52px;
+            font-size: clamp(36px, 5vw, 52px);
             font-weight: 700;
             color: var(--accent);
             display: block;
@@ -1909,32 +1972,19 @@
         .stagger-8 { transition-delay: 0.8s; }
 
         /* Mobile Responsive Redesign */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 10px;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 30px;
-            height: 2px;
-            background: var(--text);
-            transition: all 0.3s ease;
-        }
-
         @media (max-width: 1024px) {
-            .hero-content, .about-content {
+            .hero-content {
                 grid-template-columns: 1fr;
                 gap: 50px;
                 text-align: center;
             }
 
-            .about-image img {
-                height: 450px;
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-roles, .hero-cta {
+                justify-content: center;
             }
             
             .nav-links {
@@ -1944,28 +1994,11 @@
             .logo {
                 margin-left: 0;
             }
-
-            nav {
-                padding: 20px 50px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                z-index: 1000;
-                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                background: transparent;
-                transform: translateY(0);
-            }
-
-            .nav-mobile-controls {
-                display: none;
-            }
         }
 
         @media (max-width: 768px) {
             body {
                 cursor: auto !important;
-                width: 100%;
-                max-width: 100vw;
                 overflow-x: hidden;
             }
 
@@ -1974,50 +2007,35 @@
             }
 
             nav {
-                padding: 12px 15px;
-                padding-top: 12px;
-                padding-bottom: 12px;
-                justify-content: space-between;
-                align-items: center;
-                height: 60px;
-                width: 100%;
-                max-width: 100%;
+                padding: 12px 20px !important;
+                height: 70px;
+                background: var(--nav-bg);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
                 z-index: 9999;
-                background: var(--nav-bg);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
-            @supports (padding: max(0px)) {
-                nav {
-                    padding-top: max(12px, env(safe-area-inset-top));
-                    padding-left: max(15px, env(safe-area-inset-left));
-                    padding-right: max(15px, env(safe-area-inset-right));
-                }
+            nav.scrolled {
+                padding: 12px 20px !important;
             }
 
             .logo {
-                position: relative !important;
-                left: 0 !important;
-                top: 0 !important;
-                transform: none !important;
-                height: 36px !important;
-                flex-shrink: 0;
+                height: 40px !important;
                 margin-left: 0 !important;
+                position: static !important;
+                transform: none !important;
             }
 
             .logo img {
                 height: 100%;
                 width: auto;
-                max-width: 120px;
-            }
-
-            nav.scrolled .logo {
-                height: 32px !important;
             }
 
             .nav-container {
@@ -2031,12 +2049,12 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                transition: right 0.3s ease-in-out;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
                 z-index: 9998;
-                padding: 70px 20px 30px;
+                padding: 80px 40px;
                 display: flex !important;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+                opacity: 0;
+                pointer-events: none;
             }
 
             @supports (padding: max(0px)) {
@@ -2048,6 +2066,8 @@
 
             .nav-container.active {
                 right: 0;
+                opacity: 1;
+                pointer-events: all;
             }
 
             .nav-mobile-controls {
@@ -2207,9 +2227,14 @@
                 margin-bottom: 20px;
             }
 
+            .hero-image-decor {
+                display: none !important;
+            }
+
             .hero-profile-img {
                 width: 240px !important;
                 height: 240px !important;
+                margin: 0 auto;
             }
 
             .hero-roles {
@@ -2228,15 +2253,8 @@
             }
 
             .about-content {
-                display: block;
-            }
-
-            .about-image {
-                margin-bottom: 30px;
-            }
-
-            .about-image-wrapper {
-                height: 280px !important;
+                max-width: 100%;
+                margin: 0 auto;
             }
 
             .about-text h3 {
@@ -2254,8 +2272,11 @@
             }
 
             .stats {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 12px;
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+                gap: 15px;
+                justify-content: center;
+                max-width: 500px;
+                margin: 40px auto 0;
             }
 
             .stat {
@@ -2473,8 +2494,8 @@
             }
 
             .hero-profile-img {
-                width: 200px !important;
-                height: 200px !important;
+                width: 240px !important;
+                height: 240px !important;
             }
 
             .hero-roles {
@@ -2493,10 +2514,6 @@
 
             .about-text h3 {
                 font-size: 22px !important;
-            }
-
-            .stats {
-                grid-template-columns: 1fr !important;
             }
 
             .section-title {
@@ -2647,6 +2664,16 @@
 
     <section class="hero">
         <div class="hero-bg">
+            <div class="hero-grid"></div>
+            <div class="hero-lines">
+                <div class="hero-line"></div>
+                <div class="hero-line"></div>
+                <div class="hero-line"></div>
+            </div>
+            <div class="hero-shapes">
+                <div class="hero-shape hero-shape-1"></div>
+                <div class="hero-shape hero-shape-2"></div>
+            </div>
             <div class="hero-orb hero-orb-1"></div>
             <div class="hero-orb hero-orb-2"></div>
         </div>
@@ -2670,6 +2697,9 @@
                 </div>
             </div>
             <div class="hero-image">
+                <div class="hero-image-decor decor-circle"></div>
+                <div class="hero-image-decor decor-square"></div>
+                <div class="hero-image-decor decor-blob"></div>
                 <img src="components/bosstonton.png" alt="Anthony Leuterio" class="hero-profile-img">
             </div>
         </div>
@@ -2682,12 +2712,12 @@
     </div>
 
     <section class="about" id="about">
-        <div class="about-content" style="display: block; max-width: 900px; text-align: center;">
-            <div class="about-text reveal" style="transform: none; opacity: 1;">
-                <h3 style="font-size: 52px; margin-bottom: 40px;">Leading the Future of PropTech and AI in Real Estate</h3>
-                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 30px;">The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
-                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 50px;">Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
-                <div class="stats" style="justify-content: center; gap: 60px;">
+        <div class="about-content">
+            <div class="about-text reveal">
+                <h3>Leading the Future of PropTech and AI in Real Estate</h3>
+                <p>The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
+                <p>Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
+                <div class="stats">
                     <div class="stat">
                         <span class="stat-number" data-target="133">0</span>
                         <span class="stat-label">Offices</span>

@@ -208,7 +208,7 @@
             right: 0;
             padding: 25px 50px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             z-index: 1000;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -228,15 +228,23 @@
         }
 
         .logo {
+            position: absolute;
+            left: calc(max(80px, (100% - 1400px) / 2 + 50px));
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
             align-items: center;
-            height: 45px;
+            height: 75px;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .logo:hover {
-            transform: scale(1.05);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        nav.scrolled .logo {
+            height: 60px;
         }
 
         .logo img {
@@ -705,40 +713,31 @@
             position: relative;
             border-radius: 25px;
             overflow: hidden;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
+            background: #1e293b;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .about-image-wrapper:hover {
-            transform: rotateY(5deg) rotateX(5deg);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            background: var(--gradient-1);
         }
 
-        .about-image-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            left: -30px;
-            right: 30px;
-            bottom: 30px;
-            border: 3px solid var(--accent);
-            border-radius: 25px;
-            z-index: -1;
-            animation: borderFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes borderFloat {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, 10px); }
+        .about-image-wrapper:hover img {
+            transform: scale(1.05);
         }
 
         .about-image img {
             width: 100%;
-            height: 550px;
-            object-fit: cover;
-            object-position: top;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom;
             border-radius: 25px;
-            background: var(--gradient-2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease;
         }
 
         .about-text h3 {
@@ -1789,11 +1788,11 @@
                 <p class="hero-subtitle">Transforming Philippine Real Estate</p>
                 <div class="hero-roles">
                     <span class="role-tag">Founder</span>
+                    <span class="role-tag">PropTech Visionary</span>
+                    <span class="role-tag">AI Strategy Consultant</span>
                     <span class="role-tag">Motivational Speaker</span>
-                    <span class="role-tag">Real Estate Influencer</span>
-                    <span class="role-tag">Marketing Consultant</span>
+                    <span class="role-tag">Global Real Estate Influencer</span>
                     <span class="role-tag">Realtor</span>
-                    <span class="role-tag">Investor</span>
                 </div>
                 <div class="hero-cta">
                     <a href="#contact" class="btn btn-primary">Get In Touch</a>
@@ -1820,21 +1819,21 @@
                 </div>
             </div>
             <div class="about-text reveal-right">
-                <h3>Pioneering Real Estate Excellence in the Philippines</h3>
-                <p>The president and founder of several companies under the Leuterio Realty & Brokerage Group has made real estate in the Philippines more prominent and much attractive to buyers.</p>
-                <p>His natural charismatic personality and wit maximized different effective channels in marketing and selling, bringing Philippine real estate to the top.</p>
+                <h3>Leading the Future of PropTech and AI in Real Estate</h3>
+                <p>The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
+                <p>Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
                 <div class="stats">
                     <div class="stat">
-                        <span class="stat-number" data-target="6">0</span>
-                        <span class="stat-label">Companies</span>
+                        <span class="stat-number" data-target="133">0</span>
+                        <span class="stat-label">Offices</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number" data-target="6">0</span>
-                        <span class="stat-label">Awards</span>
+                        <span class="stat-number" data-target="12">0</span>
+                        <span class="stat-label">Certifications</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number" data-target="10">0</span>
-                        <span class="stat-label">Years</span>
+                        <span class="stat-number" data-target="15">0</span>
+                        <span class="stat-label">Years Exp</span>
                     </div>
                 </div>
             </div>
@@ -1948,10 +1947,10 @@
                     <span class="award-org">Philippine Real Estate Awards</span>
                 </div>
                 <div class="award-card reveal stagger-2">
-                    <span class="award-year">2022</span>
-                    <div class="award-icon">💡</div>
-                    <h4>Top Digital Innovator in Real Estate</h4>
-                    <span class="award-org">Asia PropTech Summit</span>
+                    <span class="award-year">2014</span>
+                    <div class="award-icon">💎</div>
+                    <h4>Most Promising Company (APEA)</h4>
+                    <span class="award-org">Asia Pacific Entrepreneurship Awards</span>
                 </div>
                 <div class="award-card reveal stagger-3">
                     <span class="award-year">2021</span>
@@ -1989,39 +1988,40 @@
 
     <section class="credentials" id="credentials">
         <div class="section-header reveal">
-            <span class="section-label">Credentials</span>
-            <h2 class="section-title">Licenses & Certificates</h2>
+            <span class="section-label">Global Education</span>
+            <h2 class="section-title">Executive Credentials</h2>
         </div>
         <div class="credentials-grid">
             <div class="credential-card reveal stagger-1">
+                <div class="credential-icon">🎓</div>
+                <div class="credential-info">
+                    <h4>Disruptive Strategy & AI</h4>
+                    <p>Harvard Business School Online</p>
+                    <span class="credential-year">2021-2025</span>
+                </div>
+            </div>
+            <div class="credential-card reveal stagger-2">
+                <div class="credential-icon">🏛️</div>
+                <div class="credential-info">
+                    <h4>Digital Business Strategy</h4>
+                    <p>MIT Sloan School of Management</p>
+                    <span class="credential-year">2019</span>
+                </div>
+            </div>
+            <div class="credential-card reveal stagger-3">
+                <div class="credential-icon">🦁</div>
+                <div class="credential-info">
+                    <h4>Digital Marketing Strategy</h4>
+                    <p>University of Oxford (Saïd)</p>
+                    <span class="credential-year">2019</span>
+                </div>
+            </div>
+            <div class="credential-card reveal stagger-4">
                 <div class="credential-icon">📜</div>
                 <div class="credential-info">
                     <h4>Licensed Real Estate Broker</h4>
                     <p>Professional Regulation Commission</p>
                     <span class="credential-year">PRC CERTIFIED</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-2">
-                <div class="credential-icon">🏠</div>
-                <div class="credential-info">
-                    <h4>Certified Real Estate Salesperson</h4>
-                    <p>PAREB</p>
-                    <span class="credential-year">PAREB CERTIFIED</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-3">
-                <div class="credential-icon">📱</div>
-                <div class="credential-info">
-                    <h4>Digital Marketing Specialist</h4>
-                    <p>Google Digital Garage</p>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-4">
-                <div class="credential-icon">💼</div>
-                <div class="credential-info">
-                    <h4>Accredited Real Estate Consultant</h4>
-                    <p>REBAP</p>
-                    <span class="credential-year">REBAP ACCREDITED</span>
                 </div>
             </div>
             <div class="credential-card reveal stagger-5">

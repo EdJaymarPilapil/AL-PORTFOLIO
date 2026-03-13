@@ -14,11 +14,51 @@
             --accent-glow: rgba(245, 158, 11, 0.6);
             --text: #f8fafc;
             --text-muted: #94a3b8;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
             --gradient-1: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
             --gradient-2: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             --gradient-3: linear-gradient(135deg, #f59e0b 0%, #f59e0b 50%, #ef4444 100%);
             --gradient-glow: linear-gradient(45deg, #f59e0b, #ef4444, #f59e0b);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
+
+        [data-theme="light"] {
+            --primary: #ffffff;
+            --secondary: #f8fafc;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #ffffff;
+            --card-border: rgba(15, 23, 42, 0.1);
+            --gradient-2: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.1);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            padding: 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--accent);
+        }
+
+        [data-theme="light"] .sun-icon { display: none; }
+        [data-theme="dark"] .moon-icon { display: none; }
 
         * {
             margin: 0;
@@ -221,10 +261,10 @@
         }
 
         nav.scrolled {
-            background: rgba(15, 23, 42, 0.95);
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
             padding: 15px 50px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -435,22 +475,56 @@
         }
 
         .role-tag {
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 24px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
             border-radius: 50px;
             font-size: 13px;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: tagFloat 3s ease-in-out infinite;
+        }
+
+        .role-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(245, 158, 11, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes tagFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .role-tag:hover {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-3px);
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
         }
-
         .hero-cta {
             display: flex;
             justify-content: flex-start;
@@ -835,17 +909,18 @@
         }
 
         .company-card {
-            background: var(--secondary);
+            background: var(--card-bg);
             border-radius: 25px;
             padding: 0;
             position: relative;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
             transform-style: preserve-3d;
             display: flex;
             flex-direction: column;
             min-height: 480px;
+            box-shadow: var(--shadow-sm);
         }
 
         .company-card::before {
@@ -885,7 +960,7 @@
 
         .company-card:hover {
             transform: translateY(-15px) rotateX(2deg);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-lg);
         }
 
         .company-icon {
@@ -999,12 +1074,13 @@
         }
 
         .news-card {
-            background: var(--primary);
+            background: var(--card-bg);
             border-radius: 25px;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
             position: relative;
+            box-shadow: var(--shadow-sm);
         }
 
         .news-card::before {
@@ -1028,7 +1104,7 @@
 
         .news-card:hover {
             transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-lg);
         }
 
         .news-image {
@@ -1136,14 +1212,15 @@
         }
 
         .award-card {
-            background: var(--secondary);
+            background: var(--card-bg);
             border-radius: 25px;
             padding: 45px 30px;
             text-align: center;
             position: relative;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .award-card::before {
@@ -1169,7 +1246,7 @@
 
         .award-card:hover {
             transform: translateY(-15px) rotateY(5deg);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-lg);
         }
 
         .award-year {
@@ -1232,16 +1309,17 @@
         }
 
         .credential-card {
-            background: var(--primary);
+            background: var(--card-bg);
             border-radius: 18px;
             padding: 35px;
             display: flex;
             align-items: center;
             gap: 25px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .credential-card::before {
@@ -1263,7 +1341,7 @@
         .credential-card:hover {
             transform: translateX(15px) scale(1.02);
             border-color: var(--accent);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
         .agent-card {
@@ -1673,77 +1751,205 @@
         .stagger-7 { transition-delay: 0.7s; }
         .stagger-8 { transition-delay: 0.8s; }
 
+        /* Mobile Responsive Redesign */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+
         @media (max-width: 1024px) {
-            .about-content {
+            .hero-content, .about-content {
                 grid-template-columns: 1fr;
-                gap: 60px;
+                gap: 50px;
+                text-align: center;
             }
 
-            .awards-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .about-image img {
+                height: 450px;
             }
-
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-                gap: 60px;
+            
+            .nav-links {
+                gap: 20px;
             }
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto !important;
+            }
+
+            .cursor-dot, .cursor-outline {
+                display: none !important;
+            }
+
             nav {
                 padding: 15px 20px;
+                justify-content: flex-end;
+                height: 70px;
+            }
+
+            .logo {
+                left: 15px !important;
+                height: 50px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+            }
+
+            nav.scrolled .logo {
+                height: 40px !important;
+            }
+
+            .nav-toggle {
+                display: flex;
             }
 
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s ease-in-out;
+                display: flex;
+                z-index: 1000;
+                padding: 0;
+                margin: 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .nav-links a {
+                font-size: 24px;
+                letter-spacing: 4px;
             }
 
             section {
-                padding: 60px 20px;
+                padding: 60px 15px !important;
+                overflow: hidden;
             }
 
             .hero {
-                padding: 80px 20px;
+                padding-top: 120px !important;
+                min-height: auto;
+                display: block;
             }
 
             .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
+                padding: 0;
+                display: block;
             }
 
             .hero-text {
-                text-align: center;
+                margin-bottom: 40px;
             }
 
             .hero-title {
-                font-size: clamp(36px, 12vw, 60px);
+                font-size: 38px !important;
+                line-height: 1.2;
+            }
+
+            .hero-badge {
+                margin-bottom: 20px;
+                font-size: 11px;
+                letter-spacing: 2px;
             }
 
             .hero-profile-img {
-                width: 280px;
-                height: 280px;
-                border-width: 6px;
+                width: 260px !important;
+                height: 260px !important;
+                margin: 0 auto;
             }
 
-            .hero-roles, .hero-cta {
-                justify-content: center;
+            .hero-roles {
+                gap: 8px;
+            }
+
+            .role-tag {
+                font-size: 11px;
+                padding: 6px 14px;
+                animation: tagFloat 3s ease-in-out infinite;
+                color: var(--accent);
+                background: rgba(245, 158, 11, 0.08);
+                border: 1px solid rgba(245, 158, 11, 0.2);
+            }
+
+            .hero-cta {
+                gap: 10px;
+            }
+
+            .about-content {
+                display: block;
+            }
+
+            .about-image {
+                margin-bottom: 40px;
+            }
+
+            .about-image-wrapper {
+                height: 350px !important;
+            }
+
+            .about-text h3 {
+                font-size: 28px !important;
             }
 
             .stats {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 15px;
             }
 
-            .awards-grid {
-                grid-template-columns: 1fr;
+            .stat-number {
+                font-size: 32px !important;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
+            .companies-grid, .developers-grid, .awards-grid, .credentials-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                width: 100%;
+            }
+
+            .company-card, .award-card, .credential-card {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr !important;
             }
 
             .contact-form {
-                padding: 35px;
+                padding: 25px 15px !important;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -1766,12 +1972,20 @@
             <li><a href="#about">About</a></li>
             <li><a href="#companies">Companies</a></li>
             <li><a href="#developers">Developers</a></li>
-            <li><a href="#agents">Agents</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#awards">Awards</a></li>
             <li><a href="#credentials">Credentials</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
     </nav>
 
     <section class="hero">
@@ -1781,7 +1995,6 @@
         </div>
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge">Visionary Leader</div>
                 <h1 class="hero-title">
                     Anthony <span class="highlight">Leuterio</span>
                 </h1>
@@ -1807,22 +2020,17 @@
 
     <div class="section-wave">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#1e293b" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--secondary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
     <section class="about" id="about">
-        <div class="about-content">
-            <div class="about-image reveal-left">
-                <div class="about-image-wrapper">
-                    <img src="components/bossanton.png" alt="Anthony Leuterio">
-                </div>
-            </div>
-            <div class="about-text reveal-right">
-                <h3>Leading the Future of PropTech and AI in Real Estate</h3>
-                <p>The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
-                <p>Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
-                <div class="stats">
+        <div class="about-content" style="display: block; max-width: 900px; text-align: center;">
+            <div class="about-text reveal" style="transform: none; opacity: 1;">
+                <h3 style="font-size: 52px; margin-bottom: 40px;">Leading the Future of PropTech and AI in Real Estate</h3>
+                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 30px;">The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
+                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 50px;">Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
+                <div class="stats" style="justify-content: center; gap: 60px;">
                     <div class="stat">
                         <span class="stat-number" data-target="133">0</span>
                         <span class="stat-label">Offices</span>
@@ -1842,7 +2050,7 @@
 
     <div class="section-wave-bottom">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#0f172a" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--primary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
@@ -1881,7 +2089,70 @@
 
     <div class="section-wave">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#1e293b" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--secondary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+        </svg>
+    </div>
+
+    <section class="developers" id="developers" style="background: var(--secondary);">
+        <div class="section-header reveal">
+            <span class="section-label">Featured Developers</span>
+            <h2 class="section-title">Connect to our trusted developers</h2>
+        </div>
+        <div class="companies-grid">
+            <div class="company-card reveal stagger-1">
+                <div class="company-icon">
+                    <img src="components/Cebu Landmaster Inc..webp" alt="Cebu Landmaster Inc.">
+                </div>
+                <h3>Cebu Landmaster Inc.</h3>
+                <p>10th Floor, Park Centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+            <div class="company-card reveal stagger-2">
+                <div class="company-icon">
+                    <img src="components/Grand Land Incorporated.webp" alt="Grand Land Incorporated">
+                </div>
+                <h3>Grand Land Incorporated</h3>
+                <p>10th Floor, Park Centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+            <div class="company-card reveal stagger-3">
+                <div class="company-icon">
+                    <img src="components/Primeworld Land Holdings Inc..webp" alt="Primeworld Land Holdings Inc.">
+                </div>
+                <h3>Primeworld Land Holdings Inc.</h3>
+                <p>TSC Residential Suites, 2/F Pres. Magsaysay St, Cebu City, 6000 Cebu</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+            <div class="company-card reveal stagger-4">
+                <div class="company-icon">
+                    <img src="components/Priland Development Corporation.webp" alt="Priland Development Corporation">
+                </div>
+                <h3>Priland Development Corporation</h3>
+                <p>Priland Hive, 18th floor, BPI Cebu Corp. Center corners Archbishop Reyes & Luzon Ave., Cebu Business Park Cebu City</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+            <div class="company-card reveal stagger-5">
+                <div class="company-icon">
+                    <img src="components/Be Residences.webp" alt="Be Residences">
+                </div>
+                <h3>Be Residences</h3>
+                <p>The Penthouse, Mabuhay Tower, Jose Mar del Mar St., cor. Abad St., Cebu IT Park, Cebu City 6000</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+            <div class="company-card reveal stagger-6">
+                <div class="company-icon">
+                    <img src="components/Wee Comm Developers Inc..webp" alt="Wee Comm Developers Inc.">
+                </div>
+                <h3>Wee Comm Developers Inc.</h3>
+                <p>166 A. Mabini St., Brgy. Addition Hills San Juan Manila, Philippines 1500</p>
+                <a href="#" class="company-link">Visit Developer →</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-wave-bottom">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="var(--primary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
@@ -1929,7 +2200,7 @@
 
     <div class="section-wave-bottom">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#0f172a" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--primary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
@@ -1982,7 +2253,7 @@
 
     <div class="section-wave">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#1e293b" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--secondary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
@@ -2060,112 +2331,7 @@
 
     <div class="section-wave-bottom">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#0f172a" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
-        </svg>
-    </div>
-
-    <section class="developers" id="developers" style="background: var(--primary);">
-        <div class="section-header reveal">
-            <span class="section-label">Featured Developers</span>
-            <h2 class="section-title">Connect to our trusted developers</h2>
-        </div>
-        <div class="companies-grid">
-            <div class="company-card reveal stagger-1">
-                <div class="company-icon">
-                    <img src="components/Cebu Landmaster Inc..webp" alt="Cebu Landmaster Inc.">
-                </div>
-                <h3>Cebu Landmaster Inc.</h3>
-                <p>10th Floor, Park Centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-2">
-                <div class="company-icon">
-                    <img src="components/Grand Land Incorporated.webp" alt="Grand Land Incorporated">
-                </div>
-                <h3>Grand Land Incorporated</h3>
-                <p>10th Floor, Park Centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-3">
-                <div class="company-icon">
-                    <img src="components/Primeworld Land Holdings Inc..webp" alt="Primeworld Land Holdings Inc.">
-                </div>
-                <h3>Primeworld Land Holdings Inc.</h3>
-                <p>TSC Residential Suites, 2/F Pres. Magsaysay St, Cebu City, 6000 Cebu</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-4">
-                <div class="company-icon">
-                    <img src="components/Priland Development Corporation.webp" alt="Priland Development Corporation">
-                </div>
-                <h3>Priland Development Corporation</h3>
-                <p>Priland Hive, 18th floor, BPI Cebu Corp. Center corners Archbishop Reyes & Luzon Ave., Cebu Business Park Cebu City</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-5">
-                <div class="company-icon">
-                    <img src="components/Be Residences.webp" alt="Be Residences">
-                </div>
-                <h3>Be Residences</h3>
-                <p>The Penthouse, Mabuhay Tower, Jose Mar del Mar St., cor. Abad St., Cebu IT Park, Cebu City 6000</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-6">
-                <div class="company-icon">
-                    <img src="components/Wee Comm Developers Inc..webp" alt="Wee Comm Developers Inc.">
-                </div>
-                <h3>Wee Comm Developers Inc.</h3>
-                <p>166 A. Mabini St., Brgy. Addition Hills San Juan Manila, Philippines 1500</p>
-                <a href="#" class="company-link">Visit Developer →</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-wave">
-        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#1e293b" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
-        </svg>
-    </div>
-
-    <section class="agents" id="agents" style="background: var(--secondary);">
-        <div class="section-header reveal">
-            <span class="section-label">Featured Agents</span>
-            <h2 class="section-title">Our Top Professionals</h2>
-        </div>
-        <div class="credentials-grid">
-            <div class="credential-card agent-card reveal stagger-1">
-                <div class="credential-icon">
-                    <img src="components/Gilbert Generale Monecillo.png" alt="Gilbert Generale Monecillo" class="agent-img">
-                </div>
-                <div class="credential-info">
-                    <h4>Gilbert Generale Monecillo</h4>
-                    <p>Team FH VIP</p>
-                </div>
-            </div>
-            <div class="credential-card agent-card reveal stagger-2">
-                <div class="credential-icon">
-                    <img src="components/Azela Honor.png" alt="Azela Honor" class="agent-img">
-                </div>
-                <div class="credential-info">
-                    <h4>Azela Honor</h4>
-                    <p>Team A</p>
-                </div>
-            </div>
-            <div class="credential-card agent-card reveal stagger-3">
-                <div class="credential-icon">
-                    <img src="components/George Ryan Sarmago.png" alt="George Ryan Sarmago" class="agent-img">
-                </div>
-                <div class="credential-info">
-                    <h4>George Ryan Sarmago</h4>
-                    <p>Team G-Force</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-wave-bottom">
-        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="#0f172a" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="var(--primary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 
@@ -2249,6 +2415,42 @@
     </footer>
 
     <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
+
+        // Mobile Menu Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navLinksItems = document.querySelectorAll('.nav-links li a');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+        }
+
+        // Close mobile menu when a link is clicked
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Simple and fast loading
         window.addEventListener('DOMContentLoaded', () => {
             // Hide scroll indicator after delay

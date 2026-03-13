@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Anthony Leuterio | Founder & Visionary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0f172a;
@@ -194,12 +194,12 @@
         }
 
         .theme-toggle:hover {
-            transform: rotate(15deg) scale(1.1);
+            transform: scale(1.1);
             background: rgba(245, 158, 11, 0.25);
         }
 
         .theme-toggle:active {
-            transform: scale(0.95);
+            transform: scale(0.9);
         }
 
         [data-theme="light"] .theme-toggle {
@@ -237,7 +237,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--primary);
             color: var(--text);
             overflow-x: hidden;
@@ -248,40 +248,7 @@
             overscroll-behavior: none;
         }
 
-        /* Fallback: show default cursor if custom cursor fails */
-        .cursor-dot:empty,
-        .cursor-outline:empty {
-            display: none;
-        }
-
-        body:has(.cursor-dot:empty) {
-            cursor: auto;
-        }
-
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--primary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-light);
-        }
-
+        /* Custom Cursor Styles */
         .cursor-dot {
             width: 10px;
             height: 10px;
@@ -933,7 +900,7 @@
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: clamp(36px, 5vw, 60px);
             font-weight: 700;
             position: relative;
@@ -1005,7 +972,7 @@
         }
 
         .about-text h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 46px;
             margin-bottom: 30px;
             line-height: 1.2;
@@ -1071,7 +1038,7 @@
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 52px;
             font-weight: 700;
             color: var(--accent);
@@ -1181,7 +1148,7 @@
         }
 
         .company-card h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 28px;
             margin: 30px 30px 15px;
         }
@@ -1443,7 +1410,7 @@
             position: absolute;
             top: 25px;
             right: 25px;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 56px;
             font-weight: 700;
             color: rgba(245, 158, 11, 0.08);
@@ -1687,7 +1654,7 @@
         }
 
         .contact-info h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 48px;
             margin-bottom: 25px;
             position: relative;
@@ -1812,7 +1779,7 @@
             border-radius: 15px;
             color: var(--text);
             font-size: 15px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease;
         }
 
@@ -3187,6 +3154,19 @@
                 requestAnimationFrame(animateCursor);
             }
             animateCursor();
+
+            // Hover effect for links and buttons
+            const hoverables = document.querySelectorAll('a, button, .role-tag, .company-card, .news-card, .award-card, .credential-card, .contact-item');
+            hoverables.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hover');
+                    cursorDot.style.transform = 'scale(0.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hover');
+                    cursorDot.style.transform = 'scale(1)';
+                });
+            });
         }
 
         // Scroll progress

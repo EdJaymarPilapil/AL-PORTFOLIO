@@ -8,2621 +8,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>Anthony Leuterio | Founder & Visionary</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #f59e0b;
-            --accent-light: #fbbf24;
-            --accent-glow: rgba(245, 158, 11, 0.6);
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --nav-bg: rgba(15, 23, 42, 0.95);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --gradient-1: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-            --gradient-2: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --gradient-3: linear-gradient(135deg, #f59e0b 0%, #f59e0b 50%, #ef4444 100%);
-            --gradient-glow: linear-gradient(45deg, #f59e0b, #ef4444, #f59e0b);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        [data-theme="light"] {
-            --primary: #f8fafc;
-            --secondary: #ffffff;
-            --text: #0f172a;
-            --text-muted: #475569;
-            --nav-bg: rgba(255, 255, 255, 0.98);
-            --card-bg: #ffffff;
-            --card-border: rgba(15, 23, 42, 0.08);
-            --gradient-2: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.12);
-        }
-
-        [data-theme="light"] .company-card,
-        [data-theme="light"] .news-card,
-        [data-theme="light"] .award-card,
-        [data-theme="light"] .credential-card,
-        [data-theme="light"] .contact-form {
-            background: #ffffff;
-            border: 1px solid rgba(15, 23, 42, 0.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        [data-theme="light"] .company-card:hover,
-        [data-theme="light"] .news-card:hover,
-        [data-theme="light"] .award-card:hover,
-        [data-theme="light"] .credential-card:hover {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        [data-theme="light"] .hero-profile-img {
-            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        [data-theme="light"] .stat {
-            background: rgba(15, 23, 42, 0.03);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-        }
-
-        [data-theme="light"] .contact-item {
-            background: rgba(15, 23, 42, 0.03);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-        }
-
-        [data-theme="light"] .form-group input,
-        [data-theme="light"] .form-group select,
-        [data-theme="light"] .form-group textarea {
-            background: #f8fafc;
-            border: 2px solid rgba(15, 23, 42, 0.1);
-        }
-
-        [data-theme="light"] .form-group input:focus,
-        [data-theme="light"] .form-group select:focus,
-        [data-theme="light"] .form-group textarea:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="light"] footer {
-            background: #ffffff;
-            border-top: 1px solid rgba(15, 23, 42, 0.1);
-        }
-
-        [data-theme="light"] .btn-secondary {
-            border: 2px solid rgba(15, 23, 42, 0.2);
-            color: var(--text);
-        }
-
-        [data-theme="light"] .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(245, 158, 11, 0.1);
-        }
-
-        [data-theme="light"] .nav-links a {
-            color: var(--text);
-        }
-
-        [data-theme="light"] .nav-toggle {
-            background: rgba(15, 23, 42, 0.1);
-        }
-
-        [data-theme="light"] .nav-toggle span {
-            background: var(--text);
-        }
-
-        [data-theme="light"] .section-wave svg path {
-            fill: var(--secondary);
-        }
-
-        [data-theme="light"] .section-wave-bottom svg path {
-            fill: var(--primary);
-        }
-
-        [data-theme="light"] .news-image {
-            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
-        }
-
-        [data-theme="light"] .news-category {
-            color: #ffffff;
-        }
-
-        [data-theme="light"] .hero-bg {
-            background: 
-                radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
-                var(--primary);
-        }
-
-        [data-theme="light"] .hero-orb-1 {
-            background: rgba(245, 158, 11, 0.2);
-        }
-
-        [data-theme="light"] .hero-orb-2 {
-            background: rgba(239, 68, 68, 0.15);
-        }
-
-        [data-theme="light"] .hero-orb-3 {
-            background: rgba(245, 158, 11, 0.15);
-        }
-
-        [data-theme="light"] .scroll-progress {
-            background: var(--gradient-1);
-        }
-
-        [data-theme="light"] .agent-card {
-            background: #f8fafc;
-            border-bottom-color: var(--accent);
-        }
-
-        [data-theme="light"] .agent-card .credential-info {
-            background: #f8fafc;
-            border-top: 1px solid rgba(15, 23, 42, 0.1);
-        }
-
-        .theme-toggle {
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            color: var(--text);
-            cursor: pointer;
-            padding: 10px;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            margin-left: 20px;
-            border-radius: 12px;
-            width: 44px;
-            height: 44px;
-        }
-
-        .desktop-theme-toggle {
-            display: flex;
-        }
-
-        .mobile-theme-toggle {
-            display: none;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            background: rgba(245, 158, 11, 0.25);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.9);
-        }
-
-        [data-theme="light"] .theme-toggle {
-            background: rgba(15, 23, 42, 0.1);
-            border: 1px solid rgba(15, 23, 42, 0.2);
-            color: #0f172a;
-        }
-
-        [data-theme="light"] .theme-toggle:hover {
-            background: rgba(15, 23, 42, 0.15);
-        }
-        
-
-        [data-theme="dark"] .sun-icon { display: none; }
-        [data-theme="light"] .moon-icon { display: none; }
-
-        [data-theme="light"] .sun-icon { 
-            display: inline-block; 
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--primary);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-            cursor: none;
-            min-height: 100vh;
-            position: relative;
-            overscroll-behavior: none;
-        }
-
-        /* Custom Cursor Styles */
-        .cursor-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            left: -100px;
-            top: -100px;
-            pointer-events: none;
-            z-index: 99999;
-            transition: transform 0.1s ease;
-            display: block;
-        }
-
-        .cursor-outline {
-            width: 44px;
-            height: 44px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            left: -100px;
-            top: -100px;
-            pointer-events: none;
-            z-index: 99998;
-            transition: all 0.15s ease-out;
-            mix-blend-mode: normal;
-            display: block;
-        }
-
-        [data-theme="light"] .cursor-outline {
-            mix-blend-mode: normal;
-            background: rgba(245, 158, 11, 0.15);
-            border-width: 3px;
-        }
-
-        .cursor-outline.hover {
-            transform: scale(1.5);
-            border-color: var(--accent-light);
-            background: rgba(245, 158, 11, 0.1);
-        }
-
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: var(--gradient-1);
-            z-index: 9999;
-            width: 0%;
-            transition: width 0.1s ease;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            z-index: 100;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-        }
-
-        .scroll-indicator .arrow {
-            width: 20px;
-            height: 30px;
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .scroll-indicator .arrow::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 2px;
-            animation: scrollArrow 1.5s infinite;
-        }
-
-        @keyframes scrollArrow {
-            0%, 100% { opacity: 1; top: 6px; }
-            50% { opacity: 0.3; top: 14px; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: transparent;
-            transform: translateY(0);
-        }
-
-        nav.visible {
-            transform: translateY(0);
-        }
-
-        nav.scrolled {
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            padding: 12px 50px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            height: 60px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            z-index: 1001;
-            margin-left: 75px;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        nav.scrolled .logo {
-            height: 50px;
-        }
-
-        .logo img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-left: auto;
-        }
-
-        .nav-mobile-controls {
-            display: none;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 10px;
-            background: none;
-            border: none;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 30px;
-            height: 2px;
-            background: var(--text);
-            transition: all 0.3s ease;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 10px 0;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: visible;
-            padding: 180px 30px 100px;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
-                var(--primary);
-            overflow: hidden;
-        }
-
-        .hero-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(245, 158, 11, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.5;
-            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
-
-        .hero-lines {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            opacity: 0.3;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .hero-line {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            height: 1px;
-            width: 200%;
-            transform: rotate(-45deg);
-            animation: lineMove 15s linear infinite;
-        }
-
-        .hero-line:nth-child(1) { top: 20%; right: -50%; animation-duration: 18s; }
-        .hero-line:nth-child(2) { top: 50%; right: -20%; animation-duration: 25s; animation-delay: -5s; }
-        .hero-line:nth-child(3) { top: 80%; right: -80%; animation-duration: 20s; animation-delay: -2s; }
-
-        @keyframes lineMove {
-            0% { transform: rotate(-45deg) translateX(50%); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: rotate(-45deg) translateX(-150%); opacity: 0; }
-        }
-
-        .hero-shapes {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .hero-shape {
-            position: absolute;
-            border: 1px solid var(--accent);
-            opacity: 0.1;
-            animation: shapeFloat 20s linear infinite;
-        }
-
-        .hero-shape-1 { width: 100px; height: 100px; top: 15%; right: 25%; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        .hero-shape-2 { width: 150px; height: 150px; bottom: 20%; right: 10%; border-radius: 50% 50% 20% 80% / 20% 20% 80% 80%; animation-delay: -10s; }
-
-        @keyframes shapeFloat {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -50px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: orbFloat 20s ease-in-out infinite;
-        }
-
-        .hero-orb-1 {
-            width: 400px;
-            height: 400px;
-            background: rgba(245, 158, 11, 0.3);
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .hero-orb-2 {
-            width: 300px;
-            height: 300px;
-            background: rgba(239, 68, 68, 0.2);
-            bottom: 20%;
-            right: 10%;
-            animation-delay: -5s;
-        }
-
-        .hero-orb-3 {
-            width: 200px;
-            height: 200px;
-            background: rgba(245, 158, 11, 0.2);
-            top: 50%;
-            left: 50%;
-            animation-delay: -10s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -50px) scale(1.1); }
-            50% { transform: translate(-30px, 30px) scale(0.9); }
-            75% { transform: translate(-50px, -30px) scale(1.05); }
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            align-items: center;
-            gap: 60px;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            z-index: 10;
-            padding: 0 50px;
-        }
-
-        .hero-text {
-            text-align: left;
-        }
-
-        .hero-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(48px, 8vw, 100px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 30px;
-            color: var(--text);
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .hero-image-decor {
-            position: absolute;
-            border: 2px solid var(--accent);
-            opacity: 0.3;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .decor-circle {
-            width: 550px;
-            height: 550px;
-            border-radius: 50%;
-            border: 1px dashed var(--accent);
-            animation: rotateDecor 30s linear infinite;
-        }
-
-        .decor-square {
-            width: 480px;
-            height: 480px;
-            border-radius: 40px;
-            animation: rotateDecor 20s linear infinite reverse;
-        }
-
-        .decor-blob {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            border: none;
-            opacity: 0.2;
-            filter: blur(40px);
-            animation: pulseDecor 10s ease-in-out infinite;
-        }
-
-        @keyframes rotateDecor {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        @keyframes pulseDecor {
-            0%, 100% { transform: scale(1); opacity: 0.1; }
-            50% { transform: scale(1.1); opacity: 0.25; }
-        }
-
-        .hero-profile-img {
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: top;
-            border: 10px solid var(--accent);
-            background: var(--gradient-2);
-            box-shadow: 0 30px 100px rgba(245, 158, 11, 0.4);
-            animation: profileFloat 4s ease-in-out infinite;
-        }
-        @keyframes profileFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 12px 30px;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 50px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--accent);
-            margin-bottom: 40px;
-        }
-
-        .hero-title .highlight {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(20px, 2.5vw, 28px);
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        .hero-roles {
-            display: flex;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .role-tag {
-            padding: 8px 24px;
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: tagFloat 3s ease-in-out infinite;
-        }
-
-        .role-tag::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(245, 158, 11, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        @keyframes tagFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .role-tag:hover {
-            background: var(--gradient-1);
-            border-color: transparent;
-            color: white;
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
-        }
-        .hero-cta {
-            display: flex;
-            justify-content: flex-start;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0.3;
-        }
-
-        .particle.large {
-            width: 8px;
-            height: 8px;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
-
-        .btn {
-            padding: 18px 45px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: none;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 25px 60px rgba(245, 158, 11, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(245, 158, 11, 0.1);
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .shape {
-            position: absolute;
-            border: 2px solid rgba(245, 158, 11, 0.2);
-            animation: shapeFloat 20s ease-in-out infinite;
-        }
-
-        .shape-1 {
-            width: 100px;
-            height: 100px;
-            top: 20%;
-            left: 5%;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            animation-delay: 0s;
-        }
-
-        .shape-2 {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            right: 10%;
-            border-radius: 50%;
-            animation-delay: -5s;
-        }
-
-        .shape-3 {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 15%;
-            border-radius: 50% 0 50% 0;
-            animation-delay: -10s;
-        }
-
-        @keyframes shapeFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.6; }
-        }
-
-        section {
-            padding: 120px 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-wave {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            transform: translateY(-99%);
-        }
-
-        .section-wave svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .section-wave-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            transform: translateY(99%) rotate(180deg);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .section-label {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--accent);
-            margin-bottom: 20px;
-            display: block;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-label::before,
-        .section-label::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .section-label::before {
-            right: calc(100% + 20px);
-        }
-
-        .section-label::after {
-            left: calc(100% + 20px);
-        }
-
-        .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(36px, 5vw, 60px);
-            font-weight: 700;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-1);
-            margin: 20px auto 0;
-            border-radius: 2px;
-            animation: expandWidth 1s ease 0.5s forwards;
-            transform: scaleX(0);
-        }
-
-        @keyframes expandWidth {
-            to { transform: scaleX(1); }
-        }
-
-        .about {
-            background: var(--secondary);
-            padding: 120px 30px;
-        }
-
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-text h3 {
-            font-size: clamp(32px, 5vw, 52px);
-            margin-bottom: 40px;
-            line-height: 1.2;
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .about-text p {
-            font-size: clamp(16px, 2vw, 20px);
-            line-height: 1.8;
-            margin-bottom: 30px;
-            color: var(--text-muted);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .stat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .stat:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .stat-number {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(36px, 5vw, 52px);
-            font-weight: 700;
-            color: var(--accent);
-            display: block;
-            text-shadow: 0 0 30px var(--accent-glow);
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .companies {
-            background: var(--primary);
-        }
-
-        .companies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 35px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .company-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--card-border);
-            transform-style: preserve-3d;
-            display: flex;
-            flex-direction: column;
-            min-height: 480px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .company-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-            z-index: 10;
-        }
-
-        .company-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .company-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .company-card:hover::after {
-            opacity: 1;
-        }
-
-        .company-card:hover {
-            transform: translateY(-15px) rotateX(2deg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .company-icon {
-            width: 100%;
-            height: 150px;
-            background: white;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .company-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .company-card h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            margin: 30px 30px 15px;
-        }
-
-        .company-role {
-            color: var(--accent);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0 30px 20px;
-            display: block;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .company-role::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 2px;
-            background: var(--accent);
-        }
-
-        .company-card p {
-            color: var(--text-muted);
-            font-size: 16px;
-            line-height: 1.8;
-            margin: 0 30px 30px;
-            flex-grow: 1;
-        }
-
-        .company-link {
-            margin: 0 30px 40px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-            position: relative;
-            width: fit-content;
-        }
-
-        .company-link::before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .company-link:hover::before {
-            width: 100%;
-        }
-
-        .company-link:hover {
-            gap: 25px;
-        }
-
-        .news {
-            background: var(--secondary);
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 35px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .news-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--card-border);
-            position: relative;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .news-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 25px;
-            padding: 2px;
-            background: var(--gradient-1);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .news-card:hover::before {
-            opacity: 1;
-        }
-
-        .news-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .news-image {
-            height: 220px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .news-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .news-card:hover .news-image img {
-            transform: scale(1.1);
-        }
-
-        .news-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 1;
-        }
-
-        .news-card:hover .news-image::before {
-            opacity: 0.2;
-        }
-
-        .news-category {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            padding: 10px 20px;
-            background: var(--accent);
-            color: var(--primary);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            border-radius: 8px;
-            z-index: 1;
-            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
-        }
-
-        .news-content {
-            padding: 35px;
-        }
-
-        .news-date {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .news-date::before {
-            content: '';
-            width: 20px;
-            height: 2px;
-            background: var(--accent);
-        }
-
-        .news-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 18px;
-            line-height: 1.4;
-            transition: color 0.3s ease;
-        }
-
-        .news-card:hover .news-title {
-            color: var(--accent);
-        }
-
-        .news-excerpt {
-            color: var(--text-muted);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .awards {
-            background: var(--primary);
-        }
-
-        .awards-showcase {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .award-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            padding: 45px 30px;
-            text-align: center;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .award-card::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 300%;
-            background: conic-gradient(from 0deg, transparent, var(--accent), transparent);
-            animation: rotateGlow 4s linear infinite;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        @keyframes rotateGlow {
-            100% { transform: rotate(360deg); }
-        }
-
-        .award-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .award-card:hover {
-            transform: translateY(-15px) rotateY(5deg);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .award-year {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 56px;
-            font-weight: 700;
-            color: rgba(245, 158, 11, 0.08);
-            line-height: 1;
-        }
-
-        .award-icon {
-            width: 90px;
-            height: 90px;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            margin: 0 auto 30px;
-            position: relative;
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
-            50% { box-shadow: 0 0 0 25px rgba(245, 158, 11, 0); }
-        }
-
-        .award-card h4 {
-            font-size: 19px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            position: relative;
-        }
-
-        .award-org {
-            color: var(--accent);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-        }
-
-        .credentials {
-            background: var(--secondary);
-        }
-
-        .credentials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .credential-card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            padding: 35px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--card-border);
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .credential-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: var(--gradient-1);
-            transform: scaleY(0);
-            transition: transform 0.4s ease;
-        }
-
-        .credential-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .credential-card:hover {
-            transform: translateX(15px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .agent-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 0;
-            min-height: 550px;
-            justify-content: flex-start;
-            overflow: hidden;
-            border-bottom: 4px solid var(--accent);
-            background: #0a0f1d;
-        }
-
-        .agent-card .credential-icon {
-            width: 100%;
-            height: 450px;
-            margin-bottom: 0;
-            border-radius: 0;
-            background: #1e293b;
-            box-shadow: none;
-            position: relative;
-            overflow: hidden;
-            transition: background 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .agent-card .credential-info {
-            padding: 25px 20px;
-            background: #0a0f1d;
-            width: 100%;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .agent-card .credential-info h4 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .agent-card .credential-info p {
-            color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 13px;
-        }
-
-        .credential-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            flex-shrink: 0;
-            transition: all 0.4s ease;
-        }
-
-        .agent-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-        }
-
-        .agent-card:hover .agent-img {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        .agent-card:hover .credential-icon {
-            background: var(--gradient-1);
-        }
-
-        .agent-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 0;
-            transition: transform 0.5s ease;
-        }
-
-        .credential-info h4 {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .credential-info p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .credential-year {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 8px;
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 20px;
-        }
-
-        .contact {
-            background: var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-bg-orb {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(150px);
-            animation: orbMove 15s ease-in-out infinite;
-        }
-
-        .contact-bg-orb-1 {
-            background: rgba(245, 158, 11, 0.15);
-            top: -20%;
-            right: -10%;
-        }
-
-        .contact-bg-orb-2 {
-            background: rgba(239, 68, 68, 0.1);
-            bottom: -20%;
-            left: -10%;
-            animation-delay: -7s;
-        }
-
-        @keyframes orbMove {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 30px); }
-        }
-
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 80px;
-            max-width: 1300px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .contact-info h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 48px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .contact-info h3::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 5px;
-            background: var(--gradient-1);
-            margin-top: 20px;
-            border-radius: 3px;
-        }
-
-        .contact-info > p {
-            color: var(--text-muted);
-            font-size: 18px;
-            line-height: 1.9;
-            margin-bottom: 45px;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-        }
-
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--accent);
-            transform: translateX(10px);
-        }
-
-        .contact-item-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: all 0.4s ease;
-        }
-
-        .contact-item:hover .contact-item-icon {
-            background: var(--gradient-1);
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .contact-item h5 {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .contact-item p {
-            font-size: 17px;
-            font-weight: 500;
-        }
-
-        .contact-form {
-            background: var(--secondary);
-            border-radius: 30px;
-            padding: 55px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient-1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 18px 24px;
-            background: var(--primary);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: var(--text);
-            font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.15), 0 10px 30px rgba(0, 0, 0, 0.2);
-            transform: translateY(-3px);
-        }
-
-        .form-group textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-
-        .form-group select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-        }
-
-        .form-floating {
-            position: relative;
-        }
-
-        .form-floating input:focus + label,
-        .form-floating input:not(:placeholder-shown) + label {
-            transform: translateY(-25px) scale(0.85);
-            color: var(--accent);
-        }
-
-        footer {
-            background: var(--secondary);
-            padding: 50px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-1);
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        footer .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        footer .social-link {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--text-muted);
-            transition: all 0.4s ease;
-            text-decoration: none;
-        }
-
-        footer .social-link:hover {
-            background: var(--gradient-1);
-            color: white;
-            transform: translateY(-5px);
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
-        .stagger-6 { transition-delay: 0.6s; }
-        .stagger-7 { transition-delay: 0.7s; }
-        .stagger-8 { transition-delay: 0.8s; }
-
-        /* Mobile Responsive Redesign */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                text-align: center;
-            }
-
-            .hero-text {
-                text-align: center;
-            }
-
-            .hero-roles, .hero-cta {
-                justify-content: center;
-            }
-            
-            .nav-links {
-                gap: 20px;
-            }
-
-            .logo {
-                margin-left: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                cursor: auto !important;
-                overflow-x: hidden;
-            }
-
-            .cursor-dot, .cursor-outline {
-                display: none !important;
-            }
-
-            nav {
-                padding: 12px 20px !important;
-                height: 70px;
-                background: var(--nav-bg);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 9999;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            nav.scrolled {
-                padding: 12px 20px !important;
-            }
-
-            .logo {
-                height: 40px !important;
-                margin-left: 0 !important;
-                position: static !important;
-                transform: none !important;
-            }
-
-            .logo img {
-                height: 100%;
-                width: auto;
-            }
-
-            .nav-container {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
-                height: 100dvh;
-                background: var(--primary);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-                z-index: 9998;
-                padding: 80px 40px;
-                display: flex !important;
-                opacity: 0;
-                pointer-events: none;
-            }
-
-            @supports (padding: max(0px)) {
-                .nav-container {
-                    padding-top: max(70px, env(safe-area-inset-top));
-                    padding-bottom: max(30px, env(safe-area-inset-bottom));
-                }
-            }
-
-            .nav-container.active {
-                right: 0;
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .nav-mobile-controls {
-                display: flex !important;
-                flex-direction: row;
-                align-items: center;
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
-                gap: 8px;
-                z-index: 10000;
-            }
-
-            .nav-toggle {
-                display: flex !important;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 8px;
-                background: rgba(255, 255, 255, 0.1);
-                border: none;
-                border-radius: 8px;
-                width: 40px;
-                height: 40px;
-                gap: 5px;
-                cursor: pointer;
-            }
-
-            .nav-toggle.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .nav-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .nav-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .nav-toggle span {
-                width: 24px;
-                height: 2px;
-                background: var(--text);
-                transition: all 0.3s ease;
-            }
-
-            .theme-toggle {
-                display: flex !important;
-                padding: 8px !important;
-                font-size: 18px !important;
-                background: rgba(245, 158, 11, 0.15);
-                border: 1px solid rgba(245, 158, 11, 0.3) !important;
-                border-radius: 10px !important;
-                width: 36px;
-                height: 36px;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .theme-toggle:active {
-                background: rgba(245, 158, 11, 0.3);
-                transform: scale(0.95);
-            }
-
-            .desktop-theme-toggle {
-                display: none !important;
-            }
-
-            .mobile-theme-toggle {
-                display: flex !important;
-            }
-
-            [data-theme="light"] .theme-toggle {
-                background: rgba(15, 23, 42, 0.1);
-                border: 1px solid rgba(15, 23, 42, 0.2) !important;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                gap: 5px;
-                text-align: center;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .nav-links li {
-                margin: 8px 0;
-                width: 100%;
-            }
-
-            .nav-links a {
-                font-size: 18px !important;
-                letter-spacing: 2px !important;
-                padding: 12px 20px;
-                display: block;
-                width: 100%;
-            }
-
-            .btn {
-                padding: 14px 28px;
-                font-size: 13px;
-                min-height: 44px;
-                -webkit-tap-highlight-color: rgba(245, 158, 11, 0.3);
-            }
-
-            section {
-                padding: 50px 15px !important;
-                overflow: hidden;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .hero {
-                padding-top: 80px !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-                padding-bottom: 60px !important;
-                min-height: auto;
-                min-height: 100vh;
-                display: block;
-                width: 100%;
-            }
-
-            .hero-bg {
-                display: none;
-            }
-
-            .hero-content {
-                padding: 0;
-                display: block;
-                width: 100%;
-            }
-
-            .hero-text {
-                margin-bottom: 30px;
-            }
-
-            .hero-title {
-                font-size: 32px !important;
-                line-height: 1.2;
-                margin-bottom: 20px;
-            }
-
-            .hero-badge {
-                margin-bottom: 15px;
-                font-size: 10px;
-                letter-spacing: 2px;
-                padding: 8px 20px;
-            }
-
-            .hero-subtitle {
-                font-size: 16px !important;
-                margin-bottom: 20px;
-            }
-
-            .hero-image-decor {
-                display: none !important;
-            }
-
-            .hero-profile-img {
-                width: 240px !important;
-                height: 240px !important;
-                margin: 0 auto;
-            }
-
-            .hero-roles {
-                gap: 6px;
-                justify-content: center;
-            }
-
-            .role-tag {
-                font-size: 10px;
-                padding: 5px 12px;
-            }
-
-            .hero-cta {
-                gap: 10px;
-                justify-content: center;
-            }
-
-            .about-content {
-                max-width: 100%;
-                margin: 0 auto;
-            }
-
-            .about-text h3 {
-                font-size: 26px !important;
-                margin-bottom: 20px;
-            }
-
-            .about-text h3::before {
-                display: none;
-            }
-
-            .about-text p {
-                font-size: 15px !important;
-                line-height: 1.7;
-            }
-
-            .stats {
-                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
-                gap: 15px;
-                justify-content: center;
-                max-width: 500px;
-                margin: 40px auto 0;
-            }
-
-            .stat {
-                padding: 20px 15px;
-            }
-
-            .stat-number {
-                font-size: 28px !important;
-            }
-
-            .stat-label {
-                font-size: 11px;
-                letter-spacing: 2px;
-            }
-
-            .section-header {
-                margin-bottom: 40px;
-            }
-
-            .section-label {
-                font-size: 11px;
-                letter-spacing: 3px;
-            }
-
-            .section-label::before,
-            .section-label::after {
-                width: 25px;
-            }
-
-            .section-title {
-                font-size: 28px !important;
-            }
-
-            .companies-grid, .news-grid, .credentials-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-                width: 100%;
-            }
-
-            .developers-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-
-            .company-card, .news-card, .award-card, .credential-card {
-                width: 100% !important;
-                max-width: none !important;
-                margin: 0 !important;
-            }
-
-            .company-card {
-                min-height: auto;
-            }
-
-            .company-icon {
-                height: 100px !important;
-                padding: 15px !important;
-            }
-
-            .company-card h3 {
-                font-size: 20px !important;
-                margin: 20px 20px 10px;
-            }
-
-            .company-role {
-                margin: 0 20px 15px;
-                font-size: 12px;
-            }
-
-            .company-card p {
-                font-size: 14px !important;
-                margin: 0 20px 20px;
-            }
-
-            .company-link {
-                margin: 0 20px 25px;
-                font-size: 12px;
-            }
-
-            .awards-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-
-            .award-card {
-                padding: 30px 20px;
-            }
-
-            .award-year {
-                font-size: 40px;
-                top: 15px;
-                right: 15px;
-            }
-
-            .award-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
-            }
-
-            .award-card h4 {
-                font-size: 16px !important;
-            }
-
-            .award-org {
-                font-size: 11px;
-                letter-spacing: 2px;
-            }
-
-            .contact-wrapper {
-                grid-template-columns: 1fr !important;
-                gap: 40px;
-            }
-
-            .contact-info h3 {
-                font-size: 32px !important;
-                margin-bottom: 20px;
-            }
-
-            .contact-info > p {
-                font-size: 15px !important;
-                margin-bottom: 30px;
-            }
-
-            .contact-details {
-                width: 100%;
-            }
-
-            .contact-item {
-                padding: 15px;
-                flex-direction: row;
-                gap: 15px;
-            }
-
-            .contact-item-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-                flex-shrink: 0;
-            }
-
-            .contact-item h5 {
-                font-size: 11px;
-            }
-
-            .contact-item p {
-                font-size: 14px;
-            }
-
-            .contact-form {
-                padding: 25px 20px !important;
-                border-radius: 20px !important;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr !important;
-                gap: 15px !important;
-            }
-
-            .form-group {
-                margin-bottom: 18px;
-            }
-
-            .form-group label {
-                font-size: 12px;
-                letter-spacing: 1px;
-                margin-bottom: 8px;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 14px 18px;
-                font-size: 16px !important;
-                border-radius: 12px !important;
-                min-height: 48px;
-                -webkit-tap-highlight-color: rgba(245, 158, 11, 0.2);
-            }
-
-            .form-group select {
-                background-size: 20px;
-                background-position: right 14px center;
-            }
-
-            .form-group textarea {
-                min-height: 120px;
-            }
-
-            .contact-form .btn {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            footer {
-                padding: 30px 15px;
-                padding-bottom: max(30px, env(safe-area-inset-bottom));
-            }
-
-            footer p {
-                font-size: 13px;
-            }
-
-            .scroll-indicator {
-                display: none;
-            }
-
-            .scroll-progress {
-                height: 3px !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .hero-title {
-                font-size: 26px !important;
-            }
-
-            .hero-profile-img {
-                width: 240px !important;
-                height: 240px !important;
-            }
-
-            .hero-roles {
-                gap: 5px;
-            }
-
-            .role-tag {
-                font-size: 9px;
-                padding: 4px 10px;
-            }
-
-            .btn {
-                padding: 12px 20px;
-                font-size: 12px;
-            }
-
-            .about-text h3 {
-                font-size: 22px !important;
-            }
-
-            .section-title {
-                font-size: 24px !important;
-            }
-
-            .company-card h3 {
-                font-size: 18px !important;
-            }
-
-            .contact-info h3 {
-                font-size: 26px !important;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 12px 15px;
-                font-size: 13px;
-            }
-
-            footer .social-links {
-                gap: 12px;
-            }
-
-            footer .social-link {
-                width: 38px;
-                height: 38px;
-            }
-        }
-
-        @media (max-width: 850px) and (orientation: landscape) {
-            .hero {
-                padding-top: 70px !important;
-                min-height: auto;
-            }
-
-            .hero-content {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center;
-                gap: 30px;
-            }
-
-            .hero-text {
-                flex: 1;
-                text-align: left;
-                margin-bottom: 0;
-            }
-
-            .hero-title {
-                font-size: 24px !important;
-            }
-
-            .hero-subtitle {
-                font-size: 14px !important;
-                margin-bottom: 10px;
-            }
-
-            .hero-profile-img {
-                width: 160px !important;
-                height: 160px !important;
-                flex-shrink: 0;
-            }
-
-            .hero-roles {
-                justify-content: flex-start;
-            }
-
-            .hero-cta {
-                justify-content: flex-start;
-            }
-
-            .role-tag {
-                font-size: 8px;
-                padding: 4px 8px;
-            }
-
-            .nav-container {
-                padding-top: 60px;
-            }
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover {
-                transform: none;
-            }
-
-            .company-card:hover {
-                transform: none;
-            }
-
-            .company-card:active {
-                transform: scale(0.98);
-            }
-
-            .nav-links a:hover {
-                color: var(--accent);
-            }
-
-            .nav-links a:active {
-                color: var(--accent-light);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="components/trust-logos.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
     <div class="scroll-progress"></div>
 
     <div class="scroll-indicator">
@@ -2637,6 +26,7 @@
         <div class="nav-container" id="nav-container">
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#coaching">Coaching</a></li>
                 <li><a href="#companies">Companies</a></li>
                 <li><a href="#developers">Developers</a></li>
                 <li><a href="#news">News</a></li>
@@ -2679,29 +69,44 @@
         </div>
         <div class="hero-content">
             <div class="hero-text">
-                <h1 class="hero-title">
-                    Anthony <span class="highlight">Leuterio</span>
+                <div class="hero-badge reveal">Founder & CEO | Filipino Homes</div>
+                <h1 class="hero-title reveal stagger-1">
+                    ANTHONY <span class="highlight">LEUTERIO</span>
                 </h1>
-                <p class="hero-subtitle">Transforming Philippine Real Estate</p>
-                <div class="hero-roles">
-                    <span class="role-tag">Founder</span>
-                    <span class="role-tag">PropTech Visionary</span>
-                    <span class="role-tag">AI Strategy Consultant</span>
-                    <span class="role-tag">Motivational Speaker</span>
-                    <span class="role-tag">Global Real Estate Influencer</span>
-                    <span class="role-tag">Realtor</span>
+                <p class="hero-subtitle reveal stagger-2">Leading the Philippine Real Estate Evolution through AI and Global Entrepreneurship.</p>
+                <div class="hero-roles reveal stagger-3">
+                    <span class="role-tag">PropTech Pioneer</span>
+                    <span class="role-tag">Global Strategist</span>
+                    <span class="role-tag">Business Visionary</span>
                 </div>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#companies" class="btn btn-secondary">View Companies</a>
+                <div class="hero-cta reveal stagger-4">
+                    <a href="#contact" class="btn btn-primary">Book Consultation</a>
+                    <a href="#companies" class="btn btn-secondary">Explore Ventures</a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-profile-container reveal-right">
+                <div class="stat-badge-float stat-badge-1">
+                    <span class="val">133+</span>
+                    <span class="lbl">Offices</span>
+                </div>
+                <div class="stat-badge-float stat-badge-2">
+                    <span class="val">#1</span>
+                    <span class="lbl">Industry Leader</span>
+                </div>
                 <div class="hero-image-decor decor-circle"></div>
                 <div class="hero-image-decor decor-square"></div>
                 <div class="hero-image-decor decor-blob"></div>
-                <img src="components/bosstonton.png" alt="Anthony Leuterio" class="hero-profile-img">
+                <img src="components/bossing.jpg" alt="Anthony Leuterio" class="main-img">
             </div>
+        </div>
+        <div class="hero-particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle large" style="left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 35%; animation-delay: 4s;"></div>
+            <div class="particle large" style="left: 50%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 65%; animation-delay: 6s;"></div>
+            <div class="particle large" style="left: 80%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 5s;"></div>
         </div>
     </section>
 
@@ -2712,23 +117,42 @@
     </div>
 
     <section class="about" id="about">
-        <div class="about-content">
-            <div class="about-text reveal">
-                <h3>Leading the Future of PropTech and AI in Real Estate</h3>
-                <p>The founder of Filipino Homes and Leuterio Realty, Anthony Leuterio is a catalyst for real estate entrepreneurship in the Philippines. With over 133 franchise offices nationwide, he has built the country's most expansive real estate ecosystem.</p>
-                <p>Currently spearheading the integration of AI and digital disruptive strategies, he is revolutionizing how property is bought, sold, and managed across Southeast Asia.</p>
-                <div class="stats">
-                    <div class="stat">
-                        <span class="stat-number" data-target="133">0</span>
-                        <span class="stat-label">Offices</span>
+        <div class="container">
+            <div class="about-content-wrapper reveal">
+                <div class="about-header">
+                    <span class="section-label">Legacy & Vision</span>
+                    <h3>Redefining the Real Estate Landscape Through AI & Innovation</h3>
+                </div>
+                
+                <div class="about-body">
+                    <div class="about-description">
+                        <p class="lead">Anthony Leuterio is more than just a real estate mogul; he is a visionary leader who has transformed the industry in the Philippines and beyond.</p>
+                        <p>As the founder of Filipino Homes and Leuterio Realty, he has established an unparalleled ecosystem of over 133 franchise offices, empowering thousands of agents and property owners. His focus on PropTech and AI integration is currently setting new benchmarks for efficiency and transparency in Southeast Asian real estate.</p>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="12">0</span>
-                        <span class="stat-label">Certifications</span>
+                    
+                    <div class="about-featured-quote">
+                        <div class="quote-icon">"</div>
+                        <blockquote>Innovation is not just about technology; it's about creating a future where everyone has a place to call home.</blockquote>
+                        <cite>— Anthony Leuterio</cite>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="15">0</span>
-                        <span class="stat-label">Years Exp</span>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value"><span class="stat-number" data-target="133">0</span></div>
+                        <div class="stat-name">Offices Nationwide</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value"><span class="stat-number" data-target="50">0</span>+</div>
+                        <div class="stat-name">Industry Awards</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value"><span class="stat-number" data-target="15">0</span>+</div>
+                        <div class="stat-name">Years of Excellence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">Top 1</div>
+                        <div class="stat-name">PropTech Leader</div>
                     </div>
                 </div>
             </div>
@@ -2741,35 +165,158 @@
         </svg>
     </div>
 
-    <section class="companies" id="companies">
-        <div class="section-header reveal">
-            <span class="section-label">Companies & Ventures</span>
-            <h2 class="section-title">Building Tomorrow's Real Estate</h2>
+    <section class="coaching" id="coaching">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Mentorship & Growth</span>
+                <h2 class="section-title">The Real Estate Coach</h2>
+            </div>
+
+            <div class="coaching-philosophy reveal">
+                <div class="philosophy-text">
+                    <h3>Systems Over Hustle</h3>
+                    <p>Anthony Leuterio teaches agents how to shift from "surviving to thriving." His methodology focuses on building scalable systems, automated frameworks, and data-backed strategies that allow professionals to work smarter, not longer.</p>
+                    <div class="philosophy-tags">
+                        <span class="p-tag">Solving, Not Selling</span>
+                        <span class="p-tag">People-First Leadership</span>
+                        <span class="p-tag">Value-Driven Relationships</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pillars-grid reveal">
+                <div class="pillar-card">
+                    <div class="pillar-num">01</div>
+                    <h4>Vision & Strategy</h4>
+                    <p>Defining clear goals and the roadmap to achieve market dominance.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">02</div>
+                    <h4>Networking</h4>
+                    <p>Building a high-value ecosystem of industry partners and clients.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">03</div>
+                    <h4>Sustainable Selling</h4>
+                    <p>Integrity-based solutions that ensure repeat business and referrals.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">04</div>
+                    <h4>The Close</h4>
+                    <p>Mastering the art of transaction completion through value alignment.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">05</div>
+                    <h4>Management</h4>
+                    <p>Scalable organizational structures for high-performance teams.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">06</div>
+                    <h4>Global Expansion</h4>
+                    <p>Moving from local markets to international OFW networks.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">07</div>
+                    <h4>Training</h4>
+                    <p>Continuous education and skill mastery for modern real estate.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-num">08</div>
+                    <h4>Branding</h4>
+                    <p>Establishing personal and corporate authority in the digital age.</p>
+                </div>
+            </div>
+
+            <div class="coaching-programs">
+                <div class="group-header reveal">
+                    <div class="group-info">
+                        <h3>Coaching Programs</h3>
+                        <p>Tailored solutions for every stage of your real estate career</p>
+                    </div>
+                </div>
+                <div class="programs-grid">
+                    <div class="program-card reveal stagger-1">
+                        <div class="program-badge">Recommended</div>
+                        <h4>Fast Start</h4>
+                        <p>For new agents to build confidence and win their first listings quickly.</p>
+                    </div>
+                    <div class="program-card reveal stagger-2">
+                        <h4>Momentum Builder</h4>
+                        <p>Seeking consistency in deal flow and advanced lead generation.</p>
+                    </div>
+                    <div class="program-card reveal stagger-3">
+                        <h4>Top Producer</h4>
+                        <p>For high-performing agents and team leaders ready to scale.</p>
+                    </div>
+                    <div class="program-card reveal stagger-4">
+                        <h4>Digital Marketing Pro</h4>
+                        <p>Mastery of social media, online ads, and content strategies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="digital-resources reveal">
+                <div class="resource-group">
+                    <div class="resource-icon">📚</div>
+                    <h4>Digital Toolkits & E-books</h4>
+                    <ul class="resource-list">
+                        <li>Lead Generation Strategies eBook</li>
+                        <li>The Ultimate Real Estate Agent Toolkit</li>
+                        <li>Coaching Success Checklist</li>
+                        <li>Exclusive Video Training Series</li>
+                    </ul>
+                </div>
+                <div class="resource-group">
+                    <div class="resource-icon">🤝</div>
+                    <h4>Exclusive Community Access</h4>
+                    <ul class="resource-list">
+                        <li>Private Coaching Portal Access</li>
+                        <li>Supportive Network of Like-Minded Professionals</li>
+                        <li>Free Facebook Community for Real Estate Agents</li>
+                        <li>Live Q&A Sessions with Anthony</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="companies-grid">
-            <div class="company-card reveal stagger-1">
-                <div class="company-icon">
-                    <img src="components/LEUTERIO REALTY & BROKERAGE.svg" alt="Leuterio Realty">
-                </div>
-                <h3>Leuterio Realty</h3>
-                <p>Leuterio Realty & Filipino Homes is the country's fastest growing brand in real estate service owned and managed by Realtor Anthony "Tonton" Leuterio.</p>
-                <a href="https://leuteriorealty.com" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
+    </section>
+
+    <div class="section-wave">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="var(--secondary)" d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z"></path>
+        </svg>
+    </div>
+
+    <section class="companies" id="companies">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Companies & Ventures</span>
+                <h2 class="section-title">The Ecosystem of Success</h2>
             </div>
-            <div class="company-card reveal stagger-2">
-                <div class="company-icon">
-                    <img src="components/filipinohomes.png" alt="Filipino Homes">
+            <div class="companies-grid">
+                <div class="company-card reveal stagger-1">
+                    <div class="company-icon">
+                        <img src="components/LEUTERIO REALTY & BROKERAGE.svg" alt="Leuterio Realty">
+                    </div>
+                    <h3>Leuterio Realty</h3>
+                    <p>The Philippines' premier real estate brokerage with a footprint spanning every major city in the archipelago.</p>
+                    <a href="https://leuteriorealty.com" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
                 </div>
-                <h3>Filipino Homes</h3>
-                <p>His natural charismatic personality and wit maximized different effective channels in marketing and selling, bringing Philippine real estate to the top.</p>
-                <a href="https://filipinohomes.com" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
-            </div>
-            <div class="company-card reveal stagger-3">
-                <div class="company-icon">
-                    <img src="components/RentPh.png" alt="Rent.ph">
+                <div class="company-card reveal stagger-2">
+                    <div class="company-icon">
+                        <img src="components/filipinohomes.png" alt="Filipino Homes">
+                    </div>
+                    <h3>Filipino Homes</h3>
+                    <p>The largest real estate network in the Philippines, empowering thousands of agents through tech and training.</p>
+                    <a href="https://filipinohomes.com" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
                 </div>
-                <h3>Rent.ph</h3>
-                <p>Rent.ph is a nationwide list of properties for rent and property-related services for renters, rent and property managers, agents and real estate owners.</p>
-                <a href="https://rent.ph" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
+                <div class="company-card reveal stagger-3">
+                    <div class="company-icon">
+                        <img src="components/RentPh.png" alt="Rent.ph">
+                    </div>
+                    <h3>Rent.ph</h3>
+                    <p>The leading property rental portal in the Philippines, simplifying the search for renters and managers.</p>
+                    <a href="https://rent.ph" target="_blank" rel="noopener noreferrer" class="company-link">Learn More →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2781,58 +328,60 @@
     </div>
 
     <section class="developers" id="developers" style="background: var(--secondary);">
-        <div class="section-header reveal">
-            <span class="section-label">Featured Developers</span>
-            <h2 class="section-title">Connect to our trusted developers</h2>
-        </div>
-        <div class="companies-grid">
-            <div class="company-card reveal stagger-1">
-                <div class="company-icon">
-                    <img src="components/Cebu Landmaster Inc..webp" alt="Cebu Landmaster Inc.">
-                </div>
-                <h3>Cebu Landmaster Inc.</h3>
-                <p>10th Floor, Park centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
-                <a href="https://www.cebulandmasters.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Featured Partners</span>
+                <h2 class="section-title">Trusted Developers</h2>
             </div>
-            <div class="company-card reveal stagger-2">
-                <div class="company-icon">
-                    <img src="components/Grand Land Incorporated.webp" alt="Grand Land Incorporated">
+            <div class="companies-grid">
+                <div class="company-card reveal stagger-1">
+                    <div class="company-icon">
+                        <img src="components/Cebu Landmaster Inc..webp" alt="Cebu Landmaster Inc.">
+                    </div>
+                    <h3>Cebu Landmasters</h3>
+                    <p>The leading developer in VisMin, creating world-class communities across the region.</p>
+                    <a href="https://www.cebulandmasters.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
                 </div>
-                <h3>Grand Land Incorporated</h3>
-                <p>10th Floor, Park centrale Tower, J.M. del Mar St., Cebu I.T. Park Cebu City, Philippines</p>
-                <a href="https://grandlandinc.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-3">
-                <div class="company-icon">
-                    <img src="components/Primeworld Land Holdings Inc..webp" alt="Primeworld Land Holdings Inc.">
+                <div class="company-card reveal stagger-2">
+                    <div class="company-icon">
+                        <img src="components/Grand Land Incorporated.webp" alt="Grand Land Incorporated">
+                    </div>
+                    <h3>Grand Land Inc.</h3>
+                    <p>Committed to building homes that provide grand experiences and lasting value.</p>
+                    <a href="https://grandlandinc.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
                 </div>
-                <h3>Primeworld Land Holdings Inc.</h3>
-                <p>TSC Residential Suites, 2/F Pres. Magsaysay St, Cebu City, 6000 Cebu</p>
-                <a href="https://www.primeworldland.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-4">
-                <div class="company-icon">
-                    <img src="components/Priland Development Corporation.webp" alt="Priland Development Corporation">
+                <div class="company-card reveal stagger-3">
+                    <div class="company-icon">
+                        <img src="components/Primeworld Land Holdings Inc..webp" alt="Primeworld Land Holdings Inc.">
+                    </div>
+                    <h3>Primeworld Land</h3>
+                    <p>Providing quality homes that are within reach for every Filipino family.</p>
+                    <a href="https://www.primeworldland.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
                 </div>
-                <h3>Priland Development Corporation</h3>
-                <p>Priland Hive, 18th floor, BPI Cebu Corp. Center corners Archbishop Reyes & Luzon Ave., Cebu Business Park Cebu City</p>
-                <a href="https://www.priland.com.ph/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-5">
-                <div class="company-icon">
-                    <img src="components/Be Residences.webp" alt="Be Residences">
+                <div class="company-card reveal stagger-4">
+                    <div class="company-icon">
+                        <img src="components/Priland Development Corporation.webp" alt="Priland Development Corporation">
+                    </div>
+                    <h3>Priland Development</h3>
+                    <p>A Cebuano real estate developer focused on providing lifestyle-oriented communities.</p>
+                    <a href="https://www.priland.com.ph/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
                 </div>
-                <h3>Be Residences</h3>
-                <p>The Penthouse, Mabuhay Tower, Jose Mar del Mar St., cor. Abad St., Cebu IT Park, Cebu City 6000</p>
-                <a href="https://beresidences.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
-            </div>
-            <div class="company-card reveal stagger-6">
-                <div class="company-icon">
-                    <img src="components/Wee Comm Developers Inc..webp" alt="Wee Comm Developers Inc.">
+                <div class="company-card reveal stagger-5">
+                    <div class="company-icon">
+                        <img src="components/Be Residences.webp" alt="Be Residences">
+                    </div>
+                    <h3>Be Residences</h3>
+                    <p>Elevating urban living with innovative design and resort-style amenities.</p>
+                    <a href="https://beresidences.com/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
                 </div>
-                <h3>Wee Comm Developers Inc.</h3>
-                <p>166 A. Mabini St., Brgy. Addition Hills San Juan Manila, Philippines 1500</p>
-                <a href="https://weecomm.ph/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Developer →</a>
+                <div class="company-card reveal stagger-6">
+                    <div class="company-icon">
+                        <img src="components/Wee Comm Developers Inc..webp" alt="Wee Comm Developers Inc.">
+                    </div>
+                    <h3>Wee Community</h3>
+                    <p>Multi-award winning developer known for unique concepts and premium builds.</p>
+                    <a href="https://weecomm.ph/" target="_blank" rel="noopener noreferrer" class="company-link">Visit Website →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2844,42 +393,44 @@
     </div>
 
     <section class="news" id="news">
-        <div class="section-header reveal">
-            <span class="section-label">News</span>
-            <h2 class="section-title">Latest Updates</h2>
-        </div>
-        <div class="news-grid">
-            <div class="news-card reveal stagger-1">
-                <div class="news-image">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Bangkok real estate summit">
-                    <span class="news-category">Real Estate</span>
-                </div>
-                <div class="news-content">
-                    <p class="news-date">Jul 17, 2023</p>
-                    <h4 class="news-title">Bangkok real estate summit to open dollar-earning chances for Filipino dealers, brokers</h4>
-                    <p class="news-excerpt">Bangkok real estate summit opens dollar-earning chances for Filipino dealers and brokers, creating new opportunities across Southeast Asia.</p>
-                </div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Media & Insights</span>
+                <h2 class="section-title">Latest Updates</h2>
             </div>
-            <div class="news-card reveal stagger-2">
-                <div class="news-image">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="ASEAN Real Estate Summit">
-                    <span class="news-category">ASEAN</span>
+            <div class="news-grid">
+                <div class="news-card reveal stagger-1">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Bangkok summit">
+                        <span class="news-category">International</span>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jul 17, 2023</p>
+                        <h4 class="news-title">Bangkok summit to open dollar-earning chances for brokers</h4>
+                        <p class="news-excerpt">Expanding the Filipino real estate expertise across ASEAN borders through the Bangkok summit.</p>
+                    </div>
                 </div>
-                <div class="news-content">
-                    <p class="news-date">Jul 17, 2023</p>
-                    <h4 class="news-title">ASEAN Real Estate Summit by FilipinoHomes.com</h4>
-                    <p class="news-excerpt">Anthony Leuterio revolutionized the real estate industry through PropTech and digital marketing at the ASEAN Real Estate Summit in Asia.</p>
+                <div class="news-card reveal stagger-2">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="ASEAN Real Estate Summit">
+                        <span class="news-category">Technology</span>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jul 17, 2023</p>
+                        <h4 class="news-title">ASEAN Real Estate Summit by FilipinoHomes.com</h4>
+                        <p class="news-excerpt">Unlocking the power of PropTech and AI in the ASEAN real estate market.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="news-card reveal stagger-3">
-                <div class="news-image">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="International Expansion">
-                    <span class="news-category">Global</span>
-                </div>
-                <div class="news-content">
-                    <p class="news-date">Jun 5, 2023</p>
-                    <h4 class="news-title">FilipinoHomes.com Expands to International Markets</h4>
-                    <p class="news-excerpt">FilipinoHomes.com reaches OFWs worldwide, making property investment back home easier and more accessible than ever before.</p>
+                <div class="news-card reveal stagger-3">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" alt="International Expansion">
+                        <span class="news-category">Strategy</span>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">Jun 5, 2023</p>
+                        <h4 class="news-title">FilipinoHomes.com Expands to International Markets</h4>
+                        <p class="news-excerpt">Bringing Philippine property investment closer to OFWs globally.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2892,47 +443,88 @@
     </div>
 
     <section class="awards" id="awards">
-        <div class="section-header reveal">
-            <span class="section-label">Recognition</span>
-            <h2 class="section-title">Awards & Honors</h2>
-        </div>
-        <div class="awards-showcase">
-            <div class="awards-grid">
-                <div class="award-card reveal stagger-1">
-                    <span class="award-year">2023</span>
-                    <div class="award-icon">🏆</div>
-                    <h4>Most Outstanding Real Estate Broker of the Year</h4>
-                    <span class="award-org">Philippine Real Estate Awards</span>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">A Legacy of Excellence</span>
+                <h2 class="section-title">Major Recognitions</h2>
+            </div>
+            
+            <div class="awards-timeline">
+                <div class="award-item reveal-left">
+                    <div class="award-year-tag">2024</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">🌍</div>
+                        <div class="award-text">
+                            <h4>International REALTOR® of the Year</h4>
+                            <p>Global Real Estate Excellence Board</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="award-card reveal stagger-2">
-                    <span class="award-year">2014</span>
-                    <div class="award-icon">💎</div>
-                    <h4>Most Promising Company (APEA)</h4>
-                    <span class="award-org">Asia Pacific Entrepreneurship Awards</span>
+
+                <div class="award-item reveal-right">
+                    <div class="award-year-tag">2023</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">🏆</div>
+                        <div class="award-text">
+                            <h4>Most Outstanding Real Estate Broker</h4>
+                            <p>National Property Awards Philippines</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="award-card reveal stagger-3">
-                    <span class="award-year">2021</span>
-                    <div class="award-icon">⭐</div>
-                    <h4>Best Real Estate Brand of the Philippines</h4>
-                    <span class="award-org">National Real Estate Honors</span>
+
+                <div class="award-item reveal-left">
+                    <div class="award-year-tag">2021</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">⭐</div>
+                        <div class="award-text">
+                            <h4>Best Real Estate Brand</h4>
+                            <p>Property Excellence Awards</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="award-card reveal stagger-4">
-                    <span class="award-year">2020</span>
-                    <div class="award-icon">🎖️</div>
-                    <h4>Entrepreneur of the Year — Real Estate</h4>
-                    <span class="award-org">Asia CEO Awards</span>
+
+                <div class="award-item reveal-right">
+                    <div class="award-year-tag">2020</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">🎖️</div>
+                        <div class="award-text">
+                            <h4>Entrepreneur of the Year</h4>
+                            <p>Asia CEO Awards</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="award-card reveal stagger-5">
-                    <span class="award-year">2019</span>
-                    <div class="award-icon">🎤</div>
-                    <h4>Top Motivational Speaker in Real Estate</h4>
-                    <span class="award-org">Philippine Motivators Guild</span>
+
+                <div class="award-item reveal-left">
+                    <div class="award-year-tag">2019</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">🎤</div>
+                        <div class="award-text">
+                            <h4>Top Motivational Speaker</h4>
+                            <p>Real Estate Motivators PH</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="award-card reveal stagger-6">
-                    <span class="award-year">2018</span>
-                    <div class="award-icon">🌟</div>
-                    <h4>Most Influential Real Estate Personality</h4>
-                    <span class="award-org">Property Report PH</span>
+
+                <div class="award-item reveal-right">
+                    <div class="award-year-tag">2018</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">🌟</div>
+                        <div class="award-text">
+                            <h4>Most Influential Personality</h4>
+                            <p>Property Report PH</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="award-item reveal-left">
+                    <div class="award-year-tag">2014</div>
+                    <div class="award-content-box">
+                        <div class="award-icon-modern">💎</div>
+                        <div class="award-text">
+                            <h4>Most Promising Company (APEA)</h4>
+                            <p>Asia Pacific Entrepreneurship Awards</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2945,72 +537,126 @@
     </div>
 
     <section class="credentials" id="credentials">
-        <div class="section-header reveal">
-            <span class="section-label">Global Education</span>
-            <h2 class="section-title">Executive Credentials</h2>
-        </div>
-        <div class="credentials-grid">
-            <div class="credential-card reveal stagger-1">
-                <div class="credential-icon">🎓</div>
-                <div class="credential-info">
-                    <h4>Disruptive Strategy & AI</h4>
-                    <p>Harvard Business School Online</p>
-                    <span class="credential-year">2021-2025</span>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Global Education</span>
+                <h2 class="section-title">Executive Credentials</h2>
+            </div>
+            
+            <div class="credentials-group harvard-group">
+                <div class="group-header reveal">
+                    <img src="components/harvard-logo.png" alt="Harvard University" class="group-logo">
+                    <div class="group-info">
+                        <h3>Harvard Business School Online</h3>
+                        <p>Executive Education & Strategic Leadership</p>
+                    </div>
+                </div>
+                <div class="credentials-grid">
+                    <div class="credential-card harvard-card reveal stagger-1">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>Creating Brand Value</h4>
+                            <span class="credential-year">2025</span>
+                        </div>
+                    </div>
+                    <div class="credential-card harvard-card reveal stagger-2">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>AI Essentials for Business</h4>
+                            <span class="credential-year">2025</span>
+                        </div>
+                    </div>
+                    <div class="credential-card harvard-card reveal stagger-3">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>Digital Marketing Strategy</h4>
+                            <span class="credential-year">2024</span>
+                        </div>
+                    </div>
+                    <div class="credential-card harvard-card reveal stagger-4">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>Sustainable Business Strategy</h4>
+                            <span class="credential-year">2022</span>
+                        </div>
+                    </div>
+                    <div class="credential-card harvard-card reveal stagger-5">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>Disruptive Strategy</h4>
+                            <span class="credential-year">2021</span>
+                        </div>
+                    </div>
+                    <div class="credential-card harvard-card reveal stagger-6">
+                        <div class="credential-icon">
+                            <img src="components/harvard-logo.png" alt="Harvard University">
+                        </div>
+                        <div class="credential-content">
+                            <h4>Strategy Execution</h4>
+                            <span class="credential-year">2021</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="credential-card reveal stagger-2">
-                <div class="credential-icon">🏛️</div>
-                <div class="credential-info">
-                    <h4>Digital Business Strategy</h4>
-                    <p>MIT Sloan School of Management</p>
-                    <span class="credential-year">2019</span>
+
+            <div class="credentials-group">
+                <div class="group-header reveal">
+                    <div class="group-info">
+                        <h3>Additional Academic & Professional Honors</h3>
+                        <p>Global Leadership & Industry Certification</p>
+                    </div>
                 </div>
-            </div>
-            <div class="credential-card reveal stagger-3">
-                <div class="credential-icon">🦁</div>
-                <div class="credential-info">
-                    <h4>Digital Marketing Strategy</h4>
-                    <p>University of Oxford (Saïd)</p>
-                    <span class="credential-year">2019</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-4">
-                <div class="credential-icon">📜</div>
-                <div class="credential-info">
-                    <h4>Licensed Real Estate Broker</h4>
-                    <p>Professional Regulation Commission</p>
-                    <span class="credential-year">PRC CERTIFIED</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-5">
-                <div class="credential-icon">📊</div>
-                <div class="credential-info">
-                    <h4>Social Media Marketing</h4>
-                    <p>HubSpot Academy</p>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-6">
-                <div class="credential-icon">🏗️</div>
-                <div class="credential-info">
-                    <h4>PropTech Innovation Certificate</h4>
-                    <p>ASEAN PropTech Forum</p>
-                    <span class="credential-year">2023</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-7">
-                <div class="credential-icon">🎓</div>
-                <div class="credential-info">
-                    <h4>Entrepreneurship Leadership Program</h4>
-                    <p>Asian Institute of Management</p>
-                    <span class="credential-year">2019</span>
-                </div>
-            </div>
-            <div class="credential-card reveal stagger-8">
-                <div class="credential-icon">💰</div>
-                <div class="credential-info">
-                    <h4>Real Estate Investment Strategist</h4>
-                    <p>Philippine Real Estate Academy</p>
-                    <span class="credential-year">2020</span>
+                <div class="credentials-grid">
+                    <div class="credential-card reveal stagger-1">
+                        <div class="credential-icon">💻</div>
+                        <div class="credential-content">
+                            <h4>Digital Business Strategy</h4>
+                            <p>MIT Sloan School of Management</p>
+                            <span class="credential-year">2019</span>
+                        </div>
+                    </div>
+                    <div class="credential-card reveal stagger-2">
+                        <div class="credential-icon">📚</div>
+                        <div class="credential-content">
+                            <h4>Oxford Digital Marketing</h4>
+                            <p>University of Oxford</p>
+                            <span class="credential-year">2019</span>
+                        </div>
+                    </div>
+                    <div class="credential-card reveal stagger-3">
+                        <div class="credential-icon">👥</div>
+                        <div class="credential-content">
+                            <h4>Entrepreneurship Leadership</h4>
+                            <p>Asian Institute of Management</p>
+                            <span class="credential-year">2019</span>
+                        </div>
+                    </div>
+                    <div class="credential-card reveal stagger-4">
+                        <div class="credential-icon">📜</div>
+                        <div class="credential-content">
+                            <h4>Licensed Real Estate Broker</h4>
+                            <p>Professional Regulation Commission</p>
+                            <span class="credential-year">PRC Certified</span>
+                        </div>
+                    </div>
+                    <div class="credential-card reveal stagger-5">
+                        <div class="credential-icon">🎓</div>
+                        <div class="credential-content">
+                            <h4>Bachelor's Degree</h4>
+                            <p>University of San Jose-Recoletos</p>
+                            <span class="credential-year">1992</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3023,70 +669,63 @@
     </div>
 
     <section class="contact" id="contact">
-        <div class="contact-bg-orb contact-bg-orb-1"></div>
-        <div class="contact-bg-orb contact-bg-orb-2"></div>
-        <div class="contact-wrapper">
-            <div class="contact-info reveal-left">
-                <h3>Let's Work Together</h3>
-                <p>Whether you're looking to buy, sell, invest in real estate, or book Anthony as a speaker — reach out and let's make it happen.</p>
-                <div class="contact-details">
-                    <div class="contact-item reveal stagger-1">
-                        <div class="contact-item-icon">📍</div>
-                        <div>
-                            <h5>Office</h5>
-                            <p>Cebu City, Philippines</p>
+        <div class="container">
+            <div class="contact-bg-orb contact-bg-orb-1"></div>
+            <div class="contact-bg-orb contact-bg-orb-2"></div>
+            <div class="contact-wrapper">
+                <div class="contact-info reveal-left">
+                    <h3>Let's Work Together</h3>
+                    <p>Ready to revolutionize your real estate journey? Contact Anthony for partnerships, speaking engagements, or property consultations.</p>
+                    <div class="contact-details">
+                        <div class="contact-item reveal stagger-1">
+                            <div class="contact-item-icon">📍</div>
+                            <div>
+                                <h5>Headquarters</h5>
+                                <p>Cebu City, Philippines</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item reveal stagger-2">
-                        <div class="contact-item-icon">📞</div>
-                        <div>
-                            <h5>Phone</h5>
-                            <p>+63 (32) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item reveal stagger-3">
-                        <div class="contact-item-icon">✉️</div>
-                        <div>
-                            <h5>Email</h5>
-                            <p>anthony@filipinohomes.com</p>
+                        <div class="contact-item reveal stagger-3">
+                            <div class="contact-item-icon">✉️</div>
+                            <div>
+                                <h5>Email</h5>
+                                <p>anthony@filipinohomes.com</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contact-form reveal-right">
-                <form>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" placeholder="Juan" required>
+                <div class="contact-form reveal-right">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" placeholder="Juan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" placeholder="dela Cruz" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" placeholder="dela Cruz" required>
+                            <label>Email Address</label>
+                            <input type="email" placeholder="juan@email.com" required>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="juan@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Subject</label>
-                        <select required>
-                            <option value="">Select a topic...</option>
-                            <option value="buy">Buy Property</option>
-                            <option value="sell">Sell Property</option>
-                            <option value="invest">Investment</option>
-                            <option value="speaker">Book as Speaker</option>
-                            <option value="partnership">Partnership</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea placeholder="Tell me how I can help you..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                </form>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select required>
+                                <option value="">Select a topic...</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="speaking">Speaking Engagement</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="How can we collaborate?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -3094,206 +733,12 @@
     <footer>
         <p>&copy; 2024 Anthony Leuterio. All Rights Reserved.</p>
         <div class="social-links">
-            <a href="#" class="social-link">📘</a>
-            <a href="#" class="social-link">📸</a>
-            <a href="#" class="social-link">🐦</a>
-            <a href="#" class="social-link">💼</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="Instagram">📸</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
         </div>
     </footer>
 
-    <script>
-        // Theme Toggle Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-
-        document.documentElement.setAttribute('data-theme', currentTheme);
-
-        function toggleTheme() {
-            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        }
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
-        }
-
-        if (themeToggleMobile) {
-            themeToggleMobile.addEventListener('click', toggleTheme);
-        }
-
-        // Mobile Menu Toggle
-        const navToggle = document.getElementById('nav-toggle');
-        const navContainer = document.getElementById('nav-container');
-        const navLinksItems = document.querySelectorAll('.nav-links li a');
-
-        if (navToggle && navContainer) {
-            navToggle.addEventListener('click', () => {
-                navToggle.classList.toggle('active');
-                navContainer.classList.toggle('active');
-                document.body.style.overflow = navContainer.classList.contains('active') ? 'hidden' : '';
-            });
-        }
-
-        // Close mobile menu when a link is clicked
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navToggle && navContainer) {
-                    navToggle.classList.remove('active');
-                    navContainer.classList.remove('active');
-                }
-                document.body.style.overflow = '';
-            });
-        });
-
-        // Simple and fast loading
-        window.addEventListener('DOMContentLoaded', () => {
-            // Hide scroll indicator after delay
-            setTimeout(() => {
-                const scrollIndicator = document.querySelector('.scroll-indicator');
-                if (scrollIndicator) {
-                    scrollIndicator.style.opacity = '0';
-                    scrollIndicator.style.transition = 'opacity 1s ease';
-                }
-            }, 4000);
-        });
-
-        // Custom Cursor
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        
-        if (cursorDot && cursorOutline) {
-            let mouseX = -100, mouseY = -100;
-            let outlineX = -100, outlineY = -100;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                outlineX += (mouseX - outlineX) * 0.15;
-                outlineY += (mouseY - outlineY) * 0.15;
-                
-                cursorDot.style.left = (mouseX - 5) + 'px';
-                cursorDot.style.top = (mouseY - 5) + 'px';
-                cursorOutline.style.left = (outlineX - 22) + 'px';
-                cursorOutline.style.top = (outlineY - 22) + 'px';
-                
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // Hover effect for links and buttons
-            const hoverables = document.querySelectorAll('a, button, .role-tag, .company-card, .news-card, .award-card, .credential-card, .contact-item');
-            hoverables.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOutline.classList.add('hover');
-                    cursorDot.style.transform = 'scale(0.5)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOutline.classList.remove('hover');
-                    cursorDot.style.transform = 'scale(1)';
-                });
-            });
-        }
-
-        // Scroll progress
-        window.addEventListener('scroll', () => {
-            const scrollProgress = document.querySelector('.scroll-progress');
-            if (scrollProgress) {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = (scrollTop / docHeight) * 100;
-                scrollProgress.style.width = progress + '%';
-            }
-            
-            // Nav scroll effect
-            const nav = document.querySelector('nav');
-            if (nav) {
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            }
-        });
-
-        // Reveal on scroll
-        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        function checkReveal() {
-            const windowHeight = window.innerHeight;
-            revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 120) {
-                    el.classList.add('active');
-                }
-            });
-        }
-        window.addEventListener('scroll', checkReveal);
-        checkReveal();
-
-        // Stat counters
-        const statNumbers = document.querySelectorAll('.stat-number');
-        let statsAnimated = false;
-        function animateStats() {
-            if (statsAnimated) return;
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                const sectionTop = statsSection.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (sectionTop < windowHeight - 100) {
-                    statsAnimated = true;
-                    statNumbers.forEach(stat => {
-                        const target = parseInt(stat.getAttribute('data-target'));
-                        let count = 0;
-                        const increment = target / 50;
-                        const updateCount = () => {
-                            count += increment;
-                            if (count < target) {
-                                stat.textContent = Math.floor(count);
-                                setTimeout(updateCount, 40);
-                            } else {
-                                stat.textContent = target;
-                            }
-                        };
-                        updateCount();
-                    });
-                }
-            }
-        }
-        window.addEventListener('scroll', animateStats);
-
-        // Form submit
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const btn = form.querySelector('button');
-                if (btn) {
-                    btn.textContent = 'Sent! ✓';
-                    btn.style.background = '#10b981';
-                    setTimeout(() => {
-                        btn.textContent = 'Send Message';
-                        btn.style.background = '';
-                        form.reset();
-                    }, 3000);
-                }
-            });
-        }
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

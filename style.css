@@ -384,7 +384,8 @@ nav.scrolled {
 .logo {
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 85px;
+    margin-left: 95px;
     text-decoration: none;
     transition: all 0.3s ease;
     z-index: 1001;
@@ -395,7 +396,7 @@ nav.scrolled {
 }
 
 nav.scrolled .logo {
-    height: 50px;
+    height: 65px;
 }
 
 .logo img {

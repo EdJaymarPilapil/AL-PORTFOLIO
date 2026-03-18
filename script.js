@@ -1,3 +1,14 @@
+// Preloader
+window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.classList.add('loaded');
+            document.body.classList.add('preloader-hidden');
+        }, 1800);
+    }
+});
+
 // Theme Toggle Logic
 const themeToggle = document.getElementById('theme-toggle');
 const themeToggleMobile = document.getElementById('theme-toggle-mobile');

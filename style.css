@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --primary: #0a1914;
     --secondary: #112923;
     --accent: #10b981;
@@ -491,12 +491,24 @@ nav.scrolled .logo {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 120px 80px 80px;
+    padding: 180px 80px 80px;
     z-index: 10;
 }
 
 .hero-text-content {
     max-width: 550px;
+    animation: contentFadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-eyebrow {
@@ -520,10 +532,16 @@ nav.scrolled .logo {
 
 .hero-title .highlight {
     background: var(--gradient-glow);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    to { background-position: 200% center; }
 }
 
 .hero-subtitle {
@@ -547,25 +565,24 @@ nav.scrolled .logo {
     background-size: cover;
     background-position: center center;
     position: relative;
+    animation: heroZoom 15s ease-in-out infinite alternate;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%);
+    mask-image: linear-gradient(to right, transparent 0%, black 20%);
+}
+
+@keyframes heroZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
 }
 
 .hero-split-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to right,
-        var(--primary) 0%,
-        transparent 20%
-    );
     z-index: 1;
 }
 
 [data-theme="light"] .hero-split-overlay {
-    background: linear-gradient(
-        to right,
-        var(--primary) 0%,
-        transparent 20%
-    );
+    display: none;
 }
 
 
@@ -2898,6 +2915,180 @@ footer .social-link:hover {
 
     .nav-links a:active {
         color: var(--accent-light);
+    }
+}
+
+/* HERO ENHANCEMENTS */
+.hero-floating-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float 20s infinite ease-in-out alternate;
+}
+
+[data-theme="light"] .floating-shape {
+    opacity: 0.04;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent);
+    top: -100px;
+    left: -100px;
+}
+
+.shape-2 {
+    width: 500px;
+    height: 500px;
+    background: #059669;
+    bottom: -200px;
+    right: 30%;
+    animation-delay: -5s;
+}
+
+.shape-3 {
+    width: 300px;
+    height: 300px;
+    background: #34d399;
+    top: 40%;
+    left: 40%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 12px;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulse-dot 2s infinite cubic-bezier(0.66, 0, 0, 1);
+    vertical-align: middle;
+}
+
+@keyframes pulse-dot {
+    to { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+}
+
+.hero-trust-badges {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+    background: rgba(16, 185, 129, 0.05);
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+}
+
+[data-theme="light"] .hero-trust-badges {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(15, 23, 42, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.trust-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.trust-badge.divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .trust-badge.divider {
+    background: rgba(15, 23, 42, 0.1);
+}
+
+.trust-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.trust-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.hero-image-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, var(--primary) 100%);
+    opacity: 0.8;
+    z-index: 2;
+    pointer-events: none;
+}
+
+[data-theme="light"] .hero-image-glow {
+    background: none;
+    opacity: 0;
+}
+
+@media (max-width: 1024px) {
+    .hero-split {
+        flex-direction: column;
+    }
+    
+    .hero-split-left {
+        padding: 140px 30px 60px;
+        flex: none;
+        background: transparent;
+        z-index: 10;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .hero-eyebrow {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-trust-badges {
+        justify-content: center;
+    }
+
+    .hero-split-right {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0.3;
+        -webkit-mask-image: linear-gradient(to top, transparent 0%, black 40%);
+        mask-image: linear-gradient(to top, transparent 0%, black 40%);
+    }
+    
+    .hero-split-overlay {
+        display: none;
+    }
+
+    [data-theme="light"] .hero-split-right {
+        opacity: 0.6;
     }
 }
 

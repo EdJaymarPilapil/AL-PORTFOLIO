@@ -139,17 +139,90 @@ h2 em{font-style:italic;color:var(--gold)}
 .coaching-body p{font-size:14px;color:var(--gray);line-height:1.7}
 
 /* ========== ECOSYSTEM — HORIZONTAL PANELS ========== */
-.ecosystem-section{padding:clamp(48px,6vw,80px) 0;background:var(--bg)}
+.ecosystem-section{padding:clamp(60px,10vw,120px) 0;background:var(--bg)}
 .ecosystem-header{max-width:var(--content-max);margin:0 auto 48px;padding:0 var(--side-pad)}
-.hscroll-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;gap:24px;padding:0 max(var(--side-pad), calc((100% - var(--content-max)) / 2 + var(--side-pad)))}
+.hscroll-track{display:flex;flex-wrap:wrap;justify-content:center;gap:64px 32px;padding:60px var(--side-pad)}
 .hscroll-track::-webkit-scrollbar{display:none}
-.hscroll-panel{min-width:min(85vw,400px);scroll-snap-align:start;background:var(--card);border:1px solid var(--border);border-radius:20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;padding:40px;flex-shrink:0;transition:all .4s var(--ease)}
-.hscroll-panel:hover{border-color:rgba(201,168,76,.3);box-shadow:0 0 60px rgba(201,168,76,.06)}
-.panel-visual{width:100px;height:100px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border-radius:16px;padding:16px}
-[data-theme="light"] .panel-visual{background:rgba(0,0,0,.04)}
+
+.hscroll-panel{
+    width: 360px;
+    background:rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    border:1px solid var(--border);
+    border-radius:32px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:16px;
+    padding:60px 32px 32px;
+    transition:all .5s var(--ease);
+    position:relative;
+    margin-top:50px;
+}
+
+.hscroll-panel::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(201,168,76,0.1) 0%, transparent 60%);
+    opacity:0;
+    transition:opacity .5s var(--ease);
+    pointer-events:none;
+    border-radius:inherit;
+}
+
+.hscroll-panel:hover::before{opacity:1}
+
+.hscroll-panel:hover{
+    border-color:rgba(201,168,76,.3);
+    transform:translateY(-10px);
+    background:rgba(255,255,255,0.04);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+}
+
+.panel-visual{
+    width:100px;
+    height:100px;
+    position:absolute;
+    top:-50px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    transition:all .5s var(--ease);
+    z-index:2;
+}
+
+.hscroll-panel:hover .panel-visual{
+    border-color:var(--gold);
+    transform:translateX(-50%) translateY(-5px) scale(1.05);
+    box-shadow:0 15px 40px rgba(201,168,76,0.2);
+}
+
 .panel-visual img{max-width:100%;max-height:100%;object-fit:contain}
-.panel-info h3{font-family:var(--serif);font-size:26px;margin-bottom:10px}
-.panel-info p{font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:18px}
+
+.panel-info{display:flex;flex-direction:column;align-items:center;gap:12px}
+.panel-info h3{font-family:var(--serif);font-size:24px;color:var(--white)}
+.panel-info p{font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:8px}
+
+.panel-info .text-link{
+    opacity:0;
+    transform:translateY(10px);
+    transition:all .4s var(--ease);
+}
+
+.hscroll-panel:hover .text-link{
+    opacity:1;
+    transform:translateY(0);
+}
+
 .hscroll-nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:28px var(--side-pad) 0}
 .hscroll-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--white);font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .3s}
 .hscroll-btn:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
@@ -251,6 +324,10 @@ footer span{font-size:12px;color:var(--dim)}
 }
 @media(max-width:768px){
     .coaching-grid{grid-template-columns:1fr}
+    .hscroll-track{padding:40px 20px;gap:64px 20px}
+    .hscroll-panel{width:100%;max-width:360px;padding:48px 24px 32px;text-align:center;margin-top:35px}
+    .panel-visual{width:70px;height:70px;top:-35px;padding:12px;border-radius:16px}
+    .panel-info .text-link{opacity:1;transform:none}
     nav{padding:14px 20px}
     .nav-outer.scrolled nav{padding:10px 20px}
     .nav-center{position:fixed;top:0;right:-100%;width:260px;height:100vh;background:var(--bg);flex-direction:column;padding:80px 24px;gap:0;transition:right .4s var(--ease);border-left:1px solid var(--border);z-index:999}

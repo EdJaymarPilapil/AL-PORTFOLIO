@@ -90,70 +90,28 @@ function animateCount(el, target) {
     requestAnimationFrame(tick);
 }
 
-// --- Horizontal Scroll Carousel ---
-const track = document.getElementById('hscrollTrack');
-const panels = track ? track.querySelectorAll('.hscroll-panel') : [];
-const dotsContainer = document.getElementById('hscrollDots');
-const prevBtn = document.getElementById('hscrollPrev');
-const nextBtn = document.getElementById('hscrollNext');
-
-if (track && panels.length > 0) {
-    // Create dots
-    panels.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'hscroll-dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => scrollToPanel(i));
-        dotsContainer.appendChild(dot);
-    });
-
-    function scrollToPanel(idx) {
-        panels[idx]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-    }
-
-    prevBtn?.addEventListener('click', () => {
-        const currentIdx = getCurrentPanel();
-        if (currentIdx > 0) scrollToPanel(currentIdx - 1);
-    });
-    nextBtn?.addEventListener('click', () => {
-        const currentIdx = getCurrentPanel();
-        if (currentIdx < panels.length - 1) scrollToPanel(currentIdx + 1);
-    });
-
-    function getCurrentPanel() {
-        const trackRect = track.getBoundingClientRect();
-        let closest = 0, minDist = Infinity;
-        panels.forEach((p, i) => {
-            const dist = Math.abs(p.getBoundingClientRect().left - trackRect.left);
-            if (dist < minDist) { minDist = dist; closest = i; }
-        });
-        return closest;
-    }
-
-    track.addEventListener('scroll', () => {
-        const idx = getCurrentPanel();
-        dotsContainer.querySelectorAll('.hscroll-dot').forEach((d, i) => {
-            d.classList.toggle('active', i === idx);
-        });
-    }, { passive: true });
-}
-
-// --- Award tile hover effects ---
-document.querySelectorAll('.award-tile').forEach(tile => {
+// --- Award tile & Ecosystem panel hover effects ---
+document.querySelectorAll('.award-tile, .hscroll-panel').forEach(tile => {
     tile.addEventListener('mousemove', e => {
         const r = tile.getBoundingClientRect();
         const px = e.clientX - r.left;
         const py = e.clientY - r.top;
-        const x = px / r.width - 0.5;
-        const y = py / r.height - 0.5;
         
         tile.style.setProperty('--mouse-x', `${px}px`);
         tile.style.setProperty('--mouse-y', `${py}px`);
-        tile.style.setProperty('--rotate-x', `${-y * 8}deg`);
-        tile.style.setProperty('--rotate-y', `${x * 8}deg`);
+        
+        if (tile.classList.contains('award-tile')) {
+            const x = px / r.width - 0.5;
+            const y = py / r.height - 0.5;
+            tile.style.setProperty('--rotate-x', `${-y * 8}deg`);
+            tile.style.setProperty('--rotate-y', `${x * 8}deg`);
+        }
     });
     tile.addEventListener('mouseleave', () => {
-        tile.style.setProperty('--rotate-x', `0deg`);
-        tile.style.setProperty('--rotate-y', `0deg`);
+        if (tile.classList.contains('award-tile')) {
+            tile.style.setProperty('--rotate-x', `0deg`);
+            tile.style.setProperty('--rotate-y', `0deg`);
+        }
     });
 });
 

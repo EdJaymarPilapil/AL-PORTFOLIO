@@ -26,21 +26,32 @@ menuBtn?.addEventListener('click', () => {
     navLinks.classList.toggle('open');
     document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
 });
-document.querySelectorAll('.nav-center a').forEach(a => {
+
+// Optimized Smooth Anchor Scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault();
+        const href = a.getAttribute('href');
+        if (href === "#") return;
+        
         menuBtn?.classList.remove('open');
         navLinks?.classList.remove('open');
         document.body.style.overflow = '';
-        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
-// --- Nav scroll state ---
-let lastY = 0;
+// --- Nav scroll state (Throttled) ---
+let ticking = false;
 window.addEventListener('scroll', () => {
-    document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
-    lastY = window.scrollY;
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
+            ticking = false;
+        });
+        ticking = true;
+    }
 }, { passive: true });
 
 // --- Reveal on scroll ---
@@ -112,14 +123,5 @@ document.querySelectorAll('.award-tile, .hscroll-panel').forEach(tile => {
             tile.style.setProperty('--rotate-x', `0deg`);
             tile.style.setProperty('--rotate-y', `0deg`);
         }
-    });
-});
-
-// --- Smooth anchor scroll ---
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });

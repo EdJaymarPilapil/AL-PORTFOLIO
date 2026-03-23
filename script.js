@@ -42,12 +42,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     });
 });
 
-// --- Nav scroll state (Throttled) ---
+// --- Nav scroll state & Parallax (Throttled) ---
 let ticking = false;
 window.addEventListener('scroll', () => {
     if (!ticking) {
         window.requestAnimationFrame(() => {
             document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
+            document.body.style.setProperty('--scrollY', `${window.scrollY}px`);
             ticking = false;
         });
         ticking = true;
@@ -123,5 +124,21 @@ document.querySelectorAll('.award-tile, .hscroll-panel').forEach(tile => {
             tile.style.setProperty('--rotate-x', `0deg`);
             tile.style.setProperty('--rotate-y', `0deg`);
         }
+    });
+});
+
+
+// --- Magnetic Buttons ---
+document.querySelectorAll('.big-btn, .theme-btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.setProperty('--mag-x', `${x * 0.3}px`);
+        btn.style.setProperty('--mag-y', `${y * 0.3}px`);
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.setProperty('--mag-x', `0px`);
+        btn.style.setProperty('--mag-y', `0px`);
     });
 });

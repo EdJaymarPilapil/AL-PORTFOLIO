@@ -1,9 +1,9 @@
 .hero-logo-strip {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
-  margin: 15px 0;
+  justify-content: space-evenly;
+  flex: 1;
+  margin: 0 40px;
   padding: 10px 0;
   border-top: 1px solid rgba(255,255,255,0.08);
   border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -11,7 +11,7 @@
 }
 
 .trust-logo {
-  height: 24px;
+  height: 44px;
   width: auto;
   opacity: 0.5;
   transition: all 0.4s ease;

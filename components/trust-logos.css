@@ -1,16 +1,39 @@
+.hero-logo-wrapper {
+  overflow: hidden;
+  flex: 1;
+  margin: 0 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 .hero-logo-strip {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  flex: 1;
-  margin: 0 40px;
-  padding: 10px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-shrink: 0;
+  min-width: 100%;
+  gap: 50px;
+  padding-right: 50px;
+  animation: logoScroll 30s linear infinite;
+}
+
+@keyframes logoScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.hero-logo-wrapper:hover .hero-logo-strip {
+  animation-play-state: paused;
 }
 
 .trust-logo {
+  flex-shrink: 0;
   height: 44px;
   width: auto;
   opacity: 0.5;

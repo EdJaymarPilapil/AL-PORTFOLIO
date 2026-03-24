@@ -27,3 +27,26 @@ export const fallbackNews = [
     { id: '2', image_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800', tag: 'Technology', title: 'ASEAN Real Estate Summit by FilipinoHomes.com', published_date: 'Jul 17, 2023', description: 'Unlocking the power of PropTech and AI in ASEAN real estate.' },
     { id: '3', image_url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800', tag: 'Strategy', title: 'FilipinoHomes.com Expands to International Markets', published_date: 'Jun 5, 2023', description: 'Bringing Philippine property investment closer to OFWs globally.' }
 ];
+
+export const fallbackCredentials = [
+    { id: '1', institution: 'Harvard', title: 'Creating Brand Value', organization: 'Harvard Business School Online — 2025', category: 'harvard' },
+    { id: '2', institution: 'Harvard', title: 'AI Essentials for Business', organization: 'Harvard Business School Online — 2025', category: 'harvard' },
+    { id: '3', institution: 'Harvard', title: 'Digital Marketing Strategy', organization: 'Harvard Business School Online — 2024', category: 'harvard' },
+    { id: '4', institution: 'Harvard', title: 'Sustainable Business Strategy', organization: 'Harvard Business School Online — 2022', category: 'harvard' },
+    { id: '5', institution: 'Harvard', title: 'Disruptive Strategy', organization: 'Harvard Business School Online — 2021', category: 'harvard' },
+    { id: '6', institution: 'Harvard', title: 'Strategy Execution', organization: 'Harvard Business School Online — 2021', category: 'harvard' },
+    { id: '7', institution: 'MIT', title: 'Digital Business Strategy', organization: 'MIT Sloan School of Management — 2019', category: 'other' },
+    { id: '8', institution: 'Oxford', title: 'Digital Marketing', organization: 'University of Oxford — 2019', category: 'other' },
+    { id: '9', institution: 'PRC', title: 'Licensed Real Estate Broker', organization: 'Professional Regulation Commission', category: 'other' },
+    { id: '10', institution: 'USJ-R', title: "Bachelor's Degree", organization: 'University of San Jose-Recoletos — 1992', category: 'other' }
+];
+
+export const fallbackAwards = [
+    { id: '1', icon: '🏆', year: '2024', title: 'International REALTOR® of the Year', organization: 'Global Real Estate Excellence Board' },
+    { id: '2', icon: '✨', year: '2023', title: 'Most Outstanding Real Estate Broker', organization: 'National Property Awards PH' },
+    { id: '3', icon: '💎', year: '2021', title: 'Best Real Estate Brand', organization: 'Property Excellence Awards' },
+    { id: '4', icon: '🎖️', year: '2020', title: 'Entrepreneur of the Year', organization: 'Asia CEO Awards' },
+    { id: '5', icon: '🎤', year: '2019', title: 'Top Motivational Speaker', organization: 'Real Estate Motivators PH' },
+    { id: '6', icon: '🌟', year: '2018', title: 'Most Influential Personality', organization: 'Property Report PH' },
+    { id: '7', icon: '📈', year: '2014', title: 'Most Promising Company', organization: 'APEA — Asia Pacific Entrepreneurship Awards' }
+];

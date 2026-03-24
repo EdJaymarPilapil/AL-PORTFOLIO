@@ -5,17 +5,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
 import VanillaTilt from 'vanilla-tilt';
 
-export default function PortfolioClient({ initialCoaching = [], initialEcosystem = [], initialDevelopers = [], initialNews = [] }: {
-  initialCoaching?: any[], initialEcosystem?: any[], initialDevelopers?: any[], initialNews?: any[]
+export default function PortfolioClient({ initialCoaching = [], initialEcosystem = [], initialDevelopers = [], initialNews = [], initialCredentials = [], initialAwards = [] }: {
+  initialCoaching?: any[], initialEcosystem?: any[], initialDevelopers?: any[], initialNews?: any[], initialCredentials?: any[], initialAwards?: any[]
 }) {
   const preloaderRef = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
+  const lenisRef = useRef<any>(null);
 
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
 
-    // Dynamic Lenis import for SSR safety
     import('@studio-freight/lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({
           duration: 1.2,
@@ -28,18 +28,29 @@ export default function PortfolioClient({ initialCoaching = [], initialEcosystem
           infinite: false,
       });
 
+      lenisRef.current = lenis;
+
       const mainNav = document.getElementById('mainNav');
 
       lenis.on('scroll', ({ scroll }: { scroll: number }) => {
           if (mainNav) mainNav.classList.toggle('scrolled', scroll > 80);
       });
 
-      // Integrate with GSAP ScrollTrigger
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add((time) => {
           lenis.raf(time * 1000);
       });
       gsap.ticker.lagSmoothing(0);
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector((anchor as HTMLAnchorElement).getAttribute('href') || '');
+          if (target && lenisRef.current) {
+            lenisRef.current.scrollTo(target as HTMLElement, { duration: 1.5, offset: -80 });
+          }
+        });
+      });
     });
 
     // Theme logic
@@ -122,7 +133,7 @@ export default function PortfolioClient({ initialCoaching = [], initialEcosystem
     revealEls.forEach(el => revealObs.observe(el));
 
     // VanillaTilt
-    VanillaTilt.init(document.querySelectorAll(".coaching-card, .dev-card, .news-card") as any, {
+    VanillaTilt.init(document.querySelectorAll(".dev-card, .news-card") as any, {
         max: 8, speed: 400, glare: true, "max-glare": 0.15, scale: 1.02
     });
   }, []);
@@ -322,36 +333,13 @@ export default function PortfolioClient({ initialCoaching = [], initialEcosystem
                       <span className="creds-institution-badge harvard-badge">Harvard Business School Online</span>
                   </div>
                   <div className="creds-grid">
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>Creating Brand Value</h4>
-                          <p>Harvard Business School Online — 2025</p>
-                      </div>
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>AI Essentials for Business</h4>
-                          <p>Harvard Business School Online — 2025</p>
-                      </div>
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>Digital Marketing Strategy</h4>
-                          <p>Harvard Business School Online — 2024</p>
-                      </div>
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>Sustainable Business Strategy</h4>
-                          <p>Harvard Business School Online — 2022</p>
-                      </div>
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>Disruptive Strategy</h4>
-                          <p>Harvard Business School Online — 2021</p>
-                      </div>
-                      <div className="cred-slide cred-harvard">
-                          <div className="cred-badge">Harvard</div>
-                          <h4>Strategy Execution</h4>
-                          <p>Harvard Business School Online — 2021</p>
-                      </div>
+                      {initialCredentials.filter(c => c.category === 'harvard').map((cred) => (
+                          <div key={cred.id} className="cred-slide cred-harvard">
+                              <div className="cred-badge">{cred.institution}</div>
+                              <h4>{cred.title}</h4>
+                              <p>{cred.organization}</p>
+                          </div>
+                      ))}
                   </div>
               </div>
 
@@ -360,26 +348,13 @@ export default function PortfolioClient({ initialCoaching = [], initialEcosystem
                       <span className="creds-institution-badge">Other Institutions & Licenses</span>
                   </div>
                   <div className="creds-grid">
-                      <div className="cred-slide">
-                          <div className="cred-badge">MIT</div>
-                          <h4>Digital Business Strategy</h4>
-                          <p>MIT Sloan School of Management — 2019</p>
-                      </div>
-                      <div className="cred-slide">
-                          <div className="cred-badge">Oxford</div>
-                          <h4>Digital Marketing</h4>
-                          <p>University of Oxford — 2019</p>
-                      </div>
-                      <div className="cred-slide">
-                          <div className="cred-badge">PRC</div>
-                          <h4>Licensed Real Estate Broker</h4>
-                          <p>Professional Regulation Commission</p>
-                      </div>
-                      <div className="cred-slide">
-                          <div className="cred-badge">USJ-R</div>
-                          <h4>Bachelor's Degree</h4>
-                          <p>University of San Jose-Recoletos — 1992</p>
-                      </div>
+                      {initialCredentials.filter(c => c.category === 'other').map((cred) => (
+                          <div key={cred.id} className="cred-slide">
+                              <div className="cred-badge">{cred.institution}</div>
+                              <h4>{cred.title}</h4>
+                              <p>{cred.organization}</p>
+                          </div>
+                      ))}
                   </div>
               </div>
           </div>
@@ -392,48 +367,14 @@ export default function PortfolioClient({ initialCoaching = [], initialEcosystem
                   <h2>Awards &<br/><em>Recognition</em></h2>
               </div>
               <div className="awards-wall">
-                  <div className="award-tile">
-                      <div className="award-icon">🏆</div>
-                      <span className="award-year">2024</span>
-                      <h4>International REALTOR® of the Year</h4>
-                      <p>Global Real Estate Excellence Board</p>
-                  </div>
-                  <div className="award-tile featured">
-                      <div className="award-icon">✨</div>
-                      <span className="award-year">2023</span>
-                      <h4>Most Outstanding Real Estate Broker</h4>
-                      <p>National Property Awards PH</p>
-                  </div>
-                  <div className="award-tile">
-                      <div className="award-icon">💎</div>
-                      <span className="award-year">2021</span>
-                      <h4>Best Real Estate Brand</h4>
-                      <p>Property Excellence Awards</p>
-                  </div>
-                  <div className="award-tile">
-                      <div className="award-icon">🎖️</div>
-                      <span className="award-year">2020</span>
-                      <h4>Entrepreneur of the Year</h4>
-                      <p>Asia CEO Awards</p>
-                  </div>
-                  <div className="award-tile featured">
-                      <div className="award-icon">🎤</div>
-                      <span className="award-year">2019</span>
-                      <h4>Top Motivational Speaker</h4>
-                      <p>Real Estate Motivators PH</p>
-                  </div>
-                  <div className="award-tile">
-                      <div className="award-icon">🌟</div>
-                      <span className="award-year">2018</span>
-                      <h4>Most Influential Personality</h4>
-                      <p>Property Report PH</p>
-                  </div>
-                  <div className="award-tile">
-                      <div className="award-icon">📈</div>
-                      <span className="award-year">2014</span>
-                      <h4>Most Promising Company</h4>
-                      <p>APEA — Asia Pacific Entrepreneurship Awards</p>
-                  </div>
+                  {initialAwards.map((award, index) => (
+                      <div key={award.id} className={`award-tile ${index === 1 || index === 4 ? 'featured' : ''}`}>
+                          <div className="award-icon">{award.icon}</div>
+                          <span className="award-year">{award.year}</span>
+                          <h4>{award.title}</h4>
+                          <p>{award.organization}</p>
+                      </div>
+                  ))}
               </div>
           </div>
       </section>

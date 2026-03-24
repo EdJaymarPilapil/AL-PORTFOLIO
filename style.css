@@ -121,10 +121,10 @@ h2 em{font-style:italic;color:var(--gold)}
 
 /* ========== ABOUT — SPLIT SCREEN ========== */
 .split-section{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;max-width:var(--content-max);margin:0 auto}
-.split-left{position:relative;overflow:hidden}
-.split-img-wrapper{position:sticky;top:0;height:100vh}
+.split-left{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:flex-end}
+.split-img-wrapper{position:sticky;top:20px;height:calc(100vh - 40px);width:95%;padding:40px}
 .split-img-wrapper img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.split-right{padding:0 clamp(32px,5vw,80px) clamp(48px,8vw,120px);display:flex;flex-direction:column;justify-content:flex-start;background:var(--bg);padding-top:clamp(24px,4vw,40px)}
+.split-right{padding:0 clamp(32px,5vw,80px) clamp(48px,8vw,120px);display:flex;flex-direction:column;justify-content:flex-start;background:var(--bg);padding-top:120px}
 .split-right .lead{font-size:18px;font-weight:500;line-height:1.7;margin-bottom:18px}
 .split-right p{font-size:15px;color:var(--gray);line-height:1.8;margin-bottom:18px}
 .split-right blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--gold);line-height:1.6;padding-left:24px;border-left:3px solid var(--gold);margin:28px 0}
@@ -133,8 +133,7 @@ h2 em{font-style:italic;color:var(--gold)}
 .coaching-section{padding:clamp(60px,10vw,120px) 0;background:var(--bg2)}
 .coaching-header{max-width:var(--content-max);margin:0 auto 60px;padding:0 var(--side-pad);text-align:center}
 .coaching-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;max-width:var(--content-max);margin:0 auto;padding:0 var(--side-pad)}
-.coaching-card{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;transition:all .5s var(--ease);display:flex;flex-direction:column}
-.coaching-card:hover{transform:translateY(-10px);border-color:var(--gold);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.coaching-card{background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transform-style:flat!important;perspective:none!important}
 .coaching-img{width:100%;height:300px;overflow:hidden;position:relative}
 .coaching-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .coaching-card:hover .coaching-img img{transform:scale(1.1)}
@@ -342,7 +341,8 @@ footer span{font-size:12px;color:var(--dim)}
 /* ========== RESPONSIVE ========== */
 @media(max-width:1024px){
     .split-section{grid-template-columns:1fr}
-    .split-left{height:50vh}
+    .split-left{height:auto;padding:20px 0}
+    .split-img-wrapper{position:relative;height:50vh;padding:0}
     .split-img-wrapper{position:relative;height:50vh}
     .numbers-grid{grid-template-columns:repeat(2,1fr)}
     .dev-grid{grid-template-columns:repeat(2,1fr)}

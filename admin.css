@@ -1,0 +1,142 @@
+/* ========== ADMIN STYLING SPECIFICS ========== */
+body {
+    background: var(--bg);
+}
+
+.admin-container {
+    min-height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: clamp(60px, 8vw, 100px) var(--side-pad);
+    display: flex;
+    flex-direction: column;
+}
+
+#auth-section {
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 60px 48px;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-box::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at top right, rgba(201,168,76,0.1) 0%, transparent 60%);
+    pointer-events:none;
+}
+
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.tab-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 16px;
+    color: var(--gray);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tab-btn:hover {
+    border-color: rgba(201,168,76,0.5);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.tab-btn:hover::before {
+    opacity: 1;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8922e 100%);
+    color: var(--bg);
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    transform: translateY(-2px);
+}
+
+.tab-btn.active::before {
+    display: none;
+}
+
+.tab-btn .tab-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.tab-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.tab-content h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+input[type="file"] {
+    cursor: pointer;
+    font-family: var(--sans);
+}
+input[type="file"]::-webkit-file-upload-button {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-right: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+input[type="file"]::-webkit-file-upload-button:hover {
+    filter: brightness(1.2);
+}

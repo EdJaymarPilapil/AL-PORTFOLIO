@@ -11,12 +11,24 @@
 </head>
 <body>
     <!-- Preloader -->
-    <div class="preloader" id="preloader">
+    <div class="preloader" id="preloader" onclick="this.classList.add('done')">
         <div class="preloader-inner">
-            <div class="preloader-ring"></div>
-            <span class="preloader-text">AL</span>
+            <span class="preloader-text">ANTHONY LEUTERIO</span>
         </div>
     </div>
+    <script>
+        // Inline failsafe: Ensures preloader hides even if external CDNs completely stall the main script.js
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var p = document.getElementById('preloader');
+                if(p) p.classList.add('done');
+            }, 800);
+        });
+        setTimeout(function() {
+            var p = document.getElementById('preloader');
+            if(p) p.classList.add('done');
+        }, 3000);
+    </script>
     <!-- Fixed Navigation - Minimal -->
     <div class="nav-outer" id="mainNav">
         <nav>
@@ -389,13 +401,21 @@
         <div class="connect-inner">
             <h2 class="connect-headline">Let's Build<br><em>Something</em><br>Extraordinary</h2>
             <p class="connect-sub">Ready to revolutionize your real estate journey?</p>
-            <div class="connect-actions">
-                <a href="mailto:anthony@filipinohomes.com" class="big-btn">anthony@filipinohomes.com</a>
-                <div class="connect-meta">
-                    <span>📍 Cebu City, Philippines</span>
-                    <span>🌐 filipinohomes.com</span>
+            <form class="connect-form" id="contactForm">
+                <div class="form-row">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
                 </div>
-            </div>
+                <textarea id="contactMessage" placeholder="How can we build together?" required></textarea>
+                <div class="form-footer">
+                    <div class="connect-meta">
+                        <span>📍 Cebu City, Philippines</span>
+                        <span>🌐 filipinohomes.com</span>
+                    </div>
+                    <button type="submit" class="big-btn" id="contactSubmit" style="margin-bottom:0; cursor:pointer; background:transparent;">Send Message</button>
+                </div>
+                <div id="contactStatus" class="form-status"></div>
+            </form>
         </div>
     </section>
 
@@ -410,6 +430,12 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

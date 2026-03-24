@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AL Portfolio | Admin Control Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="preloader done" style="display:none;"></div>
+    
+    <!-- LOGIN SCREEN -->
+    <div id="auth-section" class="admin-container">
+        <div class="login-box">
+            <h2 style="margin-bottom:24px; text-align:center;">Admin Access</h2>
+            <form id="loginForm" class="connect-form" style="max-width:400px; width:100%;">
+                <input type="email" id="loginEmail" placeholder="Admin Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="big-btn" id="loginBtn" style="border:none; cursor:pointer;">Authenticate Server</button>
+                <div id="loginError" class="form-status" style="color:red;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard-section" class="admin-container" style="display:none;">
+        <div class="dash-header">
+            <div>
+                <span class="overline">Control Panel</span>
+                <h2 style="margin:0;">Dashboard</h2>
+            </div>
+            <div style="display:flex; align-items:center; gap:24px;">
+                <span id="adminEmail" style="color:var(--gray); font-size:14px;"></span>
+                <button id="logoutBtn" class="text-link" style="background:transparent; border-top:none; border-left:none; border-right:none; cursor:pointer;">Disconnect →</button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tab-coaching">Coaching Grid</button>
+            <button class="tab-btn" data-tab="tab-ecosystem">Ecosystem Panel</button>
+            <button class="tab-btn" data-tab="tab-developers">Dev Partners</button>
+            <button class="tab-btn" data-tab="tab-news">Media News</button>
+        </div>
+
+        <div class="tab-content" id="tab-coaching" style="display:block;">
+            <h3>Add Coaching Card</h3>
+            <p style="color:var(--gray); font-size:13px; margin-bottom:24px;">Automatically uploads image and pushes layout to frontend grid.</p>
+            <form id="form-coaching" class="admin-form connect-form" style="max-width:100%;">
+                <div class="form-row">
+                    <input type="file" id="c-image" accept="image/*" required style="padding-top:12px;">
+                    <input type="text" id="c-badge" placeholder="Badge Text (e.g. Pillar 01)" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="c-title" placeholder="Title" required>
+                    <input type="number" id="c-sort" placeholder="Sort Order" value="0" required>
+                </div>
+                <textarea id="c-desc" placeholder="Card Description" required style="height:80px;"></textarea>
+                <button type="submit" class="big-btn" style="border:none; cursor:pointer;">Publish Coaching Card</button>
+                <div class="form-status"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="tab-ecosystem" style="display:none;">
+            <h3>Add Ecosystem Company</h3>
+            <p style="color:var(--gray); font-size:13px; margin-bottom:24px;">Appears in the horizontal snapping scroll section.</p>
+            <form id="form-ecosystem" class="admin-form connect-form" style="max-width:100%;">
+                <div class="form-row">
+                    <input type="file" id="e-image" accept="image/*" required style="padding-top:12px;">
+                    <input type="text" id="e-name" placeholder="Company Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="url" id="e-url" placeholder="Website URL (https://...)" required>
+                    <input type="number" id="e-sort" placeholder="Sort Order" value="0" required>
+                </div>
+                <textarea id="e-desc" placeholder="Company Description" required style="height:80px;"></textarea>
+                <button type="submit" class="big-btn" style="border:none; cursor:pointer;">Publish Ecosystem</button>
+                <div class="form-status"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="tab-developers" style="display:none;">
+            <h3>Add Trusted Developer</h3>
+            <p style="color:var(--gray); font-size:13px; margin-bottom:24px;">Appears in the grid and marquee tracking strip.</p>
+            <form id="form-developers" class="admin-form connect-form" style="max-width:100%;">
+                <div class="form-row">
+                    <input type="file" id="d-image" accept="image/*" required style="padding-top:12px;">
+                    <input type="text" id="d-name" placeholder="Developer Name" required>
+                </div>
+                <div class="form-row">
+                    <input type="url" id="d-url" placeholder="Website URL (https://...)" required>
+                    <input type="number" id="d-sort" placeholder="Sort Order" value="0" required>
+                </div>
+                <button type="submit" class="big-btn" style="border:none; cursor:pointer;">Publish Developer</button>
+                <div class="form-status"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="tab-news" style="display:none;">
+            <h3>Add News Article</h3>
+            <p style="color:var(--gray); font-size:13px; margin-bottom:24px;">Appears in the dynamic grid cards.</p>
+            <form id="form-news" class="admin-form connect-form" style="max-width:100%;">
+                <div class="form-row">
+                    <input type="file" id="n-image" accept="image/*" required style="padding-top:12px;">
+                    <input type="text" id="n-title" placeholder="Article Headline" required>
+                </div>
+                <div class="form-row">
+                    <input type="text" id="n-tag" placeholder="Tag (e.g. Technology)" required>
+                    <input type="date" id="n-date" required style="color-scheme: dark;">
+                </div>
+                <textarea id="n-desc" placeholder="Article Summary" required style="height:80px;"></textarea>
+                <button type="submit" class="big-btn" style="border:none; cursor:pointer;">Publish Article</button>
+                <div class="form-status"></div>
+            </form>
+        </div>
+
+    </div>
+    
+    <script src="admin.js"></script>
+</body>
+</html>

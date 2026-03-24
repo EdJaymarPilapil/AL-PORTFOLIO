@@ -13,6 +13,18 @@ export default function AdminDashboard() {
       if (!session) window.location.href = '/login';
       else setSession(session);
     });
+
+    const checkUrl = () => {
+      if (window.location.pathname !== '/admin') {
+        window.location.replace('/admin');
+      }
+    };
+
+    checkUrl();
+
+    const interval = setInterval(checkUrl, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleLogout = async () => {

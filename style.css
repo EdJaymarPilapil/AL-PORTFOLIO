@@ -335,8 +335,8 @@ footer span{font-size:12px;color:var(--dim)}
 .footer-links a:hover{color:var(--gold)}
 
 /* ========== REVEAL ========== */
-.reveal-up{opacity:0;transform:translateY(30px);filter:blur(5px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease),filter 1.2s var(--ease)}
-.reveal-up.vis{opacity:1;transform:translateY(0);filter:blur(0)}
+.reveal-up{opacity:0;transform:translateY(30px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.reveal-up.vis{opacity:1;transform:translateY(0)}
 
 /* ========== RESPONSIVE ========== */
 @media(max-width:1024px){

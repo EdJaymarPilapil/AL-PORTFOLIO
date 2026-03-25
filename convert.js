@@ -5,10 +5,13 @@ let html = fs.readFileSync('index.html', 'utf8');
 html = html.replace(/<!DOCTYPE html>[\s\S]*?<body[^>]*>/i, '');
 // Remove all script tags completely
 html = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+// Remove HTML comments
+html = html.replace(/<!--[\s\S]*?-->/g, '');
 html = html.replace(/<\/body>[\s\S]*?<\/html>/i, '');
 
-// Convert class= to className=
-html = html.replace(/class=/g, 'className=');
+// Convert class= to className= (avoid double replacement)
+html = html.replace(/\bclass=/g, 'className=');
+html = html.replace(/classNameName=/g, 'className=');
 // Convert for= to htmlFor=
 html = html.replace(/for=/g, 'htmlFor=');
 // Convert style="background-image:url('...')"
@@ -21,11 +24,28 @@ html = html.replace(/style="[^"]*"/g, (match) => {
 });
 // Self close elements
 html = html.replace(/<(img|input|br|hr)([^>]*?)(?<!\/)>/g, "<$1$2 />");
-// Handle onclick -> onClick
-html = html.replace(/onclick=/g, 'onClick=');
+// Handle onclick -> onClick with arrow function conversion
+html = html.replace(/onclick="([^"]*)"/g, (match, code) => {
+    // Convert this. to e.currentTarget. and wrap in arrow function
+    const convertedCode = code.replace(/this\./g, 'e.currentTarget.');
+    return `onClick={(e) => { ${convertedCode} }}`;
+});
 
 // Fix the SVG inline or weird artifacts
-html = html.replace(/<div className="preloader" id="preloader" onClick="this.classList.add\('done'\)">/, '<div className="preloader" id="preloader" onClick={(e) => e.currentTarget.classList.add(\\'done\\')}>');
+html = html.replace(/<div className="preloader" id="preloader" onClick="this\.classList\.add\('done'\)">/, '<div className="preloader" id="preloader" onClick={(e) => e.currentTarget.classList.add(\'done\')}>');
+
+// Add admin login link to footer
+html = html.replace(/<footer>[\s\S]*?<\/footer>/, `<footer>
+        <div className="footer-inner">
+            <span>© 2024 Anthony Leuterio</span>
+            <div className="footer-links">
+                <a href="https://www.facebook.com/TonLeuterioOfficial" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://www.instagram.com/tonleuterio/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.linkedin.com/in/tonleuterio/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="/admin">Admin</a>
+            </div>
+        </div>
+    </footer>`);
 
 const component = `"use client";
 import React, { useEffect, useState } from 'react';
@@ -80,26 +100,24 @@ export default function PortfolioClient({ initialCoaching, initialEcosystem, ini
         });
     }, 500);
 
-    // Advanced GSAP
-    gsap.registerPlugin(ScrollTrigger);
-    const splitElements = document.querySelectorAll('h2, .lead, .connect-headline');
-    splitElements.forEach(el => {
-        if(!el.classList.contains('hero-clip-text')){
-            const type = new SplitType(el as HTMLElement, { types: 'lines, words, chars' });
-            gsap.from(type.chars, {
+    // Number counting animation
+    const numberElements = document.querySelectorAll('.big-number[data-count]');
+    numberElements.forEach((el) => {
+        const target = parseInt(el.getAttribute('data-count') || '0', 10);
+        gsap.fromTo(el, 
+            { innerText: 0 },
+            {
+                innerText: target,
+                duration: 2,
+                ease: 'power2.out',
+                snap: { innerText: 1 },
                 scrollTrigger: {
                     trigger: el,
                     start: 'top 85%',
                     toggleActions: 'play none none reverse'
-                },
-                y: 40,
-                opacity: 0,
-                rotationX: -40,
-                stagger: 0.02,
-                duration: 0.8,
-                ease: 'back.out(1.2)'
-            });
-        }
+                }
+            }
+        );
     });
 
   }, []);

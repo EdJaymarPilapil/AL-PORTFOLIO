@@ -101,7 +101,10 @@ document.getElementById('form-coaching').addEventListener('submit', async (e) =>
         if (error) throw error;
         handleStatus(e.target, 'Successfully published!');
         e.target.reset();
-    } catch(err) { handleStatus(e.target, err.message, true); }
+    } catch(err) { 
+        console.error('Coaching Error:', err);
+        handleStatus(e.target, `Error: ${err.message}${err.hint ? ' - Hint: ' + err.hint : ''}`, true); 
+    }
     finally { btn.textContent = og; }
 });
 

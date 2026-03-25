@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 
 export default function Login() {
@@ -12,6 +13,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [setupComplete, setSetupComplete] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -20,12 +22,22 @@ export default function Login() {
     
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
+        console.log('Session detected, redirecting to admin...');
         localStorage.setItem('admin_setup_complete', 'true');
         setSetupComplete(true);
-        window.location.href = '/admin';
+        router.push('/admin');
       }
     });
-  }, []);
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+            console.log('User signed in:', session.user.email);
+            router.push('/admin');
+        }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,10 +47,12 @@ export default function Login() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     
     if (error) {
+        console.error('Login error:', error.message);
         setError(error.message);
     } else {
+        console.log('Login successful');
         localStorage.setItem('admin_setup_complete', 'true');
-        window.location.href = '/admin';
+        router.push('/admin');
     }
     setLoading(false);
   };
@@ -64,12 +78,14 @@ export default function Login() {
     });
     
     if (error) {
+        console.error('Signup error:', error.message);
         setError(error.message);
     } else {
+        console.log('Signup initiated');
         localStorage.setItem('admin_setup_complete', 'true');
         setSetupComplete(true);
         if (data.session) {
-          window.location.href = '/admin';
+          router.push('/admin');
         } else {
           setSuccess('Account created! Check your email to confirm, then sign in.');
           setIsSignUp(false);

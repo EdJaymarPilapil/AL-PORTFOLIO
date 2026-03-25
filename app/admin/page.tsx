@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import '../../admin.css';
 
@@ -7,29 +8,60 @@ export default function AdminDashboard() {
   const [session, setSession] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('tab-coaching');
   const [loading, setLoading] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) window.location.href = '/login';
-      else setSession(session);
-    });
-
-    const checkUrl = () => {
-      if (window.location.pathname !== '/admin') {
-        window.location.replace('/admin');
-      }
+    console.log('Checking session...');
+    const checkSession = async () => {
+        try {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            if (error) throw error;
+            
+            if (!session) {
+                console.log('No session found, redirecting to login...');
+                router.push('/login');
+            } else {
+                console.log('Session active:', session.user.email);
+                setSession(session);
+            }
+        } catch (err) {
+            console.error('Session check error:', err);
+            router.push('/login');
+        } finally {
+            setAuthChecked(true);
+        }
     };
 
-    checkUrl();
+    checkSession();
 
-    const interval = setInterval(checkUrl, 1000);
+    // Fallback timeout: if still loading after 3 seconds, show fallback
+    const timer = setTimeout(() => {
+        if (!authChecked) {
+            console.log('Auth check taking too long, showing fallback UI');
+            setAuthChecked(true);
+        }
+    }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event, session?.user?.email);
+      if (event === 'SIGNED_IN' && session) {
+        setSession(session);
+      }
+      if (event === 'SIGNED_OUT') {
+        router.push('/login');
+      }
+    });
+
+    return () => {
+        subscription.unsubscribe();
+        clearTimeout(timer);
+    };
+  }, [router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/login';
+    router.push('/login');
   };
 
   const uploadImage = async (file: File) => {
@@ -37,10 +69,13 @@ export default function AdminDashboard() {
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `uploads/${fileName}`;
 
-    const { error: uploadError } = await supabase.storage.from('portfolio_assets').upload(filePath, file);
-    if (uploadError) throw uploadError;
+    const { error: uploadError } = await supabase.storage.from('portfolio_images').upload(filePath, file);
+    if (uploadError) {
+        console.error('Storage Upload Error:', uploadError);
+        throw new Error(`Storage Error: ${uploadError.message}`);
+    }
 
-    const { data } = supabase.storage.from('portfolio_assets').getPublicUrl(filePath);
+    const { data } = supabase.storage.from('portfolio_images').getPublicUrl(filePath);
     return data.publicUrl;
   };
 
@@ -51,16 +86,24 @@ export default function AdminDashboard() {
         const file = e.target['c-image'].files[0];
         const publicUrl = await uploadImage(file);
         
-        await supabase.from('coaching_cards').insert([{
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Current user before insert:', user);
+        
+        const { error } = await supabase.from('coaching_cards').insert([{
+            id: crypto.randomUUID(),
             image_url: publicUrl,
             badge_text: e.target['c-badge'].value,
             title: e.target['c-title'].value,
             sort_order: parseInt(e.target['c-sort'].value),
             description: e.target['c-desc'].value
         }]);
+        if (error) throw error;
         alert('Published Coaching Card successfully!');
         e.target.reset();
-    } catch(err: any) { alert(err.message); }
+    } catch(err: any) { 
+        console.error('RLS/DB Error:', err);
+        alert(`Error: ${err.message}\nDetail: ${err.details || 'None'}\nHint: ${err.hint || 'None'}`); 
+    }
     setLoading(false);
   };
 
@@ -71,16 +114,24 @@ export default function AdminDashboard() {
         const file = e.target['e-image'].files[0];
         const publicUrl = await uploadImage(file);
         
-        await supabase.from('ecosystem_companies').insert([{
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Current user before insert:', user);
+
+        const { error } = await supabase.from('ecosystem_companies').insert([{
+            id: crypto.randomUUID(),
             logo_url: publicUrl,
             name: e.target['e-name'].value,
             website_url: e.target['e-url'].value,
             sort_order: parseInt(e.target['e-sort'].value),
             description: e.target['e-desc'].value
         }]);
+        if (error) throw error;
         alert('Published Ecosystem Company successfully!');
         e.target.reset();
-    } catch(err: any) { alert(err.message); }
+    } catch(err: any) { 
+        console.error('RLS/DB Error:', err);
+        alert(`Error: ${err.message}\nDetail: ${err.details || 'None'}\nHint: ${err.hint || 'None'}`); 
+    }
     setLoading(false);
   };
 
@@ -91,15 +142,23 @@ export default function AdminDashboard() {
         const file = e.target['d-image'].files[0];
         const publicUrl = await uploadImage(file);
         
-        await supabase.from('developers').insert([{
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Current user before insert:', user);
+
+        const { error } = await supabase.from('developers').insert([{
+            id: crypto.randomUUID(),
             logo_url: publicUrl,
             name: e.target['d-name'].value,
             website_url: e.target['d-url'].value,
             sort_order: parseInt(e.target['d-sort'].value)
         }]);
+        if (error) throw error;
         alert('Published Developer successfully!');
         e.target.reset();
-    } catch(err: any) { alert(err.message); }
+    } catch(err: any) { 
+        console.error('RLS/DB Error:', err);
+        alert(`Error: ${err.message}\nDetail: ${err.details || 'None'}\nHint: ${err.hint || 'None'}`); 
+    }
     setLoading(false);
   };
 
@@ -107,16 +166,23 @@ export default function AdminDashboard() {
     e.preventDefault();
     setLoading(true);
     try {
-        await supabase.from('credentials').insert([{
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Current user before insert:', user);
+
+        const { error } = await supabase.from('credentials').insert([{
+            id: crypto.randomUUID(),
             institution: e.target['cred-institution'].value,
             title: e.target['cred-title'].value,
             organization: e.target['cred-org'].value,
-            year: e.target['cred-year'].value,
             category: e.target['cred-category'].value
         }]);
+        if (error) throw error;
         alert('Published Credential successfully!');
         e.target.reset();
-    } catch(err: any) { alert(err.message); }
+    } catch(err: any) { 
+        console.error('RLS/DB Error:', err);
+        alert(`Error: ${err.message}\nDetail: ${err.details || 'None'}\nHint: ${err.hint || 'None'}`); 
+    }
     setLoading(false);
   };
 
@@ -124,19 +190,43 @@ export default function AdminDashboard() {
     e.preventDefault();
     setLoading(true);
     try {
-        await supabase.from('awards').insert([{
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Current user before insert:', user);
+
+        const { error } = await supabase.from('awards').insert([{
+            id: crypto.randomUUID(),
             title: e.target['award-title'].value,
             organization: e.target['award-org'].value,
             year: e.target['award-year'].value,
             icon: e.target['award-icon'].value
         }]);
+        if (error) throw error;
         alert('Published Award successfully!');
         e.target.reset();
-    } catch(err: any) { alert(err.message); }
+    } catch(err: any) { 
+        console.error('RLS/DB Error:', err);
+        alert(`Error: ${err.message}\nDetail: ${err.details || 'None'}\nHint: ${err.hint || 'None'}`); 
+    }
     setLoading(false);
   };
 
-  if (!session) return <div style={{ background: 'var(--bg)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading Protection...</div>;
+  if (!session) {
+    return (
+        <div style={{ background: 'var(--bg)', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+            <div className="overline">Security Check</div>
+            <div style={{ fontSize: '18px' }}>{authChecked ? 'Access Denied or Session Expired' : 'Connecting to Server...'}</div>
+            {!authChecked && <div className="loading-spinner" style={{ width: '40px', height: '40px', border: '3px solid var(--border)', borderTopColor: 'var(--gold)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>}
+            {authChecked && (
+                <button onClick={() => router.push('/login')} className="big-btn" style={{ padding: '12px 24px', cursor: 'pointer' }}>
+                    Go to Login Page
+                </button>
+            )}
+            <style jsx>{`
+                @keyframes spin { to { transform: rotate(360deg); } }
+            `}</style>
+        </div>
+    );
+  }
 
   return (
     <div className="admin-container">
@@ -164,6 +254,7 @@ export default function AdminDashboard() {
                 <span className="tab-icon">🤝</span>
                 Dev Partners
             </button>
+
             <button className={`tab-btn ${activeTab === 'tab-credentials' ? 'active' : ''}`} onClick={() => setActiveTab('tab-credentials')}>
                 <span className="tab-icon">🎓</span>
                 Education
@@ -235,6 +326,8 @@ export default function AdminDashboard() {
             </form>
         </div>
         )}
+
+
 
         {activeTab === 'tab-credentials' && (
         <div className="tab-content">

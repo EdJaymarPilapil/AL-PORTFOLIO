@@ -119,11 +119,17 @@ export default function Login() {
         <button type="submit" disabled={loading} style={{ width: '100%', padding: '14px', background: 'var(--gold)', color: '#000', fontWeight: 'bold', border: 'none', borderRadius: '8px', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
           {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In To Dashboard')}
         </button>
+
         {mounted && !setupComplete && (
           <button type="button" onClick={() => { setIsSignUp(!isSignUp); setError(''); setSuccess(''); }} style={{ width: '100%', padding: '14px', marginTop: '12px', background: 'transparent', color: 'var(--gold)', fontWeight: 'bold', border: '1px solid var(--gold)', borderRadius: '8px', cursor: 'pointer' }}>
             {isSignUp ? 'Already have an account? Sign In' : 'Create Admin Account'}
           </button>
         )}
+        <div style={{ marginTop: '24px', textAlign: 'center' }}>
+          <button type="button" onClick={() => router.push('/')} style={{ background: 'transparent', border: 'none', color: 'var(--gray)', cursor: 'pointer', fontSize: '13px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', transition: 'color 0.3s' }}>
+            ← Back to Homepage
+          </button>
+        </div>
       </form>
     </div>
   );

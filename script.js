@@ -11,17 +11,23 @@ if (typeof window.supabase !== 'undefined') {
 }
 
 // --- Lenis Smooth Scrolling ---
-let lenis;
 if (typeof Lenis !== 'undefined') {
-    lenis = new Lenis({
-        duration: 1.4,
+    const lenis = new Lenis({
+        duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        lerp: 0.1,
+        smoothWheel: true
     });
-    function raf(time) {
-        lenis.raf(time);
+    window.lenis = lenis;
+
+    // RAF loop will be handled by GSAP ticker if available, else manual
+    if (typeof gsap === 'undefined') {
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
 }
 
 // --- Theme ---
@@ -33,48 +39,76 @@ document.getElementById('themeBtn')?.addEventListener('click', () => {
     localStorage.setItem('al-theme', t);
 });
 
-// --- Mobile Nav ---
-const menuBtn = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
-menuBtn?.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    navLinks.classList.toggle('open');
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-});
+// --- Initialization ---
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('[AL-PORTFOLIO] initializing navigation scroll handlers');
+    
+    // --- Mobile Nav ---
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn?.addEventListener('click', () => {
+        menuBtn.classList.toggle('open');
+        navLinks.classList.toggle('open');
+        document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    });
 
-// Optimized Smooth Anchor Scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const href = a.getAttribute('href');
-        if (href === "#") return;
-        
-        menuBtn?.classList.remove('open');
-        navLinks?.classList.remove('open');
-        if (typeof lenis !== 'undefined') {
-            lenis.scrollTo(href);
-        } else {
-            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-        }
+    // Optimized Smooth Anchor Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const href = a.getAttribute('href');
+            if (!href || href === "#" || !href.startsWith('#')) return;
+            
+            e.preventDefault();
+            console.log(`[AL-PORTFOLIO] navigating to element: ${href}`);
+            
+            menuBtn?.classList.remove('open');
+            navLinks?.classList.remove('open');
+            document.body.style.overflow = '';
+            
+            if (typeof lenis !== 'undefined') {
+                lenis.scrollTo(href, {
+                    duration: 1.5,
+                    offset: -80,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            } else {
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = target.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
     });
 });
 
-// --- Nav scroll state & Parallax (Throttled) ---
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
-            document.body.style.setProperty('--scrollY', `${window.scrollY}px`);
-            ticking = false;
-        });
-        ticking = true;
-    }
-}, { passive: true });
+// --- Nav scroll state ---
+if (lenis) {
+    lenis.on('scroll', (e) => {
+        document.getElementById('mainNav')?.classList.toggle('scrolled', e.scroll > 80);
+    });
+}
 
 // --- Advanced GSAP Split-Text Reveals ---
 if (typeof gsap !== 'undefined' && typeof SplitType !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
+
+    // Sync Lenis with GSAP
+    if (window.lenis) {
+        window.lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            window.lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+    }
 
     // Initial split applied to all h2 and lead text
     const splitElements = document.querySelectorAll('h2, .lead, .connect-headline');

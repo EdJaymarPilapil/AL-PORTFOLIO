@@ -30,26 +30,40 @@ export default function PortfolioClient({
   };
 
   const scrollTo = (target: string | number) => {
-    if (lenisRef.current) {
-        lenisRef.current.scrollTo(target, {
-            duration: 1.5,
-            offset: typeof target === 'string' && target.startsWith('#') ? -80 : 0,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-        });
-    } else {
-        if (typeof target === 'number') {
-            window.scrollTo({ top: target, behavior: 'smooth' });
+    try {
+        console.log(`[AL-PORTFOLIO] scrollTo called for target: ${target}`);
+        
+        // Use the ref instance if available
+        const lenis = lenisRef.current;
+        
+        if (lenis && typeof lenis.scrollTo === 'function') {
+            lenis.scrollTo(target, {
+                duration: 1.2,
+                offset: typeof target === 'string' && target.startsWith('#') ? -80 : 0,
+                easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
         } else {
-            const targetEl = document.querySelector(target);
-            if (targetEl) {
-                const offset = 80;
-                const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({
-                    top: elementPosition - offset,
-                    behavior: 'smooth'
-                });
+            console.warn('[AL-PORTFOLIO] Lenis not ready, using native scroll');
+            if (typeof target === 'number') {
+                window.scrollTo({ top: target, behavior: 'smooth' });
+            } else if (typeof target === 'string' && target.startsWith('#')) {
+                const targetEl = document.querySelector(target);
+                if (targetEl) {
+                    const offset = 80;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = targetEl.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
+    } catch (err) {
+        console.error('[AL-PORTFOLIO] scrollTo error:', err);
     }
     
     setIsMenuOpen(false);
@@ -64,17 +78,14 @@ export default function PortfolioClient({
 
     import('@studio-freight/lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({
-          duration: 1.4,
+          duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          lerp: 0.1,
+          smoothWheel: true
       });
       lenisRef.current = lenis;
+      (window as any).lenis = lenis;
       
-      function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
       // Synchronize GSAP with Lenis
       import('gsap').then(({ default: gsap }) => {
         import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
@@ -87,17 +98,10 @@ export default function PortfolioClient({
         });
       });
 
-      // Throttled Scroll Listener for Nav
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-          if (!ticking) {
-              window.requestAnimationFrame(() => {
-                  document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
-                  ticking = false;
-              });
-              ticking = true;
-          }
-      }, { passive: true });
+      // Optimized Scroll Listener for Nav
+      lenis.on('scroll', (e: any) => {
+          document.getElementById('mainNav')?.classList.toggle('scrolled', e.scroll > 80);
+      });
     });
 
     setTimeout(() => {
@@ -229,6 +233,12 @@ export default function PortfolioClient({
         });
     }, 500);
 
+    return () => {
+        if (lenisRef.current) {
+            lenisRef.current.destroy();
+            lenisRef.current = null;
+        }
+    };
   }, []);
 
   return (
@@ -493,7 +503,7 @@ export default function PortfolioClient({
 
     <footer>
         <div className="footer-inner">
-            <span>© 2024 Anthony Leuterio</span>
+            <span>© 2026 Anthony Leuterio</span>
             <div className="footer-links">
                 <a href="https://www.facebook.com/TonLeuterioOfficial" target="_blank" rel="noopener">Facebook</a>
                 <a href="https://www.instagram.com/tonleuterio/" target="_blank" rel="noopener">Instagram</a>

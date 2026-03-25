@@ -86,8 +86,11 @@ h2 em{font-style:italic;color:var(--gold)}
 
 /* ========== HERO — TEXT CLIP ========== */
 .hero-section{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);will-change: transform;}
-.hero-section:hover .hero-bg-img{transform:scale(1.12); transition: transform 8s ease-out;}
+.hero-bg-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);animation: heroZoom 20s infinite alternate ease-in-out;}
+@keyframes heroZoom {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1.15); }
+}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,5,4,.3) 0%,rgba(6,5,4,.7) 100%)}
 
 .hero-clip-text{position:relative;z-index:2;text-align:center;font-family:var(--sans);font-weight:800;user-select:none}

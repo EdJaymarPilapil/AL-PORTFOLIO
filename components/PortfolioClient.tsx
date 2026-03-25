@@ -8,45 +8,218 @@ export default function PortfolioClient({
   initialEcosystem, 
   initialDevelopers, 
   initialCredentials,
-  initialAwards
+  initialAwards,
+  initialNews
 }: any) {
   
+  const [theme, setTheme] = React.useState('dark');
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const lenisRef = React.useRef<any>(null);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('al-theme', newTheme);
+  };
+
+  const toggleMenu = () => {
+    const nextState = !isMenuOpen;
+    setIsMenuOpen(nextState);
+    document.body.style.overflow = nextState ? 'hidden' : '';
+  };
+
+  const scrollTo = (target: string | number) => {
+    if (lenisRef.current) {
+        lenisRef.current.scrollTo(target, {
+            duration: 1.5,
+            offset: typeof target === 'string' && target.startsWith('#') ? -80 : 0,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        });
+    } else {
+        if (typeof target === 'number') {
+            window.scrollTo({ top: target, behavior: 'smooth' });
+        } else {
+            const targetEl = document.querySelector(target);
+            if (targetEl) {
+                const offset = 80;
+                const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({
+                    top: elementPosition - offset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+    
+    setIsMenuOpen(false);
+    document.body.style.overflow = '';
+  };
+
   useEffect(() => {
+    // Initialize theme
+    const savedTheme = localStorage.getItem('al-theme') || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
     import('@studio-freight/lenis').then(({ default: Lenis }) => {
       const lenis = new Lenis({
           duration: 1.4,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
+      lenisRef.current = lenis;
+      
       function raf(time: number) {
           lenis.raf(time);
           requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
+
+      // Synchronize GSAP with Lenis
+      import('gsap').then(({ default: gsap }) => {
+        import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+        });
+      });
+
+      // Throttled Scroll Listener for Nav
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+          if (!ticking) {
+              window.requestAnimationFrame(() => {
+                  document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 80);
+                  ticking = false;
+              });
+              ticking = true;
+          }
+      }, { passive: true });
     });
 
     setTimeout(() => {
         document.getElementById('preloader')?.classList.add('done');
     }, 1000);
 
-    const htmlEl = document.documentElement;
-    htmlEl.setAttribute('data-theme', localStorage.getItem('al-theme') || 'dark');
-    document.getElementById('themeBtn')?.addEventListener('click', () => {
-        const t = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        htmlEl.setAttribute('data-theme', t);
-        localStorage.setItem('al-theme', t);
+    // --- GSAP Reveals ---
+    import('gsap').then(({ default: gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        import('split-type').then(({ default: SplitType }) => {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // ScrollTrigger needs to be refreshed for Lenis
+          ScrollTrigger.refresh();
+
+          // Number Counter Animation
+          const numberElements = document.querySelectorAll('.big-number[data-count]');
+          numberElements.forEach((el: any) => {
+              const target = parseInt(el.getAttribute('data-count') || '0', 10);
+              gsap.fromTo(el, 
+                  { innerText: 0 },
+                  {
+                      innerText: target,
+                      duration: 2,
+                      ease: 'power2.out',
+                      snap: { innerText: 1 },
+                      scrollTrigger: {
+                          trigger: el,
+                          start: 'top 85%',
+                          toggleActions: 'play none none reverse'
+                      }
+                  }
+              );
+          });
+
+          // Smooth Fade-In Reveals for Headings (Legacy observer handled now)
+          
+          // Refresh triggers once all DOM is settled
+          setTimeout(() => ScrollTrigger.refresh(), 1000);
+        });
+      });
     });
 
-    const menuBtn = document.getElementById('menuBtn');
-    const navLinks = document.getElementById('navLinks');
-    menuBtn?.addEventListener('click', () => {
-        menuBtn.classList.toggle('open');
-        navLinks?.classList.toggle('open');
-        document.body.style.overflow = navLinks?.classList.contains('open') ? 'hidden' : '';
+    // --- Intersection Observer Reveals ---
+    const revealEls = document.querySelectorAll('h2, .lead, .connect-headline, .overline, .split-right p:not(.lead), .split-right blockquote, .award-tile, .cred-slide, .number-cell, .hscroll-panel, .coaching-card, .big-btn, .dev-card, .news-card');
+    revealEls.forEach(el => el.classList.add('reveal-up'));
+
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const target = entry.target as HTMLElement;
+                const parent = target.parentElement;
+                const delay = (parent?.classList.contains('awards-wall') || 
+                               parent?.classList.contains('numbers-grid') || 
+                               parent?.classList.contains('coaching-grid') || 
+                               parent?.classList.contains('dev-grid') || 
+                               parent?.classList.contains('news-grid'))
+                    ? Array.from(parent.children).indexOf(target) * 80
+                    : 0;
+                setTimeout(() => target.classList.add('vis'), delay);
+                revealObs.unobserve(target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // --- Hover Effects ---
+    const handleHoverMove = (e: MouseEvent) => {
+        const tile = e.currentTarget as HTMLElement;
+        const r = tile.getBoundingClientRect();
+        const px = e.clientX - r.left;
+        const py = e.clientY - r.top;
+        
+        tile.style.setProperty('--mouse-x', `${px}px`);
+        tile.style.setProperty('--mouse-y', `${py}px`);
+        
+        if (tile.classList.contains('award-tile')) {
+            const x = px / r.width - 0.5;
+            const y = py / r.height - 0.5;
+            tile.style.setProperty('--rotate-x', `${-y * 8}deg`);
+            tile.style.setProperty('--rotate-y', `${x * 8}deg`);
+        }
+    };
+
+    const handleHoverLeave = (e: MouseEvent) => {
+        const tile = e.currentTarget as HTMLElement;
+        if (tile.classList.contains('award-tile')) {
+            tile.style.setProperty('--rotate-x', `0deg`);
+            tile.style.setProperty('--rotate-y', `0deg`);
+        }
+    };
+
+    const handleMagneticMove = (e: MouseEvent) => {
+        const btn = e.currentTarget as HTMLElement;
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.setProperty('--mag-x', `${x * 0.3}px`);
+        btn.style.setProperty('--mag-y', `${y * 0.3}px`);
+    };
+
+    const handleMagneticLeave = (e: MouseEvent) => {
+        const btn = e.currentTarget as HTMLElement;
+        btn.style.setProperty('--mag-x', `0px`);
+        btn.style.setProperty('--mag-y', `0px`);
+    };
+
+    document.querySelectorAll('.award-tile, .hscroll-panel').forEach(tile => {
+        tile.addEventListener('mousemove', handleHoverMove as any);
+        tile.addEventListener('mouseleave', handleHoverLeave as any);
     });
 
+    document.querySelectorAll('.big-btn, .theme-btn').forEach(btn => {
+        btn.addEventListener('mousemove', handleMagneticMove as any);
+        btn.addEventListener('mouseleave', handleMagneticLeave as any);
+    });
+
+    // --- Vanilla Tilt ---
     setTimeout(() => {
         import('vanilla-tilt').then((VanillaTilt: any) => {
-            VanillaTilt.default.init(document.querySelectorAll(".coaching-card, .dev-card, .news-card") as any, {
+            VanillaTilt.default.init(document.querySelectorAll(".dev-card, .news-card") as any, {
                 max: 8,
                 speed: 400,
                 glare: true,
@@ -55,25 +228,6 @@ export default function PortfolioClient({
             });
         });
     }, 500);
-
-    const numberElements = document.querySelectorAll('.big-number[data-count]');
-    numberElements.forEach((el) => {
-        const target = parseInt(el.getAttribute('data-count') || '0', 10);
-        gsap.fromTo(el, 
-            { innerText: 0 },
-            {
-                innerText: target,
-                duration: 2,
-                ease: 'power2.out',
-                snap: { innerText: 1 },
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none reverse'
-                }
-            }
-        );
-    });
 
   }, []);
 
@@ -87,22 +241,22 @@ export default function PortfolioClient({
     
     <div className="nav-outer" id="mainNav">
         <nav>
-            <a href="#" className="nav-logo"><img src="components/logo.png" alt="AL" /></a>
-            <div className="nav-center" id="navLinks">
-                <a href="#about">About</a>
-                <a href="#pillars">Coaching</a>
-                <a href="#ecosystem">Companies</a>
-                <a href="#developers">Developers</a>
-                <a href="#credentials">Education</a>
-                <a href="#news">News</a>
-                <a href="#recognition">Awards</a>
-                <a href="#connect">Contact</a>
+            <a href="#" className="nav-logo" onClick={(e) => { e.preventDefault(); scrollTo(0); }}><img src="components/logo.png" alt="AL" /></a>
+            <div className={`nav-center ${isMenuOpen ? 'open' : ''}`} id="navLinks">
+                <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }}>About</a>
+                <a href="#pillars" onClick={(e) => { e.preventDefault(); scrollTo('#pillars'); }}>Coaching</a>
+                <a href="#ecosystem" onClick={(e) => { e.preventDefault(); scrollTo('#ecosystem'); }}>Companies</a>
+                <a href="#developers" onClick={(e) => { e.preventDefault(); scrollTo('#developers'); }}>Developers</a>
+                <a href="#credentials" onClick={(e) => { e.preventDefault(); scrollTo('#credentials'); }}>Education</a>
+                <a href="#news" onClick={(e) => { e.preventDefault(); scrollTo('#news'); }}>News</a>
+                <a href="#recognition" onClick={(e) => { e.preventDefault(); scrollTo('#recognition'); }}>Awards</a>
+                <a href="#connect" onClick={(e) => { e.preventDefault(); scrollTo('#connect'); }}>Contact</a>
             </div>
             <div className="nav-right">
-                <button className="theme-btn" id="themeBtn">
+                <button className="theme-btn" onClick={toggleTheme} id="themeBtn">
                     <span className="t-dark">☀️</span><span className="t-light">🌙</span>
                 </button>
-                <button className="menu-btn" id="menuBtn">
+                <button className={`menu-btn ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu} id="menuBtn">
                     <span></span><span></span>
                 </button>
             </div>
@@ -118,6 +272,19 @@ export default function PortfolioClient({
         </h1>
         <div className="hero-bottom-bar">
             <div className="hero-tagline">Philippines' Premier Real Estate Visionary</div>
+
+            <div className="hero-logo-wrapper">
+                <div className="hero-logo-strip">
+                    {initialDevelopers?.map((dev: any) => (
+                        <img key={`strip1-${dev.id}`} src={dev.logo_url} alt={dev.name} className="trust-logo" />
+                    ))}
+                </div>
+                <div className="hero-logo-strip">
+                    {initialDevelopers?.map((dev: any) => (
+                        <img key={`strip2-${dev.id}`} src={dev.logo_url} alt={dev.name} className="trust-logo" />
+                    ))}
+                </div>
+            </div>
 
             <div className="hero-scroll-cue">
                 <div className="scroll-dot"></div>
@@ -163,7 +330,7 @@ export default function PortfolioClient({
             <blockquote>
                 "Innovation is not just about technology; it's about creating a future where everyone has a place to call home."
             </blockquote>
-            <a href="#connect" className="text-link">Get in Touch →</a>
+            <a href="#connect" className="text-link" onClick={(e) => { e.preventDefault(); scrollTo('#connect'); }}>Get in Touch →</a>
         </div>
     </section>
 
@@ -256,6 +423,28 @@ export default function PortfolioClient({
                         </div>
                     ))}
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section className="news-section" id="news">
+        <div className="section-container">
+            <span className="overline">Media & Insights</span>
+            <h2>Latest <em>Updates</em></h2>
+            <div className="news-grid">
+                {initialNews?.map((news: any) => (
+                    <div key={news.id} className="news-card">
+                        <div className="news-img">
+                            <img src={news.image_url} alt={news.title} loading="lazy" />
+                            <span className="news-tag">{news.tag}</span>
+                        </div>
+                        <div className="news-body">
+                            <span className="news-date">{news.published_date}</span>
+                            <h4>{news.title}</h4>
+                            <p>{news.description}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     </section>

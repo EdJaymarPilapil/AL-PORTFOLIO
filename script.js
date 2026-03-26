@@ -223,7 +223,7 @@ document.querySelectorAll('.big-btn, .theme-btn').forEach(btn => {
 
 // --- Vanilla Tilt initialization ---
 if(typeof VanillaTilt !== 'undefined') {
-    VanillaTilt.init(document.querySelectorAll(".coaching-card, .dev-card, .news-card"), {
+    VanillaTilt.init(document.querySelectorAll(".coaching-card"), {
         max: 8,
         speed: 400,
         glare: true,

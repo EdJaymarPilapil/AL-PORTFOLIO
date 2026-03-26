@@ -106,7 +106,7 @@ export default function PortfolioClient({
 
     setTimeout(() => {
         document.getElementById('preloader')?.classList.add('done');
-    }, 1000);
+    }, 2500);
 
     // --- GSAP Reveals ---
     import('gsap').then(({ default: gsap }) => {
@@ -221,17 +221,7 @@ export default function PortfolioClient({
     });
 
     // --- Vanilla Tilt ---
-    setTimeout(() => {
-        import('vanilla-tilt').then((VanillaTilt: any) => {
-            VanillaTilt.default.init(document.querySelectorAll(".dev-card, .news-card") as any, {
-                max: 8,
-                speed: 400,
-                glare: true,
-                "max-glare": 0.15,
-                scale: 1.02
-            });
-        });
-    }, 500);
+    // Tilt effect disabled
 
     return () => {
         if (lenisRef.current) {
@@ -245,7 +235,9 @@ export default function PortfolioClient({
     <>
     <div className="preloader" id="preloader" onClick={(e) => { e.currentTarget.classList.add('done') }}>
         <div className="preloader-inner">
-            <span className="preloader-text">ANTHONY LEUTERIO</span>
+            <div className="preloader-logo">
+                <span className="preloader-text">AL</span>
+            </div>
         </div>
     </div>
     
@@ -352,6 +344,11 @@ export default function PortfolioClient({
         <div className="coaching-grid">
             {initialCoaching?.map((card: any, index: number) => (
                 <div key={card.id || index} className="coaching-card">
+                    <div className="coaching-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                    <div className="coaching-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                    <div className="coaching-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                    <div className="coaching-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                    <div className="coaching-shine"></div>
                     <div className="coaching-img"><img src={card.image_url} alt={card.title} loading="lazy" /></div>
                     <div className="coaching-body">
                         <span className="pillar-badge">{card.badge_text}</span>
@@ -412,6 +409,12 @@ export default function PortfolioClient({
                 <div className="creds-grid">
                     {initialCredentials?.filter((c: any) => c.category === 'harvard').map((cred: any) => (
                         <div key={cred.id} className="cred-slide cred-harvard">
+                            <div className="harvard-logo"></div>
+                            <div className="cred-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-shine"></div>
                             <div className="cred-badge">Harvard</div>
                             <h4>{cred.title}</h4>
                             <p>{cred.organization}</p>
@@ -427,6 +430,11 @@ export default function PortfolioClient({
                 <div className="creds-grid">
                     {initialCredentials?.filter((c: any) => c.category === 'other').map((cred: any) => (
                         <div key={cred.id} className="cred-slide">
+                            <div className="cred-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                            <div className="cred-shine"></div>
                             <div className="cred-badge">{cred.institution}</div>
                             <h4>{cred.title}</h4>
                             <p>{cred.organization}</p>
@@ -444,6 +452,11 @@ export default function PortfolioClient({
             <div className="news-grid">
                 {initialNews?.map((news: any) => (
                     <div key={news.id} className="news-card">
+                        <div className="news-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="news-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="news-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="news-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="news-shine"></div>
                         <div className="news-img">
                             <img src={news.image_url} alt={news.title} loading="lazy" />
                             <span className="news-tag">{news.tag}</span>
@@ -468,10 +481,19 @@ export default function PortfolioClient({
             <div className="awards-wall">
                 {initialAwards?.map((award: any, index: number) => (
                     <div key={award.id || index} className={`award-tile ${index === 1 || index === 4 ? 'featured' : ''}`}>
-                        <div className="award-icon">{award.icon}</div>
-                        <span className="award-year">{award.year}</span>
-                        <h4>{award.title}</h4>
-                        <p>{award.organization}</p>
+                        <div className="award-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="award-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="award-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="award-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
+                        <div className="award-shine"></div>
+                        <div className="award-tile-inner">
+                            <div className="award-top">
+                                <span className="award-icon">{award.icon}</span>
+                                <span className="award-year">{award.year}</span>
+                            </div>
+                            <h4>{award.title}</h4>
+                            <p>{award.organization}</p>
+                        </div>
                     </div>
                 ))}
             </div>

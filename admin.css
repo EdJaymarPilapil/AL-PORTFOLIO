@@ -296,3 +296,16 @@ input[type="file"]::-webkit-file-upload-button {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* Select dropdown styling */
+select {
+    color: var(--white);
+    background: var(--card);
+    cursor: pointer;
+}
+
+select option {
+    background: var(--bg);
+    color: var(--white);
+    padding: 8px;
+}

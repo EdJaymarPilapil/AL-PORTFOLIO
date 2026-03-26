@@ -450,8 +450,11 @@ export default function PortfolioClient({
             <span className="overline">Media & Insights</span>
             <h2>Latest <em>Updates</em></h2>
             <div className="news-grid">
-                {initialNews?.map((news: any) => (
-                    <div key={news.id} className="news-card">
+                {initialNews?.map((news: any) => {
+                    const CardWrapper = news.link ? 'a' : 'div';
+                    const linkProps = news.link ? { href: news.link, target: '_blank', rel: 'noopener noreferrer' } : {};
+                    return (
+                    <CardWrapper key={news.id} className="news-card" {...linkProps} style={news.link ? { textDecoration: 'none', color: 'inherit' } : {}}>
                         <div className="news-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
                         <div className="news-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
                         <div className="news-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
@@ -466,8 +469,9 @@ export default function PortfolioClient({
                             <h4>{news.title}</h4>
                             <p>{news.description}</p>
                         </div>
-                    </div>
-                ))}
+                    </CardWrapper>
+                    );
+                })}
             </div>
         </div>
     </section>

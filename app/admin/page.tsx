@@ -121,10 +121,10 @@ export default function AdminDashboard() {
         router.push('/login');
     };
 
-    const uploadImage = async (file: File) => {
+    const uploadImage = async (file: File, folder: string) => {
         const fileExt = file.name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
-        const filePath = `uploads/${fileName}`;
+        const filePath = `${folder}/${fileName}`;
 
         const { error: uploadError } = await supabase.storage.from('portfolio_images').upload(filePath, file);
         if (uploadError) {
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
             let publicUrl = editingItem?.image_url || '';
             const file = e.target['c-image'].files[0];
             if (file) {
-                publicUrl = await uploadImage(file);
+                publicUrl = await uploadImage(file, 'coaching');
             }
 
             const payload = {
@@ -209,7 +209,7 @@ export default function AdminDashboard() {
         try {
             let publicUrl = editingItem?.logo_url || '';
             const file = e.target['e-image'].files[0];
-            if (file) publicUrl = await uploadImage(file);
+            if (file) publicUrl = await uploadImage(file, 'companies');
 
             const payload = {
                 logo_url: publicUrl,
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
         try {
             let publicUrl = editingItem?.logo_url || '';
             const file = e.target['d-image'].files[0];
-            if (file) publicUrl = await uploadImage(file);
+            if (file) publicUrl = await uploadImage(file, 'developers');
 
             const payload = {
                 logo_url: publicUrl,

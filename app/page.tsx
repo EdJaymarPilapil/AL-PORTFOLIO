@@ -1,6 +1,7 @@
 import PortfolioClient from '../components/PortfolioClient';
 import { supabase } from '../lib/supabase';
 import { fallbackCoaching, fallbackEcosystem, fallbackDevelopers, fallbackCredentials, fallbackAwards, fallbackNews } from '../lib/mockData';
+import { fetchNewsArticles } from '../lib/newsApi';
 
 export const revalidate = 0;
 
@@ -10,7 +11,8 @@ export default async function Page() {
   const { data: devsData } = await supabase.from('developers').select('*');
   const { data: credentialsData } = await supabase.from('credentials').select('*');
   const { data: awardsData } = await supabase.from('awards').select('*');
-  const { data: newsData } = await supabase.from('news_articles').select('*');
+  // Fetch news from HomeSPH News API instead of Supabase
+  const newsData = await fetchNewsArticles();
 
   const mergeData = (fallback: any[], supabaseData: any[] | null, key: string) => {
     if (!supabaseData || supabaseData.length === 0) return fallback;

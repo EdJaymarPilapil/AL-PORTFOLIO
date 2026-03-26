@@ -272,7 +272,7 @@ h2 em{font-style:italic;color:var(--gold)}
 .developers-section{padding:clamp(48px,6vw,80px) 0;background:var(--bg2)}
 .dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
 .dev-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;transition:all .4s var(--ease)}
-.dev-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.3)}
+.dev-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,0.3), 0 20px 40px rgba(0,0,0,0.4)}
 .dev-logo{width:64px;height:64px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
 .dev-logo img{max-width:100%;max-height:100%;object-fit:contain}
 .dev-card h4{font-size:15px;font-weight:700;margin-bottom:10px}

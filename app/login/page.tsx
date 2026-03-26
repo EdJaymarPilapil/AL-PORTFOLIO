@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
+import gsap from 'gsap';
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -14,11 +15,31 @@ export default function Login() {
   const [setupComplete, setSetupComplete] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem('admin_setup_complete');
     setSetupComplete(stored === 'true');
+    
+    // GSAP Pop-up Animation
+    if (formRef.current) {
+      gsap.fromTo(formRef.current, 
+        { 
+          opacity: 0, 
+          scale: 0.8,
+          y: 20
+        }, 
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0,
+          duration: 0.8, 
+          ease: 'power4.out',
+          delay: 0.2
+        }
+      );
+    }
     
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
@@ -98,7 +119,7 @@ export default function Login() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg2)' }}>
-      <form onSubmit={isSignUp ? handleSignUp : handleLogin} style={{ background: 'var(--card)', padding: '40px', borderRadius: '16px', border: '1px solid var(--border)', width: '100%', maxWidth: '400px' }}>
+      <form ref={formRef} onSubmit={isSignUp ? handleSignUp : handleLogin} style={{ background: 'var(--card)', padding: '40px', borderRadius: '16px', border: '1px solid var(--border)', width: '100%', maxWidth: '400px' }}>
         <h2 style={{ fontSize: '28px', marginBottom: '24px', fontFamily: 'var(--serif)', color: 'var(--gold)' }}>Admin <em>{isSignUp ? 'Sign Up' : 'Login'}</em></h2>
         {error && <div style={{ color: '#ff6b6b', marginBottom: '16px', fontSize: '14px', padding: '10px', background: 'rgba(255,0,0,0.1)', borderRadius: '8px' }}>{error}</div>}
         {success && <div style={{ color: '#4ade80', marginBottom: '16px', fontSize: '14px', padding: '10px', background: 'rgba(0,255,0,0.1)', borderRadius: '8px' }}>{success}</div>}

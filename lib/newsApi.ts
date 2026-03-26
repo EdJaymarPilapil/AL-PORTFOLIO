@@ -24,9 +24,14 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
   }
 
   try {
-    const res = await fetch(apiUrl, {
+    // Fetch all public articles (the small pool of 10-20 latest news)
+    const fetchUrl = `${apiUrl}${apiUrl.includes('?') ? '&' : '?'}per_page=12`;
+    
+    console.log(`[News API] Fetching from: ${fetchUrl}`);
+
+    const res = await fetch(fetchUrl, {
       headers: {
-        'X-Site-Api-Key': apiKey,
+        'X-Site-Key': apiKey, // Optional for public, but good for identification
         'Accept': 'application/json',
       },
       next: { revalidate: 3600 }, // Cache for 1 hour
@@ -39,26 +44,50 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
 
     const json = await res.json();
 
-    // Response structure per API guide: { site: {...}, data: { data: [...articles] } }
-    const articles: any[] = json?.data?.data || json?.data || (Array.isArray(json) ? json : []);
+    // Public API structure: { data: { data: [articles...] } }
+    let rawArticles: any[] = json?.data?.data || json?.data || (Array.isArray(json) ? json : []);
 
-    if (!Array.isArray(articles) || articles.length === 0) {
+    if (!Array.isArray(rawArticles) || rawArticles.length === 0) {
       console.warn('[News API] No articles returned:', JSON.stringify(json).substring(0, 300));
       return [];
     }
 
-    console.log('[News API] Fetched', articles.length, 'articles');
-    console.log('[News API] Sample keys:', Object.keys(articles[0]));
+    // Filter for Real Estate, Business, or related news
+    const relevantCategories = ['Real Estate', 'Business & Economy', 'Housing', 'Labor & Employment'];
+    let filtered = rawArticles.filter((a: any) => {
+      const cat = a.category?.name || a.category || '';
+      return relevantCategories.includes(cat);
+    });
 
-    return articles.map((article: any, index: number) => ({
-      id: String(article.id || article._id || index + 1),
-      image_url: article.image_url || article.imageUrl || article.image || article.thumbnail || article.cover_image || '',
-      tag: article.tag || article.category || article.type || 'News',
-      title: article.title || article.headline || 'Untitled',
-      published_date: formatDate(article.published_date || article.publishedDate || article.date || article.created_at || article.createdAt || ''),
-      description: article.description || article.excerpt || article.summary || article.content?.substring(0, 150) || '',
-      link: article.link || article.url || article.slug || '',
-    }));
+    // If we have nothing after filtering, just use the latest raw articles
+    const finalArticles = filtered.length > 0 ? filtered : rawArticles;
+
+    return finalArticles.slice(0, 3).map((article: any, index: number) => {
+      const id = String(article.id || article.article_id || index + 1);
+      const title = article.title || article.headline || 'Untitled Article';
+      
+      // Handle Date
+      const dateStr = article.published_at || article.created_at || article.date;
+      const published_date = formatDate(dateStr);
+      
+      // Handle Image
+      const image_url = article.image_url || article.image || article.thumbnail || '/images/news-placeholder.jpg';
+      
+      // Handle Tag
+      const tag = article.category?.name || article.category || 'News';
+      
+      // Handle Description
+      const description = article.summary || article.description || article.excerpt || '';
+      
+      // Handle Link/URL
+      let link = article.url || article.link || article.original_url || article.slug || '';
+      if (link && !link.startsWith('http')) {
+        // If it's a slug, construct the full URL
+        link = `https://homesph.news/articles/${link}`;
+      }
+      
+      return { id, title, published_date, image_url, tag, description, link };
+    });
   } catch (error) {
     console.error('[News API] Fetch failed:', error);
     return [];

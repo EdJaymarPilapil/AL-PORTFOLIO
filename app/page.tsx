@@ -31,7 +31,7 @@ export default async function Page() {
   const activeDevs = mergeData(fallbackDevelopers, devsData, 'name');
   const activeCredentials = mergeData(fallbackCredentials, credentialsData, 'title');
   const activeAwards = mergeData(fallbackAwards, awardsData, 'title');
-  const activeNews = mergeData(fallbackNews, newsData, 'title');
+  const activeNews = newsData;
 
   return (
     <main>

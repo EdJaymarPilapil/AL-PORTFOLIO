@@ -83,7 +83,7 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
       let link = article.url || article.link || article.original_url || article.slug || '';
       if (link && !link.startsWith('http')) {
         // If it's a slug, construct the full URL
-        link = `https://homesph.news/articles/${link}`;
+        link = `https://news.homes.ph/article/${link}`;
       }
       
       return { id, title, published_date, image_url, tag, description, link };

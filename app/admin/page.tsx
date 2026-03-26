@@ -298,8 +298,7 @@ export default function AdminDashboard() {
             const payload = {
                 title: e.target['award-title'].value,
                 organization: e.target['award-org'].value,
-                year: e.target['award-year'].value,
-                icon: e.target['award-icon'].value
+                year: e.target['award-year'].value
             };
 
             if (editingItem) {
@@ -606,11 +605,10 @@ export default function AdminDashboard() {
                     <form onSubmit={handleAwards} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
                         <div className="form-row">
                             <input type="text" id="award-title" placeholder="Award Title (e.g. Entrepreneur of the Year)" defaultValue={editingItem?.title || ''} required />
-                            <input type="text" id="award-icon" placeholder="Icon (e.g. 🏆, 💎, 🎖️)" defaultValue={editingItem?.icon || ''} required />
+                            <input type="text" id="award-year" placeholder="Year (e.g. 2024)" defaultValue={editingItem?.year || ''} required />
                         </div>
                         <div className="form-row">
                             <input type="text" id="award-org" placeholder="Awarding Organization" defaultValue={editingItem?.organization || ''} required />
-                            <input type="text" id="award-year" placeholder="Year (e.g. 2024)" defaultValue={editingItem?.year || ''} required />
                         </div>
                         <div style={{ display: 'flex', gap: '12px' }}>
                             <button type="submit" className="big-btn" disabled={loading} style={{ border: 'none', cursor: 'pointer', opacity: loading ? 0.7 : 1, flex: 1 }}>
@@ -628,7 +626,6 @@ export default function AdminDashboard() {
                             <table className="admin-table">
                                 <thead>
                                     <tr>
-                                        <th>Icon</th>
                                         <th>Year</th>
                                         <th>Title</th>
                                         <th>Organization</th>
@@ -638,7 +635,6 @@ export default function AdminDashboard() {
                                 <tbody>
                                     {data.awards.map((item: any) => (
                                         <tr key={item.id}>
-                                            <td style={{ fontSize: '20px' }}>{item.icon}</td>
                                             <td>{item.year}</td>
                                             <td>{item.title}</td>
                                             <td>{item.organization}</td>

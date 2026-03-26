@@ -106,7 +106,7 @@ export default function PortfolioClient({
 
     setTimeout(() => {
         document.getElementById('preloader')?.classList.add('done');
-    }, 2500);
+    }, 800);
 
     // --- GSAP Reveals ---
     import('gsap').then(({ default: gsap }) => {

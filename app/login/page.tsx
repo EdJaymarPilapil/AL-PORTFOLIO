@@ -126,7 +126,7 @@ export default function Login() {
           </button>
         )}
         <div style={{ marginTop: '24px', textAlign: 'center' }}>
-          <button type="button" onClick={() => router.push('/')} style={{ background: 'transparent', border: 'none', color: 'var(--gray)', cursor: 'pointer', fontSize: '13px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', transition: 'color 0.3s' }}>
+          <button type="button" onClick={() => window.location.href = '/'} style={{ background: 'transparent', border: 'none', color: 'var(--gray)', cursor: 'pointer', fontSize: '13px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', transition: 'color 0.3s' }}>
             ← Back to Homepage
           </button>
         </div>

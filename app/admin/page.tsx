@@ -39,7 +39,7 @@ export default function AdminDashboard() {
         const [coaching, ecosystem, developers, credentials, awards] = await Promise.all([
             supabase.from('coaching').select('*'),
             supabase.from('companies').select('*'),
-            supabase.from('developers').select('*').order('sort_order', { ascending: true }),
+            supabase.from('developers').select('*'),
             supabase.from('credentials').select('*'),
             supabase.from('awards').select('*').order('year', { ascending: false })
         ]);
@@ -245,8 +245,7 @@ export default function AdminDashboard() {
             const payload = {
                 logo_url: publicUrl,
                 name: e.target['d-name'].value,
-                website_url: e.target['d-url'].value,
-                sort_order: parseInt(e.target['d-sort'].value)
+                website_url: e.target['d-url'].value
             };
 
             if (editingItem) {
@@ -496,7 +495,6 @@ export default function AdminDashboard() {
                         </div>
                         <div className="form-row">
                             <input type="url" id="d-url" placeholder="Website URL (https://...)" defaultValue={editingItem?.website_url || ''} required />
-                            <input type="number" id="d-sort" placeholder="Sort Order" defaultValue={editingItem?.sort_order || 0} required />
                         </div>
                         <div style={{ display: 'flex', gap: '12px' }}>
                             <button type="submit" className="big-btn" disabled={loading} style={{ border: 'none', cursor: 'pointer', opacity: loading ? 0.7 : 1, flex: 1 }}>
@@ -516,7 +514,6 @@ export default function AdminDashboard() {
                                     <tr>
                                         <th>Logo</th>
                                         <th>Name</th>
-                                        <th>Sort</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -525,7 +522,6 @@ export default function AdminDashboard() {
                                         <tr key={item.id}>
                                             <td><img src={item.logo_url} alt="" /></td>
                                             <td>{item.name}</td>
-                                            <td>{item.sort_order}</td>
                                             <td className="actions-cell">
                                                 <div className="actions-wrapper">
                                                     <button className="action-btn edit" onClick={() => startEdit(item)}>Edit</button>

@@ -5,6 +5,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Anthony Leuterio | Founder & Visionary',
   description: 'Philippines\' Premier Real Estate Visionary',
+  icons: {
+    icon: '/components/logo.png',
+  },
 };
 
 export default function RootLayout({

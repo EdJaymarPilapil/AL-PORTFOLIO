@@ -485,15 +485,11 @@ export default function PortfolioClient({
             <div className="awards-wall">
                 {initialAwards?.map((award: any, index: number) => (
                     <div key={award.id || index} className={`award-tile ${index === 1 || index === 4 ? 'featured' : ''}`}>
-                        <div className="award-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                        <div className="award-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                        <div className="award-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                        <div className="award-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                        <div className="award-shine"></div>
+                        <div className="award-accent"></div>
                         <div className="award-tile-inner">
-                            <div className="award-top">
-                                <span className="award-icon">{award.icon}</span>
+                            <div className="award-header">
                                 <span className="award-year">{award.year}</span>
+                                <span className="award-icon">{award.icon}</span>
                             </div>
                             <h4>{award.title}</h4>
                             <p>{award.organization}</p>

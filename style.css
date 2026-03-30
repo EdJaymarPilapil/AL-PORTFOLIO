@@ -321,51 +321,39 @@ h2 em{font-style:italic;color:var(--gold)}
 .recognition-section{padding:clamp(60px,10vw,120px) 0;background:var(--bg2)}
 .recognition-inner{max-width:var(--content-max);margin:0 auto;padding:0 var(--side-pad)}
 .recognition-header{margin-bottom:56px}
-.awards-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.awards-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
 
-.award-tile{background:linear-gradient(135deg, rgba(18,16,14,0.95) 0%, rgba(10,9,8,0.98) 100%);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:0;transition:all .6s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
-.award-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(201,168,76,0.6), transparent)}
-.award-tile::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(900px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(201,168,76,0.1) 0%, transparent 50%);opacity:0;transition:opacity .6s ease;pointer-events:none}
-.award-tile:hover{transform:translateY(-12px);border-color:rgba(201,168,76,0.5);box-shadow:0 30px 60px rgba(0,0,0,0.6),0 0 100px rgba(201,168,76,0.08)}
-[data-theme="light"] .award-tile{background:linear-gradient(135deg, #FDFCFA 0%, #F5F2ED 100%);border-color:rgba(160,125,46,0.3)}
-[data-theme="light"] .award-tile::before{background:linear-gradient(90deg, transparent, rgba(160,125,46,0.8), transparent)}
-[data-theme="light"] .award-tile::after{background:radial-gradient(900px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(160,125,46,0.15) 0%, transparent 50%)}
-[data-theme="light"] .award-tile:hover{box-shadow:0 30px 60px rgba(0,0,0,0.12),0 0 100px rgba(160,125,46,0.1)}
-[data-theme="light"] .award-card-corner path{stroke:rgba(160,125,46,0.4)}
-[data-theme="light"] .award-tile:hover .award-card-corner path{stroke:rgba(160,125,46,0.8)}
+.award-tile{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:0;transition:all .4s ease;position:relative;overflow:hidden}
+.award-tile:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 25px 50px rgba(0,0,0,0.4),0 0 0 1px var(--gold), 0 0 30px rgba(201,168,76,0.15)}
+.award-tile:hover .award-accent{width:8px;background:var(--gold)}
+.award-tile:hover .award-icon{opacity:1;transform:scale(1.2)}
+.award-tile:hover h4{color:var(--gold)}
+[data-theme="light"] .award-tile{background:#FDFCFA;border-color:rgba(160,125,46,0.2)}
+[data-theme="light"] .award-tile:hover{border-color:rgba(160,125,46,0.5);box-shadow:0 20px 40px rgba(0,0,0,0.1)}
 [data-theme="light"] .award-tile h4{color:#1A1612}
 [data-theme="light"] .award-tile p{color:#5A534A}
-[data-theme="light"] .award-tile .award-icon{filter:drop-shadow(0 0 15px rgba(160,125,46,0.3))}
 
-.award-tile-inner{position:relative;z-index:1;padding:40px 36px;display:flex;flex-direction:column;height:100%;box-sizing:border-box}
+.award-accent{position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg, var(--gold), transparent);transition:width .3s ease, background .3s ease}
+.award-tile:hover .award-accent{width:6px}
+[data-theme="light"] .award-accent{background:linear-gradient(180deg, #A07828, transparent)}
 
-.award-card-corner{position:absolute;width:60px;height:60px;pointer-events:none}
-.award-card-corner svg{width:100%;height:100%}
-.award-card-corner.top-left{top:0;left:0}
-.award-card-corner.top-right{top:0;right:0;transform:rotate(90deg)}
-.award-card-corner.bottom-left{bottom:0;left:0;transform:rotate(-90deg)}
-.award-card-corner.bottom-right{bottom:0;right:0;transform:rotate(180deg)}
-.award-card-corner path{stroke:rgba(201,168,76,0.3);stroke-width:1.5;fill:none;transition:stroke .4s ease}
-.award-tile:hover .award-card-corner path{stroke:rgba(201,168,76,0.7)}
+.award-tile-inner{position:relative;z-index:1;padding:28px 28px 28px 32px}
 
-.award-shine{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);transform:skewX(-20deg);transition:left .8s ease;pointer-events:none}
-.award-tile:hover .award-shine{left:100%}
+.award-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.award-icon{font-size:28px;opacity:0.7;transition:all .3s ease}
+.award-tile h4{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--white);line-height:1.4;margin:0 0 10px 0;transition:color .3s ease}
+.award-tile:hover .award-icon{opacity:1;transform:scale(1.15)}
+[data-theme="light"] .award-icon{opacity:0.6}
 
-.award-tile .award-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px}
-.award-icon{font-size:52px;line-height:1;filter:drop-shadow(0 0 20px rgba(201,168,76,0.4));transition:all .5s cubic-bezier(0.16,1,0.3,1)}
-.award-tile:hover .award-icon{transform:scale(1.1) rotate(-5deg);filter:drop-shadow(0 0 30px rgba(201,168,76,0.6))}
-.award-year{font-family:var(--serif);font-size:12px;font-weight:600;color:var(--gold);letter-spacing:3px;padding:8px 16px;background:linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.25);border-radius:2px}
-[data-theme="light"] .award-year{background:linear-gradient(135deg, rgba(160,125,46,0.2), rgba(160,125,46,0.08));border-color:rgba(160,125,46,0.35);color:#8B6914}
+.award-year{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:1px}
+[data-theme="light"] .award-year{color:#8A8075}
 
-.award-tile h4{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--white);line-height:1.2;margin:0 0 16px 0;letter-spacing:-0.5px}
-.award-tile h4::after{content:'';display:block;width:40px;height:1px;background:linear-gradient(90deg, var(--gold), transparent);margin-top:20px}
-.award-tile p{font-size:15px;color:var(--dim);margin:0;line-height:1.7;font-weight:400}
+.award-tile h4{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--white);line-height:1.4;margin:0 0 10px 0}
+.award-tile p{font-size:14px;color:var(--dim);margin:0;line-height:1.5}
 
-.award-tile.featured{border-color:rgba(201,168,76,0.4);background:linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(10,9,8,0.98) 100%)}
-.award-tile.featured::before{background:linear-gradient(90deg, transparent, var(--gold), transparent)}
-.award-tile.featured .award-icon{filter:drop-shadow(0 0 25px rgba(201,168,76,0.5))}
-[data-theme="light"] .award-tile.featured{background:linear-gradient(135deg, rgba(201,168,76,0.12) 0%, #F5F2ED 100%)}
-[data-theme="light"] .award-tile.featured .award-icon{filter:drop-shadow(0 0 25px rgba(160,125,46,0.4))}
+.award-tile.featured{border-color:rgba(201,168,76,0.3)}
+.award-tile.featured .award-accent{width:5px;background:linear-gradient(180deg, var(--gold), var(--gold))}
+[data-theme="light"] .award-tile.featured{border-color:rgba(160,125,46,0.35)}
 
 .award-badge{position:absolute;top:20px;right:20px;padding:4px 10px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
 

@@ -6,42 +6,27 @@ import { fetchNewsArticles } from '../lib/newsApi';
 export const revalidate = 0;
 
 export default async function Page() {
-  const { data: coachingData } = await supabase.from('coaching').select('*');
-  const { data: ecosystemData } = await supabase.from('companies').select('*');
-  const { data: devsData } = await supabase.from('developers').select('*');
-  const { data: credentialsData } = await supabase.from('credentials').select('*');
-  const { data: awardsData } = await supabase.from('awards').select('*');
+  const { data: coachingData } = await supabase.from('coaching').select('*').order('id', { ascending: true });
+  const { data: credentialsData } = await supabase.from('credentials').select('*').order('id', { ascending: true });
+  const { data: awardsData } = await supabase.from('awards').select('*').order('id', { ascending: true });
+  
+  const { data: eventsData } = await supabase.from('events').select('*').order('id', { ascending: false });
+  const { data: testimonialsData } = await supabase.from('testimonials').select('*').order('id', { ascending: false });
+  const { data: mediaData } = await supabase.from('media').select('*').order('id', { ascending: false });
+
   // Fetch news from HomeSPH News API instead of Supabase
   const newsData = await fetchNewsArticles();
-
-  const mergeData = (fallback: any[], supabaseData: any[] | null, key: string) => {
-    if (!supabaseData || supabaseData.length === 0) return fallback;
-    
-    // Create a map of titles/names from supabase data to check for duplicates
-    const supabaseKeys = new Set(supabaseData.map(item => item[key]));
-    
-    // Filter fallback data to only include items NOT in supabase
-    const filteredFallback = fallback.filter(item => !supabaseKeys.has(item[key]));
-    
-    return [...filteredFallback, ...supabaseData];
-  };
-
-  const activeCoaching = mergeData(fallbackCoaching, coachingData, 'title');
-  const activeEcosystem = mergeData(fallbackEcosystem, ecosystemData, 'name');
-  const activeDevs = mergeData(fallbackDevelopers, devsData, 'name');
-  const activeCredentials = mergeData(fallbackCredentials, credentialsData, 'title');
-  const activeAwards = mergeData(fallbackAwards, awardsData, 'title');
-  const activeNews = newsData;
 
   return (
     <main>
       <PortfolioClient 
-        initialCoaching={activeCoaching}
-        initialEcosystem={activeEcosystem}
-        initialDevelopers={activeDevs}
-        initialCredentials={activeCredentials}
-        initialAwards={activeAwards}
-        initialNews={activeNews}
+        initialCoaching={coachingData || []}
+        initialEvents={eventsData || []}
+        initialTestimonials={testimonialsData || []}
+        initialMedia={mediaData || []}
+        initialCredentials={credentialsData || []}
+        initialAwards={awardsData || []}
+        initialNews={newsData || []}
       />
     </main>
   );

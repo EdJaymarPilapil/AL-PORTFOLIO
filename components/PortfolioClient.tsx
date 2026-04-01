@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function PortfolioClient({ 
   initialCoaching, 
-  initialEcosystem, 
-  initialDevelopers, 
+  initialEvents,
+  initialTestimonials,
+  initialMedia,
   initialCredentials,
   initialAwards,
   initialNews
@@ -146,7 +148,7 @@ export default function PortfolioClient({
     });
 
     // --- Intersection Observer Reveals ---
-    const revealEls = document.querySelectorAll('h2, .lead, .connect-headline, .overline, .split-right p:not(.lead), .split-right blockquote, .award-tile, .cred-slide, .number-cell, .hscroll-panel, .coaching-card, .big-btn, .dev-card, .news-card');
+    const revealEls = document.querySelectorAll('h2, .lead, .connect-headline, .overline, .split-right p:not(.lead), .split-right blockquote, .award-tile, .cred-slide, .number-cell, .coaching-card, .big-btn, .news-card, .event-card, .testimonial-card, .gallery-item');
     revealEls.forEach(el => el.classList.add('reveal-up'));
 
     const revealObs = new IntersectionObserver((entries) => {
@@ -157,7 +159,9 @@ export default function PortfolioClient({
                 const delay = (parent?.classList.contains('awards-wall') || 
                                parent?.classList.contains('numbers-grid') || 
                                parent?.classList.contains('coaching-grid') || 
-                               parent?.classList.contains('dev-grid') || 
+                               parent?.classList.contains('events-grid') || 
+                               parent?.classList.contains('testimonials-grid') || 
+                               parent?.classList.contains('gallery-grid') || 
                                parent?.classList.contains('news-grid'))
                     ? Array.from(parent.children).indexOf(target) * 80
                     : 0;
@@ -247,8 +251,9 @@ export default function PortfolioClient({
             <div className={`nav-center ${isMenuOpen ? 'open' : ''}`} id="navLinks">
                 <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo('#about'); }}>About</a>
                 <a href="#pillars" onClick={(e) => { e.preventDefault(); scrollTo('#pillars'); }}>Coaching</a>
-                <a href="#ecosystem" onClick={(e) => { e.preventDefault(); scrollTo('#ecosystem'); }}>Companies</a>
-                <a href="#developers" onClick={(e) => { e.preventDefault(); scrollTo('#developers'); }}>Developers</a>
+                <a href="#events" onClick={(e) => { e.preventDefault(); scrollTo('#events'); }}>Events</a>
+                <a href="#testimonials" onClick={(e) => { e.preventDefault(); scrollTo('#testimonials'); }}>Testimonials</a>
+                <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollTo('#gallery'); }}>Gallery</a>
                 <a href="#credentials" onClick={(e) => { e.preventDefault(); scrollTo('#credentials'); }}>Education</a>
                 <a href="#news" onClick={(e) => { e.preventDefault(); scrollTo('#news'); }}>News</a>
                 <a href="#recognition" onClick={(e) => { e.preventDefault(); scrollTo('#recognition'); }}>Awards</a>
@@ -276,16 +281,7 @@ export default function PortfolioClient({
             <div className="hero-tagline">Philippines' Premier Real Estate Visionary</div>
 
             <div className="hero-logo-wrapper">
-                <div className="hero-logo-strip">
-                    {initialDevelopers?.map((dev: any) => (
-                        <img key={`strip1-${dev.id}`} src={dev.logo_url} alt={dev.name} className="trust-logo" />
-                    ))}
-                </div>
-                <div className="hero-logo-strip">
-                    {initialDevelopers?.map((dev: any) => (
-                        <img key={`strip2-${dev.id}`} src={dev.logo_url} alt={dev.name} className="trust-logo" />
-                    ))}
-                </div>
+                {/* Developer logos initially here - removed as requested */}
             </div>
 
             <div className="hero-scroll-cue">
@@ -325,12 +321,12 @@ export default function PortfolioClient({
             </div>
         </div>
         <div className="split-right">
-            <span className="overline">Legacy & Vision</span>
-            <h2>Redefining <em>Real Estate</em> Through Innovation</h2>
-            <p className="lead">Anthony Leuterio is more than just a real estate mogul — he is a visionary leader who has transformed the industry in the Philippines and beyond.</p>
-            <p>As the founder of Filipino Homes and Leuterio Realty, he has established an unparalleled ecosystem of over 133 franchise offices, empowering thousands of agents and property owners.</p>
+            <span className="overline">Mentorship & Vision</span>
+            <h2>Empowering <em>Leaders</em> Through Coaching</h2>
+            <p className="lead">Anthony Leuterio is a dedicated mentor and visionary leader who has transformed the careers of thousands of professionals in the Philippines and beyond.</p>
+            <p>Through transformative coaching, he has guided aspiring entrepreneurs and real estate professionals to build high-performance teams, scale their businesses, and achieve unprecedented success.</p>
             <blockquote>
-                "Innovation is not just about technology; it's about creating a future where everyone has a place to call home."
+                "True leadership is not about creating followers; it's about empowering others to become leaders themselves."
             </blockquote>
             <a href="#connect" className="text-link" onClick={(e) => { e.preventDefault(); scrollTo('#connect'); }}>Get in Touch →</a>
         </div>
@@ -360,37 +356,84 @@ export default function PortfolioClient({
         </div>
     </section>
 
-    <section className="ecosystem-section" id="ecosystem">
-        <div className="ecosystem-header">
-            <span className="overline">Companies & Ventures</span>
-            <h2>The<br /><em>Ecosystem</em></h2>
-        </div>
-        <div className="hscroll-track" id="hscrollTrack">
-            {initialEcosystem?.map((company: any) => (
-                <div key={company.id} className="hscroll-panel">
-                    <div className="panel-visual"><img src={company.logo_url} alt={company.name} loading="lazy" /></div>
-                    <div className="panel-info">
-                        <h3>{company.name}</h3>
-                        <p>{company.description}</p>
-                        <a href={company.website_url} target="_blank" rel="noopener" className="text-link">Visit Website →</a>
-                    </div>
-                </div>
-            ))}
+    <section className="events-section" id="events">
+        <div className="section-container">
+            <span className="overline">What's Next</span>
+            <h2>Upcoming <em>Events</em></h2>
+            <div className="events-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2.5rem', padding: '2rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+                {initialEvents && initialEvents.length > 0 ? initialEvents.map((eventItem: any) => (
+                    <Link key={eventItem.id} href={`/events/${eventItem.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <div className="event-card-banner" style={{ border: '2px solid rgba(255,255,255,0.05)', borderRadius: '16px', backdropFilter: 'blur(20px)', transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s', overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', position: 'relative', aspectRatio: '16/9', background: '#0a0a0a' }} onMouseOver={(e: any) => { e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)'; e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; }} onMouseOut={(e: any) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'; }}>
+                            
+                            {eventItem.image_url ? (
+                                <img src={eventItem.image_url} alt={eventItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+                            ) : (
+                                <div style={{ position: 'absolute', inset: 0, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(0,0,0,0.9) 100%)', zIndex: 1, textAlign: 'center' }}>
+                                    <span className="event-date" style={{ color: 'var(--gold, #c9a84c)', fontWeight: 'bold', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1rem' }}>{eventItem.event_date}</span>
+                                    <h3 style={{ margin: '0 0 1rem 0', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: '400', fontFamily: 'var(--serif, serif)' }}>{eventItem.title}</h3>
+                                    <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: '1.6', fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{eventItem.description}</p>
+                                </div>
+                            )}
+
+                            {/* Ultra-sleek dark gradient overlay at the bottom just to make the frame look incredibly rich and premium like the Tom Ferry dark UI aesthetic */}
+                            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)', pointerEvents: 'none' }}></div>
+                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px', pointerEvents: 'none' }}></div>
+
+                        </div>
+                    </Link>
+                )) : (
+                    <p style={{ color: 'var(--gray)' }}>No upcoming events scheduled at the moment.</p>
+                )}
+            </div>
         </div>
     </section>
 
-    <section className="developers-section" id="developers">
-        <div className="section-container">
-            <span className="overline">Featured Partners</span>
-            <h2>Trusted <em>Developers</em></h2>
-            <div className="dev-grid">
-                {initialDevelopers?.map((dev: any) => (
-                    <div key={dev.id} className="dev-card">
-                        <div className="dev-logo"><img src={dev.logo_url} alt={dev.name} loading="lazy" /></div>
-                        <h4>{dev.name}</h4>
-                        <a href={dev.website_url} target="_blank" rel="noopener" className="text-link">Explore →</a>
+    <section className="testimonials-section" id="testimonials">
+         <div className="section-container">
+            <span className="overline">Success Stories</span>
+            <h2>Client <em>Testimonials</em></h2>
+            <div className="testimonials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', padding: '2rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+                {initialTestimonials && initialTestimonials.length > 0 ? initialTestimonials.map((testimonial: any) => (
+                 <div key={testimonial.id} className="testimonial-card" style={{ background: 'var(--card-bg, rgba(255,255,255,0.03))', border: '1px solid var(--card-border, rgba(255,255,255,0.1))', borderRadius: '24px', padding: '2.5rem', backdropFilter: 'blur(20px)' }}>
+                    <div style={{ color: 'var(--accent, #e5a93c)', fontSize: '2rem', marginBottom: '1rem' }}>“</div>
+                    <p style={{ fontStyle: 'italic', marginBottom: '2rem', fontSize: '1.1rem', lineHeight: '1.6', color: 'var(--text-bright, #fff)' }}>{testimonial.quote}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        {testimonial.author_image_url ? (
+                            <img src={testimonial.author_image_url} alt={testimonial.author_name} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
+                        ) : (
+                            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                                {testimonial.author_name.charAt(0)}
+                            </div>
+                        )}
+                        <div>
+                            <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>{testimonial.author_name}</h4>
+                            {testimonial.author_role && <span style={{ fontSize: '0.85rem', color: 'var(--text-muted, rgba(255,255,255,0.5))' }}>{testimonial.author_role}</span>}
+                        </div>
                     </div>
-                ))}
+                </div>
+                )) : (
+                    <p style={{ color: 'var(--gray)' }}>Testimonials currently unavailable.</p>
+                )}
+            </div>
+        </div>
+    </section>
+
+    <section className="gallery-section" id="gallery">
+        <div className="section-container">
+            <span className="overline">Visual Journey</span>
+            <h2>Media & <em>Gallery</em></h2>
+            <div className="gallery-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', padding: '2rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+               {initialMedia && initialMedia.length > 0 ? initialMedia.map((mediaItem: any) => (
+                   <div key={mediaItem.id} className="gallery-item" style={{ height: '450px', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                       {mediaItem.image_url ? (
+                           <img src={mediaItem.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' }} onMouseOver={(e: any) => e.currentTarget.style.transform = 'scale(1.08)'} onMouseOut={(e: any) => e.currentTarget.style.transform = 'scale(1)'} loading="lazy" />
+                       ) : (
+                           <span style={{ color: 'var(--gray)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Empty Frame</span>
+                       )}
+                   </div>
+               )) : (
+                    <p style={{ color: 'var(--gray)' }}>No media currently available.</p>
+               )}
             </div>
         </div>
     </section>

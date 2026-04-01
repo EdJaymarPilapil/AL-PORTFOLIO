@@ -14,8 +14,9 @@ export default function AdminDashboard() {
     // Data state
     const [data, setData] = useState({
         coaching: [],
-        ecosystem: [],
-        developers: [],
+        events: [],
+        testimonials: [],
+        media: [],
         credentials: [],
         awards: []
     });
@@ -36,18 +37,20 @@ export default function AdminDashboard() {
     };
 
     const fetchData = async () => {
-        const [coaching, ecosystem, developers, credentials, awards] = await Promise.all([
+        const [coaching, events, testimonials, media, credentials, awards] = await Promise.all([
             supabase.from('coaching').select('*'),
-            supabase.from('companies').select('*'),
-            supabase.from('developers').select('*'),
+            supabase.from('events').select('*').order('id', { ascending: false }),
+            supabase.from('testimonials').select('*').order('id', { ascending: false }),
+            supabase.from('media').select('*').order('id', { ascending: false }),
             supabase.from('credentials').select('*'),
             supabase.from('awards').select('*').order('year', { ascending: false })
         ]);
 
         setData({
             coaching: coaching.data || [],
-            ecosystem: ecosystem.data || [],
-            developers: developers.data || [],
+            events: events.data || [],
+            testimonials: testimonials.data || [],
+            media: media.data || [],
             credentials: credentials.data || [],
             awards: awards.data || []
         });
@@ -203,29 +206,29 @@ export default function AdminDashboard() {
         setLoading(false);
     };
 
-    const handleEcosystem = async (e: any) => {
+    const handleEvents = async (e: any) => {
         e.preventDefault();
         setLoading(true);
         try {
-            let publicUrl = editingItem?.logo_url || '';
-            const file = e.target['e-image'].files[0];
-            if (file) publicUrl = await uploadImage(file, 'companies');
+            let publicUrl = editingItem?.image_url || '';
+            const file = e.target['ev-image']?.files[0];
+            if (file) publicUrl = await uploadImage(file, 'event posters');
 
             const payload = {
-                logo_url: publicUrl,
-                name: e.target['e-name'].value,
-                website_url: e.target['e-url'].value,
-                description: e.target['e-desc'].value
+                image_url: publicUrl || null,
+                title: e.target['ev-title'].value,
+                description: e.target['ev-desc'].value,
+                event_date: e.target['ev-date'].value
             };
 
             if (editingItem) {
-                const { error } = await supabase.from('companies').update(payload).eq('id', editingItem.id);
+                const { error } = await supabase.from('events').update(payload).eq('id', editingItem.id);
                 if (error) throw error;
-                showNotify('success', 'Updated', 'Company details updated.');
+                showNotify('success', 'Updated', 'Event updated.');
             } else {
-                const { error } = await supabase.from('companies').insert([{ id: crypto.randomUUID(), ...payload }]);
+                const { error } = await supabase.from('events').insert([payload]);
                 if (error) throw error;
-                showNotify('success', 'Published', 'New company added to ecosystem.');
+                showNotify('success', 'Published', 'New event added.');
             }
             e.target.reset();
             setEditingItem(null);
@@ -234,28 +237,58 @@ export default function AdminDashboard() {
         setLoading(false);
     };
 
-    const handleDevelopers = async (e: any) => {
+    const handleTestimonials = async (e: any) => {
         e.preventDefault();
         setLoading(true);
         try {
-            let publicUrl = editingItem?.logo_url || '';
-            const file = e.target['d-image'].files[0];
-            if (file) publicUrl = await uploadImage(file, 'developers');
+            let publicUrl = editingItem?.author_image_url || '';
+            const file = e.target['t-image'].files[0];
+            if (file) publicUrl = await uploadImage(file, 'testimonials');
 
             const payload = {
-                logo_url: publicUrl,
-                name: e.target['d-name'].value,
-                website_url: e.target['d-url'].value
+                author_image_url: publicUrl || null,
+                author_name: e.target['t-name'].value,
+                author_role: e.target['t-role'].value,
+                quote: e.target['t-quote'].value
             };
 
             if (editingItem) {
-                const { error } = await supabase.from('developers').update(payload).eq('id', editingItem.id);
+                const { error } = await supabase.from('testimonials').update(payload).eq('id', editingItem.id);
                 if (error) throw error;
-                showNotify('success', 'Updated', 'Partner details updated.');
+                showNotify('success', 'Updated', 'Testimonial updated.');
             } else {
-                const { error } = await supabase.from('developers').insert([{ id: crypto.randomUUID(), ...payload }]);
+                const { error } = await supabase.from('testimonials').insert([payload]);
                 if (error) throw error;
-                showNotify('success', 'Published', 'New partner company added.');
+                showNotify('success', 'Published', 'New testimonial added.');
+            }
+            e.target.reset();
+            setEditingItem(null);
+            await fetchData();
+        } catch (err: any) { showNotify('error', 'Error', err.message); }
+        setLoading(false);
+    };
+
+    const handleMedia = async (e: any) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            let publicUrl = editingItem?.image_url || '';
+            const file = e.target['m-image'].files[0];
+            if (file) publicUrl = await uploadImage(file, 'uploads');
+
+            const payload = {
+                image_url: publicUrl,
+                title: e.target['m-title'].value
+            };
+
+            if (editingItem) {
+                const { error } = await supabase.from('media').update(payload).eq('id', editingItem.id);
+                if (error) throw error;
+                showNotify('success', 'Updated', 'Media updated.');
+            } else {
+                const { error } = await supabase.from('media').insert([payload]);
+                if (error) throw error;
+                showNotify('success', 'Published', 'New media added.');
             }
             e.target.reset();
             setEditingItem(null);
@@ -353,13 +386,17 @@ export default function AdminDashboard() {
                     <span className="tab-icon">🎯</span>
                     Coaching Grid
                 </button>
-                <button className={`tab-btn ${activeTab === 'tab-ecosystem' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-ecosystem'); setEditingItem(null); }}>
-                    <span className="tab-icon">🏢</span>
-                    My Companies
+                <button className={`tab-btn ${activeTab === 'tab-events' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-events'); setEditingItem(null); }}>
+                    <span className="tab-icon">📅</span>
+                    Events
                 </button>
-                <button className={`tab-btn ${activeTab === 'tab-developers' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-developers'); setEditingItem(null); }}>
-                    <span className="tab-icon">🤝</span>
-                    Partner Companies
+                <button className={`tab-btn ${activeTab === 'tab-testimonials' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-testimonials'); setEditingItem(null); }}>
+                    <span className="tab-icon">💬</span>
+                    Testimonials
+                </button>
+                <button className={`tab-btn ${activeTab === 'tab-media' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-media'); setEditingItem(null); }}>
+                    <span className="tab-icon">🖼️</span>
+                    Gallery Media
                 </button>
 
                 <button className={`tab-btn ${activeTab === 'tab-credentials' ? 'active' : ''}`} onClick={() => { setActiveTab('tab-credentials'); setEditingItem(null); }}>
@@ -429,22 +466,22 @@ export default function AdminDashboard() {
                 </div>
             )}
 
-            {activeTab === 'tab-ecosystem' && (
+            {activeTab === 'tab-events' && (
                 <div className="tab-content">
-                    <h3>{editingItem ? 'Edit' : 'Add'} My Company</h3>
-                    <p style={{ color: 'var(--gray)', fontSize: '13px', marginBottom: '24px' }}>{editingItem ? 'Update the selected company.' : 'Appears in the horizontal snapping scroll section.'}</p>
-                    <form onSubmit={handleEcosystem} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
+                    <h3>{editingItem ? 'Edit' : 'Add'} Event</h3>
+                    <p style={{ color: 'var(--gray)', fontSize: '13px', marginBottom: '24px' }}>{editingItem ? 'Update the selected event.' : 'Add a new upcoming event or mentorship program.'}</p>
+                    <form onSubmit={handleEvents} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
                         <div className="form-row">
-                            <input type="file" id="e-image" accept="image/*" required={!editingItem} style={{ paddingTop: '12px' }} />
-                            <input type="text" id="e-name" placeholder="Company Name" defaultValue={editingItem?.name || ''} required />
+                            <input type="file" id="ev-image" accept="image/*" style={{ paddingTop: '12px' }} />
+                            <input type="text" id="ev-title" placeholder="Event Title" defaultValue={editingItem?.title || ''} required />
                         </div>
                         <div className="form-row">
-                            <input type="url" id="e-url" placeholder="Website URL (https://...)" defaultValue={editingItem?.website_url || ''} required />
+                            <input type="text" id="ev-date" placeholder="Event Date (e.g. TBA Online)" defaultValue={editingItem?.event_date || ''} required />
                         </div>
-                        <textarea id="e-desc" placeholder="Company Description" defaultValue={editingItem?.description || ''} required style={{ height: '80px' }}></textarea>
+                        <textarea id="ev-desc" placeholder="Event Description" defaultValue={editingItem?.description || ''} required style={{ height: '80px' }}></textarea>
                         <div style={{ display: 'flex', gap: '12px' }}>
                             <button type="submit" className="big-btn" disabled={loading} style={{ border: 'none', cursor: 'pointer', opacity: loading ? 0.7 : 1, flex: 1 }}>
-                                {loading ? 'Processing...' : (editingItem ? 'Update Company' : 'Publish Company')}
+                                {loading ? 'Processing...' : (editingItem ? 'Update Event' : 'Publish Event')}
                             </button>
                             {editingItem && <button type="button" onClick={cancelEdit} className="big-btn" style={{ background: 'var(--bg)', flex: 0.3 }}>Cancel</button>}
                         </div>
@@ -452,26 +489,30 @@ export default function AdminDashboard() {
 
                     <div className="manage-section">
                         <div className="manage-header">
-                            <h4>Manage Companies</h4>
+                            <h4>Manage Events</h4>
                         </div>
                         <div className="admin-table-wrapper">
                             <table className="admin-table">
                                 <thead>
                                     <tr>
-                                        <th>Logo</th>
-                                        <th>Name</th>
+                                        <th>Poster</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.ecosystem.map((item: any) => (
+                                    {data.events.map((item: any) => (
                                         <tr key={item.id}>
-                                            <td><img src={item.logo_url} alt="" /></td>
-                                            <td>{item.name}</td>
+                                            <td>{item.image_url ? <img src={item.image_url} alt="" /> : 'None'}</td>
+                                            <td><strong>{item.title}</strong></td>
+                                            <td>{item.event_date}</td>
+                                            <td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.description}</td>
                                             <td className="actions-cell">
                                                 <div className="actions-wrapper">
                                                     <button className="action-btn edit" onClick={() => startEdit(item)}>Edit</button>
-                                                    <button className="action-btn delete" onClick={() => handleDelete('companies', item.id)}>Delete</button>
+                                                    <button className="action-btn delete" onClick={() => handleDelete('events', item.id)}>Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -483,21 +524,22 @@ export default function AdminDashboard() {
                 </div>
             )}
 
-            {activeTab === 'tab-developers' && (
+            {activeTab === 'tab-testimonials' && (
                 <div className="tab-content">
-                    <h3>{editingItem ? 'Edit' : 'Add'} Partner Company</h3>
-                    <p style={{ color: 'var(--gray)', fontSize: '13px', marginBottom: '24px' }}>{editingItem ? 'Update the selected partner.' : 'Appears in the grid and marquee tracking strip.'}</p>
-                    <form onSubmit={handleDevelopers} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
+                    <h3>{editingItem ? 'Edit' : 'Add'} Testimonial</h3>
+                    <p style={{ color: 'var(--gray)', fontSize: '13px', marginBottom: '24px' }}>{editingItem ? 'Update the selected testimonial.' : 'Publish a client success story.'}</p>
+                    <form onSubmit={handleTestimonials} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
                         <div className="form-row">
-                            <input type="file" id="d-image" accept="image/*" required={!editingItem} style={{ paddingTop: '12px' }} />
-                            <input type="text" id="d-name" placeholder="Developer Name" defaultValue={editingItem?.name || ''} required />
+                            <input type="file" id="t-image" accept="image/*" style={{ paddingTop: '12px' }} />
+                            <input type="text" id="t-name" placeholder="Author Name" defaultValue={editingItem?.author_name || ''} required />
                         </div>
                         <div className="form-row">
-                            <input type="url" id="d-url" placeholder="Website URL (https://...)" defaultValue={editingItem?.website_url || ''} required />
+                            <input type="text" id="t-role" placeholder="Author Role (Optional)" defaultValue={editingItem?.author_role || ''} />
                         </div>
+                        <textarea id="t-quote" placeholder="Testimonial Quote" defaultValue={editingItem?.quote || ''} required style={{ height: '80px' }}></textarea>
                         <div style={{ display: 'flex', gap: '12px' }}>
                             <button type="submit" className="big-btn" disabled={loading} style={{ border: 'none', cursor: 'pointer', opacity: loading ? 0.7 : 1, flex: 1 }}>
-                                {loading ? 'Processing...' : (editingItem ? 'Update Partner Company' : 'Publish Partner Company')}
+                                {loading ? 'Processing...' : (editingItem ? 'Update Testimonial' : 'Publish Testimonial')}
                             </button>
                             {editingItem && <button type="button" onClick={cancelEdit} className="big-btn" style={{ background: 'var(--bg)', flex: 0.3 }}>Cancel</button>}
                         </div>
@@ -505,26 +547,78 @@ export default function AdminDashboard() {
 
                     <div className="manage-section">
                         <div className="manage-header">
-                            <h4>Manage Partners</h4>
+                            <h4>Manage Testimonials</h4>
                         </div>
                         <div className="admin-table-wrapper">
                             <table className="admin-table">
                                 <thead>
                                     <tr>
-                                        <th>Logo</th>
-                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Author</th>
+                                        <th>Quote</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.developers.map((item: any) => (
+                                    {data.testimonials.map((item: any) => (
                                         <tr key={item.id}>
-                                            <td><img src={item.logo_url} alt="" /></td>
-                                            <td>{item.name}</td>
+                                            <td>{item.author_image_url ? <img src={item.author_image_url} alt="" /> : 'None'}</td>
+                                            <td><strong>{item.author_name}</strong><br /><span style={{ fontSize: '11px', color: 'var(--gray)' }}>{item.author_role}</span></td>
+                                            <td style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.quote}</td>
                                             <td className="actions-cell">
                                                 <div className="actions-wrapper">
                                                     <button className="action-btn edit" onClick={() => startEdit(item)}>Edit</button>
-                                                    <button className="action-btn delete" onClick={() => handleDelete('developers', item.id)}>Delete</button>
+                                                    <button className="action-btn delete" onClick={() => handleDelete('testimonials', item.id)}>Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {activeTab === 'tab-media' && (
+                <div className="tab-content">
+                    <h3>{editingItem ? 'Edit' : 'Add'} Gallery Media</h3>
+                    <p style={{ color: 'var(--gray)', fontSize: '13px', marginBottom: '24px' }}>{editingItem ? 'Update the selected media.' : 'Add photos to the gallery reel.'}</p>
+                    <form onSubmit={handleMedia} className="admin-form connect-form" style={{ maxWidth: '100%' }}>
+                        <div className="form-row">
+                            <input type="file" id="m-image" accept="image/*" required={!editingItem} style={{ paddingTop: '12px' }} />
+                            <input type="text" id="m-title" placeholder="Photo Title" defaultValue={editingItem?.title || ''} />
+                        </div>
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <button type="submit" className="big-btn" disabled={loading} style={{ border: 'none', cursor: 'pointer', opacity: loading ? 0.7 : 1, flex: 1 }}>
+                                {loading ? 'Processing...' : (editingItem ? 'Update Media' : 'Publish Media')}
+                            </button>
+                            {editingItem && <button type="button" onClick={cancelEdit} className="big-btn" style={{ background: 'var(--bg)', flex: 0.3 }}>Cancel</button>}
+                        </div>
+                    </form>
+
+                    <div className="manage-section">
+                        <div className="manage-header">
+                            <h4>Manage Media Gallery</h4>
+                        </div>
+                        <div className="admin-table-wrapper">
+                            <table className="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.media.map((item: any) => (
+                                        <tr key={item.id}>
+                                            <td><img src={item.image_url} alt="" /></td>
+                                            <td>{item.title || 'Untitled'}</td>
+                                            <td className="actions-cell">
+                                                <div className="actions-wrapper">
+                                                    <button className="action-btn edit" onClick={() => startEdit(item)}>Edit</button>
+                                                    <button className="action-btn delete" onClick={() => handleDelete('media', item.id)}>Delete</button>
                                                 </div>
                                             </td>
                                         </tr>

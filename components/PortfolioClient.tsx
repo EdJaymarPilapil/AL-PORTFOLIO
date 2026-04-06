@@ -363,21 +363,21 @@ export default function PortfolioClient({
             <div className="events-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2.5rem', padding: '2rem 0', maxWidth: '1200px', margin: '0 auto' }}>
                 {initialEvents && initialEvents.length > 0 ? initialEvents.map((eventItem: any) => (
                     <Link key={eventItem.id} href={`/events/${eventItem.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <div className="event-card-banner" style={{ border: '2px solid rgba(255,255,255,0.05)', borderRadius: '16px', backdropFilter: 'blur(20px)', transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s', overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', position: 'relative', aspectRatio: '16/9', background: '#0a0a0a' }} onMouseOver={(e: any) => { e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)'; e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; }} onMouseOut={(e: any) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'; }}>
+                        <div className="event-card-banner" style={{ border: '2px solid var(--border)', borderRadius: '16px', backdropFilter: 'blur(20px)', transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s', overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', position: 'relative', aspectRatio: '16/9', background: 'var(--card)' }} onMouseOver={(e: any) => { e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)'; e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.15), 0 0 40px rgba(201,168,76,0.15)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.4)'; }} onMouseOut={(e: any) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'var(--border)'; }}>
                             
                             {eventItem.image_url ? (
                                 <img src={eventItem.image_url} alt={eventItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
                             ) : (
-                                <div style={{ position: 'absolute', inset: 0, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(0,0,0,0.9) 100%)', zIndex: 1, textAlign: 'center' }}>
-                                    <span className="event-date" style={{ color: 'var(--gold, #c9a84c)', fontWeight: 'bold', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1rem' }}>{eventItem.event_date}</span>
-                                    <h3 style={{ margin: '0 0 1rem 0', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: '400', fontFamily: 'var(--serif, serif)' }}>{eventItem.title}</h3>
-                                    <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: '1.6', fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{eventItem.description}</p>
+                                <div style={{ position: 'absolute', inset: 0, padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'var(--bg2)', zIndex: 1, textAlign: 'center' }}>
+                                    <span className="event-date" style={{ color: 'var(--gold)', fontWeight: 'bold', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1rem' }}>{eventItem.event_date}</span>
+                                    <h3 style={{ margin: '0 0 1rem 0', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: '400', fontFamily: 'var(--serif)', color: 'var(--white)' }}>{eventItem.title}</h3>
+                                    <p style={{ color: 'var(--dim)', lineHeight: '1.6', fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{eventItem.description}</p>
                                 </div>
                             )}
 
                             {/* Ultra-sleek dark gradient overlay at the bottom just to make the frame look incredibly rich and premium like the Tom Ferry dark UI aesthetic */}
-                            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%)', pointerEvents: 'none' }}></div>
-                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px', pointerEvents: 'none' }}></div>
+                            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 100%)', pointerEvents: 'none' }}></div>
+                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, border: '1px solid var(--border)', borderRadius: '16px', pointerEvents: 'none' }}></div>
 
                         </div>
                     </Link>
@@ -394,20 +394,20 @@ export default function PortfolioClient({
             <h2>Client <em>Testimonials</em></h2>
             <div className="testimonials-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', padding: '2rem 0', maxWidth: '1200px', margin: '0 auto' }}>
                 {initialTestimonials && initialTestimonials.length > 0 ? initialTestimonials.map((testimonial: any) => (
-                 <div key={testimonial.id} className="testimonial-card" style={{ background: 'var(--card-bg, rgba(255,255,255,0.03))', border: '1px solid var(--card-border, rgba(255,255,255,0.1))', borderRadius: '24px', padding: '2.5rem', backdropFilter: 'blur(20px)' }}>
-                    <div style={{ color: 'var(--accent, #e5a93c)', fontSize: '2rem', marginBottom: '1rem' }}>“</div>
-                    <p style={{ fontStyle: 'italic', marginBottom: '2rem', fontSize: '1.1rem', lineHeight: '1.6', color: 'var(--text-bright, #fff)' }}>{testimonial.quote}</p>
+                 <div key={testimonial.id} className="testimonial-card" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '24px', padding: '2.5rem', backdropFilter: 'blur(20px)' }}>
+                    <div style={{ color: 'var(--gold)', fontSize: '2rem', marginBottom: '1rem' }}>“</div>
+                    <p style={{ fontStyle: 'italic', marginBottom: '2rem', fontSize: '1.1rem', lineHeight: '1.6', color: 'var(--white)' }}>{testimonial.quote}</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         {testimonial.author_image_url ? (
                             <img src={testimonial.author_image_url} alt={testimonial.author_name} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
                         ) : (
-                            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'var(--white)' }}>
                                 {testimonial.author_name.charAt(0)}
                             </div>
                         )}
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '500' }}>{testimonial.author_name}</h4>
-                            {testimonial.author_role && <span style={{ fontSize: '0.85rem', color: 'var(--text-muted, rgba(255,255,255,0.5))' }}>{testimonial.author_role}</span>}
+                            <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: '500', color: 'var(--white)' }}>{testimonial.author_name}</h4>
+                            {testimonial.author_role && <span style={{ fontSize: '0.85rem', color: 'var(--gray)' }}>{testimonial.author_role}</span>}
                         </div>
                     </div>
                 </div>
@@ -546,20 +546,20 @@ export default function PortfolioClient({
     <section className="connect-section" id="connect">
         <div className="connect-blob"></div>
         <div className="connect-inner">
-            <h2 className="connect-headline">Let's Build<br /><em>Something</em><br />Extraordinary</h2>
-            <p className="connect-sub">Ready to revolutionize your real estate journey?</p>
+            <h2 className="connect-headline">Start Your<br /><em>Coaching</em><br />Journey</h2>
+            <p className="connect-sub">Ready to unlock your full potential and scale your business?</p>
             <form className="connect-form" id="contactForm">
                 <div className="form-row">
                     <input type="text" id="contactName" placeholder="Your Name" required />
                     <input type="email" id="contactEmail" placeholder="Your Email" required />
                 </div>
-                <textarea id="contactMessage" placeholder="How can we build together?" required></textarea>
-                <div className="form-footer">
-                    <div className="connect-meta">
+                <textarea id="contactMessage" placeholder="Tell me about your coaching goals..." required></textarea>
+                <div className="form-footer" style={{ flexWrap: 'nowrap', gap: '16px' }}>
+                    <div className="connect-meta" style={{ gap: '16px' }}>
                         <span>📍 Cebu City, Philippines</span>
                         <span>🌐 filipinohomes.com</span>
                     </div>
-                    <button type="submit" className="big-btn" id="contactSubmit" style={{marginBottom: 0, cursor: 'pointer', background: 'transparent'}}>Send Message</button>
+                    <button type="submit" className="big-btn" id="contactSubmit" style={{marginBottom: 0, padding: '14px 28px', cursor: 'pointer', background: 'transparent', whiteSpace: 'nowrap'}}>Request Coaching</button>
                 </div>
                 <div id="contactStatus" className="form-status"></div>
             </form>

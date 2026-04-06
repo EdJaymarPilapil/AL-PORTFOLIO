@@ -340,14 +340,11 @@ export default function PortfolioClient({
         <div className="coaching-grid">
             {initialCoaching?.map((card: any, index: number) => (
                 <div key={card.id || index} className="coaching-card">
-                    <div className="coaching-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                    <div className="coaching-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                    <div className="coaching-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                    <div className="coaching-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                    <div className="coaching-shine"></div>
-                    <div className="coaching-img"><img src={card.image_url} alt={card.title} loading="lazy" /></div>
-                    <div className="coaching-body">
+                    <div className="coaching-img">
+                        <img src={card.image_url} alt={card.title} loading="lazy" />
                         <span className="pillar-badge">{card.badge_text}</span>
+                    </div>
+                    <div className="coaching-body">
                         <h3>{card.title}</h3>
                         <p>{card.description}</p>
                     </div>
@@ -453,11 +450,6 @@ export default function PortfolioClient({
                     {initialCredentials?.filter((c: any) => c.category === 'harvard').map((cred: any) => (
                         <div key={cred.id} className="cred-slide cred-harvard">
                             <div className="harvard-logo"></div>
-                            <div className="cred-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-shine"></div>
                             <div className="cred-badge">Harvard</div>
                             <h4>{cred.title}</h4>
                             <p>{cred.organization}</p>
@@ -473,11 +465,6 @@ export default function PortfolioClient({
                 <div className="creds-grid">
                     {initialCredentials?.filter((c: any) => c.category === 'other').map((cred: any) => (
                         <div key={cred.id} className="cred-slide">
-                            <div className="cred-card-corner top-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner top-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner bottom-left"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-card-corner bottom-right"><svg viewBox="0 0 60 60"><path d="M0 20 L0 5 Q0 0 5 0 L20 0"/></svg></div>
-                            <div className="cred-shine"></div>
                             <div className="cred-badge">{cred.institution}</div>
                             <h4>{cred.title}</h4>
                             <p>{cred.organization}</p>
@@ -528,15 +515,12 @@ export default function PortfolioClient({
             <div className="awards-wall">
                 {initialAwards?.map((award: any, index: number) => (
                     <div key={award.id || index} className={`award-tile ${index === 1 || index === 4 ? 'featured' : ''}`}>
-                        <div className="award-accent"></div>
-                        <div className="award-tile-inner">
-                            <div className="award-header">
-                                <span className="award-year">{award.year}</span>
-                                <span className="award-icon">{award.icon}</span>
-                            </div>
-                            <h4>{award.title}</h4>
-                            <p>{award.organization}</p>
+                        <div className="award-header">
+                            <span className="award-year">{award.year}</span>
+                            <span className="award-icon">{award.icon}</span>
                         </div>
+                        <h4>{award.title}</h4>
+                        <p>{award.organization}</p>
                     </div>
                 ))}
             </div>
